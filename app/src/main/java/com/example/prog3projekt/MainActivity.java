@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     Intent data = result.getData();
-                    if (result.getResultCode() == RESULT_FIRST_USER) {
+                    if (result.getResultCode() == 77) {
 
                         String title = data.getStringExtra(AddEditNoteAcctivity.EXTRA_TITLE);
                         String discri = data.getStringExtra(AddEditNoteAcctivity.EXTRA_DESCRIP);
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Note note = new Note(title, discri, prio, 1, 1, 1);
                         noteViewModel.insert(note);
-                    } else if (result.getResultCode() == RESULT_OK) {
+                    } else if (result.getResultCode() == 78) {
 
                         int id = data.getIntExtra(AddEditNoteAcctivity.EXTRA_ID, -1);
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Note note = new Note(title, discri, prio, 1, 1, 1);
                         note.setId(id);
-                        noteViewModel.insert(note);
+                        noteViewModel.update(note);
                         Toast.makeText(MainActivity.this, "updated shüüüü", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(MainActivity.this, "not saved", Toast.LENGTH_SHORT).show();

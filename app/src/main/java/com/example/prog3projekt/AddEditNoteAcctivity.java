@@ -27,6 +27,7 @@ public class AddEditNoteAcctivity extends AppCompatActivity {
     private EditText editTextTitle;
     private EditText editTextDescrip;
     private NumberPicker editPrio;
+    private boolean help;
 
 
     @Override
@@ -72,10 +73,11 @@ public class AddEditNoteAcctivity extends AppCompatActivity {
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if(id != -1){
-            setResult(RESULT_OK, data);
+            setResult(78, data);
             data.putExtra(EXTRA_ID, id);
+            help = true;
         }else{
-            setResult(RESULT_FIRST_USER, data);
+            setResult(77, data);
         }
         finish();
 
