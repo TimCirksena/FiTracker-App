@@ -10,7 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Prog3Projekt">
         <activity
+            android:name=".AddEditNoteAcctivity"
+            android:parentActivityName=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
