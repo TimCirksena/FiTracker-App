@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Prog3Projekt</string>
+
+
+    <string-array name="uebungen">
+        <item>Bench Press</item>
+        <item>Deadlift</item>
+        <item>Squat</item>
+    </string-array>
 </resources>

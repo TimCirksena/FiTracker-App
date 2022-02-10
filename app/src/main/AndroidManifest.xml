@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Prog3Projekt">
         <activity
-            android:name=".AddEditNoteAcctivity"
+            android:name=".AddEditNoteActivity"
             android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
