@@ -12,15 +12,15 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:minHeight="48dp"
         android:text="Wähle deine Übung aus"
-        android:minHeight="48dp"/>
+        android:textSize="30sp" />
 
     <Spinner
         android:id="@+id/spinner_uebung"
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:minHeight="48dp" />
 
     <EditText
@@ -30,14 +30,14 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Wähle das Datum aus"
-        android:minHeight="48dp"
-        android:inputType="date" />
+        android:inputType="date"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/edit_text_description"
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
         android:layout_height="48dp"
+        android:layout_marginTop="20dp"
         android:hint="Wie lief die Übung heute?"
         android:inputType="textMultiLine" />
 
@@ -47,10 +47,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
+        android:hint="Mit wie viel Gewicht hast du trainiert?"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:hint="Mit wie viel Gewicht hast du trainiert?"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,8 +62,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_marginLeft="20dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sätze:"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <NumberPicker
                 android:id="@+id/number_picker_saetze"
@@ -104,16 +104,15 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginLeft="20dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Schwierigkeit"
-                />
+                android:text="Schwierigkeit" />
 
             <NumberPicker
                 android:id="@+id/number_picker_schwierigkeit"
@@ -127,58 +126,55 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="bottom|center"
-
-
-        android:orientation="horizontal">
+        android:gravity="center_vertical"
+        >
 
         <Button
             android:id="@+id/angry_Abbrechen"
-            android:background="@drawable/buttonshape"
-            android:text="Button"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
+            android:background="@drawable/buttonshape"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="14"
-            />
+            android:text="Abbrechen"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp" />
+
         <Button
             android:id="@+id/angry_Weitere_Uebung"
-            android:background="@drawable/buttonshape"
-            android:text="Button"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
+            android:background="@drawable/buttonshape"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="14"
-            />
+            android:text="Weitere Übungen hinzufügen"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp" />
+
         <Button
             android:id="@+id/angry_Tag_speichern"
-            android:background="@drawable/buttonshape"
-            android:text="Button"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
+            android:background="@drawable/buttonshape"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="14"
-            />
+            android:text="Tag Speichern"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp" />
     </LinearLayout>
 
 </LinearLayout>
