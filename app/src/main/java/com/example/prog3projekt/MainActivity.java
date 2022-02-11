@@ -28,6 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private NoteViewModel noteViewModel;
+    private MenuItem back;
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     Intent data = result.getData();
+
                     if (result.getResultCode() == 77) {
 
                         String title = data.getStringExtra(AddEditNoteAcctivity.EXTRA_TITLE);
@@ -54,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                         String title = data.getStringExtra(AddEditNoteAcctivity.EXTRA_TITLE);
                         String discri = data.getStringExtra(AddEditNoteAcctivity.EXTRA_DESCRIP);
                         int prio = data.getIntExtra(AddEditNoteAcctivity.EXTRA_PRIO, 1);
-
                         Note note = new Note(title, discri, prio, 1, 1, 1);
                         note.setId(id);
                         noteViewModel.update(note);
@@ -139,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
                 noteViewModel.deleteAllNotes();
                 Toast.makeText(this, "Alles gelöscht amk", Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.back:
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }

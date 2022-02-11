@@ -3,11 +3,13 @@ package com.example.prog3projekt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
@@ -29,7 +31,6 @@ public class AddEditNoteAcctivity extends AppCompatActivity {
     private NumberPicker editPrio;
     private boolean help;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,7 @@ public class AddEditNoteAcctivity extends AppCompatActivity {
         editPrio = findViewById(R.id.number_picker_prio);
 
         editPrio.setMinValue(1);
-        editPrio.setMaxValue(10);
+        editPrio.setMaxValue(100);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
@@ -56,7 +57,10 @@ public class AddEditNoteAcctivity extends AppCompatActivity {
         }else{
             setTitle("Add Note");
         }
+
+
     }
+
     private void saveNote(){
         String title = editTextTitle.getText().toString();
         String descript = editTextDescrip.getText().toString();
@@ -82,7 +86,6 @@ public class AddEditNoteAcctivity extends AppCompatActivity {
         finish();
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
