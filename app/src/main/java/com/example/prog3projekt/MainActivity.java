@@ -26,7 +26,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static final String EXTRA_GEWICHT_MAIN =
+            "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";
     private NoteViewModel noteViewModel;
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
@@ -43,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
                         int spinner_pos = data.getIntExtra(AddEditNoteActivity.EXTRA_POS_SPINNER, 0);
                         int wiederholungen = data.getIntExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, 1);
                         int saetze = data.getIntExtra(AddEditNoteActivity.EXTRA_SAETZE,1);
+                        String gewicht_string = data.getStringExtra(AddEditNoteActivity.EXTRA_GEWICHT);
+                        String datum = data.getStringExtra(AddEditNoteActivity.EXTRA_DATUM);
 
-                        Note note = new Note(uebung, beschreibung, schwierigkeit, wiederholungen, saetze, 1, spinner_pos);
+                        Note note = new Note(uebung, datum,beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
                         noteViewModel.insert(note);
                     } else if (result.getResultCode() == 78) {
                         int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
@@ -52,14 +55,16 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "note cant be updated", Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        String datum = data.getStringExtra(AddEditNoteActivity.EXTRA_DATUM);
                         String uebung = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
                         String beschreibung = data.getStringExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG);
                         int schwierigkeit = data.getIntExtra(AddEditNoteActivity.EXTRA_SCHWIERIGKEIT, 1);
                         int spinner_pos = data.getIntExtra(AddEditNoteActivity.EXTRA_POS_SPINNER, 0);
                         int wiederholungen = data.getIntExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, 1);
                         int saetze = data.getIntExtra(AddEditNoteActivity.EXTRA_SAETZE,1);
+                        String gewicht_string = data.getStringExtra(AddEditNoteActivity.EXTRA_GEWICHT);
 
-                        Note note = new Note(uebung, beschreibung, schwierigkeit, wiederholungen, saetze, 1, spinner_pos);
+                        Note note = new Note(uebung, datum,beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
                         note.setId(id);
                         noteViewModel.update(note);
                         Toast.makeText(MainActivity.this, "updated note", Toast.LENGTH_SHORT).show();
@@ -84,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 someActivityResultLauncher.launch(intent);
             }
         });
-
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -125,11 +129,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
                 intent.putExtra(AddEditNoteActivity.EXTRA_ID, note.getId());
                 intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, note.getName());
-                intent.putExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG, note.getDatum());
+                intent.putExtra(AddEditNoteActivity.EXTRA_DATUM, note.getDatum());
                 intent.putExtra(AddEditNoteActivity.EXTRA_SCHWIERIGKEIT, note.getSchwierigkeit());
                 intent.putExtra(AddEditNoteActivity.EXTRA_POS_SPINNER, note.getPos());
                 intent.putExtra(AddEditNoteActivity.EXTRA_SAETZE, note.getSaetze());
                 intent.putExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, note.getWiederholungen());
+                intent.putExtra(AddEditNoteActivity.EXTRA_GEWICHT, note.getGewicht());
+                intent.putExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG, note.getBeschreibung());
                 someActivityResultLauncher.launch(intent);
             }
         });
