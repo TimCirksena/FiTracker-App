@@ -13,21 +13,27 @@ public class Note {
 
     private String datum;
 
+    private String beschreibung;
+
     private int schwierigkeit;
 
     private int wiederholungen;
 
     private int saetze;
 
-    private int prozent;
+    private String gewicht;
 
-    public Note(String name, String datum, int schwierigkeit, int wiederholungen, int saetze, int prozent) {
+    private int pos;
+
+    public Note(String name, String datum, String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos) {
         this.name = name;
         this.datum = datum;
+        this.beschreibung = beschreibung;
         this.schwierigkeit = schwierigkeit;
         this.wiederholungen = wiederholungen;
         this.saetze = saetze;
-        this.prozent = prozent;
+        this.gewicht = gewicht;
+        this.pos = pos;
     }
 
     public void setId(int id) {
@@ -46,12 +52,16 @@ public class Note {
         this.saetze = saetze;
     }
 
-    public void setProzent(int prozent) {
-        this.prozent = prozent;
+    public void setGewicht(String gewicht) {
+        this.gewicht = gewicht;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getBeschreibung() {
+        return beschreibung;
     }
 
     public String getName() {
@@ -74,7 +84,11 @@ public class Note {
         return saetze;
     }
 
-    public int getProzent() {
-        return prozent;
+    public String getGewicht() {
+        return gewicht;
+    }
+
+    public int getPos() {
+        return pos;
     }
 }

@@ -6,9 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.prog3projekt.Note;
-import com.example.prog3projekt.NoteRepository;
-
 import java.util.List;
 
 public class NoteViewModel extends AndroidViewModel{

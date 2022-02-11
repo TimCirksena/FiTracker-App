@@ -1,5 +1,6 @@
 package com.example.prog3projekt;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +27,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
+        //assigning values to the views we created in the recycler_view layout file
+        //based on the postion of the recycler view
+        //Was auf dem Screen angezeigt wird
         Note currentNote = notes.get(position);
-        holder.textViewTitle.setText(currentNote.getName());
-        holder.textViewDescription.setText(currentNote.getDatum());
-        holder.textViewPriority.setText(String.valueOf(currentNote.getId()));
+        holder.textViewUebung.setText(currentNote.getName());
+        holder.textViewBeschreibung.setText(currentNote.getDatum());
+        holder.textViewGewicht.setText(String.valueOf(currentNote.getSchwierigkeit()));
     }
 
     @Override
     public int getItemCount() {
+        //the recycler view wants to know the number of item we're passing
+        Log.d("note.size", notes.size() + "");
         return notes.size();
     }
 
@@ -46,18 +52,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
     public Note getNoteAt(int position) {
         return notes.get(position);
     }
-
+    //grabbing the views from our recycler_view layout
+    //Kinda like the in the onCreate method
 
     class NoteHolder extends RecyclerView.ViewHolder {
-        private TextView textViewTitle;
-        private TextView textViewDescription;
-        private TextView textViewPriority;
+        private TextView textViewUebung;
+        private TextView textViewBeschreibung;
+        private TextView textViewGewicht;
 
         public NoteHolder(View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.text_view_title);
-            textViewDescription = itemView.findViewById(R.id.text_view_description);
-            textViewPriority = itemView.findViewById(R.id.text_view_priority);
+            /* TODO:HIER ANPASSEN */
+            textViewUebung = itemView.findViewById(R.id.text_view_title);
+            textViewBeschreibung = itemView.findViewById(R.id.text_view_description);
+            textViewGewicht = itemView.findViewById(R.id.text_view_priority);
 
             //FÜrs EDIT der Notes
             itemView.setOnClickListener(new View.OnClickListener() {
