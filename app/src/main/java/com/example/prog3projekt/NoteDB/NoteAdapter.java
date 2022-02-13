@@ -1,4 +1,4 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.NoteDB;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.prog3projekt.R;
 
 import java.util.ArrayList;
 import java.util.List;

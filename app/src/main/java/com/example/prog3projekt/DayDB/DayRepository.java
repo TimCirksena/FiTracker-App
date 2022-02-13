@@ -4,14 +4,10 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-import com.example.prog3projekt.Note;
-import com.example.prog3projekt.NoteDao;
-import com.example.prog3projekt.NoteRepository;
+import com.example.prog3projekt.NoteDB.Note;
+import com.example.prog3projekt.NoteDatabase;
 
-import java.util.Date;
 import java.util.List;
 
 public class DayRepository {
@@ -19,7 +15,7 @@ public class DayRepository {
     private LiveData<List<Day>> allDays;
 
     public DayRepository(Application application){
-        DayDatabase database = DayDatabase.getInstance(application);
+        NoteDatabase database = NoteDatabase.getInstance(application);
         dayDao = database.dayDao();
         allDays = dayDao.getAllDays();
     }
@@ -38,6 +34,8 @@ public class DayRepository {
     public LiveData<List<Day>> getAllDays(){
         return  allDays;
     }
+
+
     private static class InsertDayAsyncTask extends AsyncTask<Day, Void, Void> {
         private DayDao dayDao;
 

@@ -9,12 +9,21 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Note.class}, version = 5)
+import com.example.prog3projekt.DayDB.Day;
+import com.example.prog3projekt.DayDB.DayDao;
+import com.example.prog3projekt.NoteDB.Note;
+import com.example.prog3projekt.NoteDB.NoteDao;
+import com.example.prog3projekt.VorlageDB.Vorlage;
+import com.example.prog3projekt.VorlageDB.VorlageDao;
+
+@Database(entities = {Note.class, Day.class, Vorlage.class}, version = 6)
 public abstract class NoteDatabase extends RoomDatabase {
 
     private static NoteDatabase instance;
 
+    public abstract DayDao dayDao();
     public abstract NoteDao noteDao();
+    public abstract VorlageDao vorlageDao();
 
     public static synchronized NoteDatabase getInstance(Context context){
         if(instance == null){
@@ -36,10 +45,10 @@ public abstract class NoteDatabase extends RoomDatabase {
     };
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        private NoteDao noteDao;
+        private VorlageDao vorlageDao;
 
         private PopulateDbAsyncTask(NoteDatabase db){
-            noteDao = db.noteDao();
+            vorlageDao = db.vorlageDao();
         }
         @Override
         protected Void doInBackground(Void... voids) {

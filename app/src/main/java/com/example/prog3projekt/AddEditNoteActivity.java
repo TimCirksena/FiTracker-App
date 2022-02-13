@@ -6,14 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,11 +25,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.prog3projekt.DayDB.DateConverter;
+import com.example.prog3projekt.DayDB.Day;
+import com.example.prog3projekt.NoteDB.Note;
+import com.example.prog3projekt.NoteDB.NoteViewModel;
+
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AddEditNoteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    public static final String EXTRA_DAY_ID =
+            "com.example.prog3projekt.EXTRA_DAY_ID";
     public static final String EXTRA_UEBUNG =
             "com.example.prog3projekt.EXTRA_UEBUNG";
     public static final String EXTRA_ID =
@@ -54,6 +58,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     public static final String EXTRA_DATUM =
             "com.example.prog3projekt.EXTRA_DATUM";
 
+    private Date date;
     private EditText editTextBeschreibung;
     private NumberPicker editSchwierigkeit;
     private NumberPicker editSaetze;
@@ -69,15 +74,17 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     private Button clickTagSpeichern;
     private Button clickWeitereÜbunng;
 
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note_acctivity);
 
+
+
         /** BEHANDLUNG BUTTONS
          */
+
         clickAbbrechen = findViewById(R.id.angry_Abbrechen);
         clickTagSpeichern = findViewById(R.id.angry_Tag_speichern);
         clickWeitereÜbunng = findViewById(R.id.angry_Weitere_Uebung);
@@ -93,6 +100,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             public void onClick(View v) {
 
                 String date = editDateDialog.getText().toString();
+                Day day = new Day(date);
                 String gewicht = editTextGewicht.getText().toString();
                 String uebung = spinner.getSelectedItem().toString();
                 String beschreibung = editTextBeschreibung.getText().toString();
@@ -100,8 +108,9 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
                 int wiederholungen = editWiederholungen.getValue();
                 int saetze = editSaetze.getValue();
                 int schwierigkeit = editSchwierigkeit.getValue();
+                int dayId = day.getDayId() ;
 
-                Note note = new Note(uebung,date,beschreibung,schwierigkeit,wiederholungen,saetze,gewicht,userSpinnerChoice);
+                Note note = new Note(uebung,date,dayId,beschreibung,schwierigkeit,wiederholungen,saetze,gewicht,userSpinnerChoice);
                 openNewAddActivity(note);
             }
         });
@@ -135,6 +144,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month++;
                 String date = dayOfMonth+"."+month+"."+year;
 
                 editDateDialog.setText(date);

@@ -1,15 +1,20 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.NoteDB;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "note_table")
+import com.example.prog3projekt.DayDB.Day;
+
+@Entity(tableName = "note_table", foreignKeys = {@ForeignKey(entity = Day.class, parentColumns = "dayId", childColumns = "dateId", onDelete = ForeignKey.CASCADE)})
 public class Note {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String name;
+
+    private int dateId;
 
     private String datum;
 
@@ -25,7 +30,9 @@ public class Note {
 
     private int pos;
 
-    public Note(String name, String datum, String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos) {
+
+
+    public Note(String name, String datum, int dateId, String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos)  {
         this.name = name;
         this.datum = datum;
         this.beschreibung = beschreibung;
@@ -34,10 +41,14 @@ public class Note {
         this.saetze = saetze;
         this.gewicht = gewicht;
         this.pos = pos;
+        this.dateId = dateId;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+    public void setDateId(int dateId) {
+        this.dateId = dateId;
     }
 
     public void setSchwierigkeit(int schwierigkeit) {
@@ -90,5 +101,8 @@ public class Note {
 
     public int getPos() {
         return pos;
+    }
+    public int getDateId() {
+        return dateId;
     }
 }

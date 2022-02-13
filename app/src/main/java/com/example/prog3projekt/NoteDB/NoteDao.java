@@ -1,4 +1,4 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.NoteDB;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -26,4 +26,7 @@ public interface NoteDao {
 
     @Query("SELECT * FROM note_table ORDER BY gewicht DESC")
     LiveData<List<Note>> getAllNotes();
+
+    @Query("SELECT * FROM note_table JOIN day_table ON day_table.dayId=note_table.dateId WHERE note_table.datum = :datum ")
+    LiveData<List<Note>> getAllNotesFromDate(String datum);
 }

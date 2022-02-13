@@ -1,4 +1,4 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.NoteDB;
 
 import android.app.Application;
 

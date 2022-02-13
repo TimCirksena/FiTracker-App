@@ -10,23 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Prog3Projekt">
         <activity
-            android:name=".AddEditNoteActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".VorlageActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".TrainingBeginnenActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AddEditNoteActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false">
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+        </activity>
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode="singleTop">
+
         </activity>
-</application>
+    </application>
 
 </manifest>

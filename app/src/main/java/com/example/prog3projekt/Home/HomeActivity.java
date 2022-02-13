@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.prog3projekt.DataTimeHilfsKlasse;
 import com.example.prog3projekt.MainActivity;
-import com.example.prog3projekt.Note;
-import com.example.prog3projekt.NoteViewModel;
+import com.example.prog3projekt.NoteDB.Note;
+import com.example.prog3projekt.NoteDB.NoteViewModel;
 import com.example.prog3projekt.R;
 import com.example.prog3projekt.statistikActivity;
 import com.jjoe64.graphview.GraphView;
@@ -68,7 +67,7 @@ public class HomeActivity extends AppCompatActivity {
                 allNotes = notes;
                 DataPoint[] s = new DataPoint[allNotes.size()];
                 for (int i = 0; i<allNotes.size();i++) {
-                    s[i] = new DataPoint(DataTimeHilfsKlasse.getDatesDayAsInt(allNotes.get(i).getDatum()), allNotes.get(i).getSchwierigkeit());
+                    //s[i] = new DataPoint(DataTimeHilfsKlasse.getDatesDayAsInt(allNotes.get(i).getDatum()), allNotes.get(i).getSchwierigkeit());
                     sortDates(s);
                 }
                 sortDates(s);

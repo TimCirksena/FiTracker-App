@@ -21,6 +21,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.prog3projekt.NoteDB.Note;
+import com.example.prog3projekt.NoteDB.NoteAdapter;
+import com.example.prog3projekt.NoteDB.NoteViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -37,34 +40,15 @@ public class MainActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     Intent data = result.getData();
                     if (result.getResultCode() == 77) {
-
-                        String uebung = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
-                        String beschreibung = data.getStringExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG);
-                        int schwierigkeit = data.getIntExtra(AddEditNoteActivity.EXTRA_SCHWIERIGKEIT, 1);
-                        int spinner_pos = data.getIntExtra(AddEditNoteActivity.EXTRA_POS_SPINNER, 0);
-                        int wiederholungen = data.getIntExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, 1);
-                        int saetze = data.getIntExtra(AddEditNoteActivity.EXTRA_SAETZE,1);
-                        String gewicht_string = data.getStringExtra(AddEditNoteActivity.EXTRA_GEWICHT);
-                        String datum = data.getStringExtra(AddEditNoteActivity.EXTRA_DATUM);
-
-                        Note note = new Note(uebung, datum,beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
-                        noteViewModel.insert(note);
+                        //Neues Note bekommt Daten durch Intent übergeben und wird erzeugt, anschließend in die Datenbank inserted
+                        noteViewModel.insert(initalisierungNote(data));
                     } else if (result.getResultCode() == 78) {
                         int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
                         if (id == -1) {
                             Toast.makeText(MainActivity.this, "note cant be updated", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        String datum = data.getStringExtra(AddEditNoteActivity.EXTRA_DATUM);
-                        String uebung = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
-                        String beschreibung = data.getStringExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG);
-                        int schwierigkeit = data.getIntExtra(AddEditNoteActivity.EXTRA_SCHWIERIGKEIT, 1);
-                        int spinner_pos = data.getIntExtra(AddEditNoteActivity.EXTRA_POS_SPINNER, 0);
-                        int wiederholungen = data.getIntExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, 1);
-                        int saetze = data.getIntExtra(AddEditNoteActivity.EXTRA_SAETZE,1);
-                        String gewicht_string = data.getStringExtra(AddEditNoteActivity.EXTRA_GEWICHT);
-
-                        Note note = new Note(uebung, datum,beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
+                        Note note = initalisierungNote(data);
                         note.setId(id);
                         noteViewModel.update(note);
                         Toast.makeText(MainActivity.this, "updated note", Toast.LENGTH_SHORT).show();
@@ -155,9 +139,26 @@ public class MainActivity extends AppCompatActivity {
                 noteViewModel.deleteAllNotes();
                 Toast.makeText(this, "Alles gelöscht amk", Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.back:
+                finish();
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private Note initalisierungNote(Intent data) {
+        String uebung = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
+        String beschreibung = data.getStringExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG);
+        int schwierigkeit = data.getIntExtra(AddEditNoteActivity.EXTRA_SCHWIERIGKEIT, 1);
+        int spinner_pos = data.getIntExtra(AddEditNoteActivity.EXTRA_POS_SPINNER, 0);
+        int wiederholungen = data.getIntExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, 1);
+        int saetze = data.getIntExtra(AddEditNoteActivity.EXTRA_SAETZE, 1);
+        String gewicht_string = data.getStringExtra(AddEditNoteActivity.EXTRA_GEWICHT);
+        String datum = data.getStringExtra(AddEditNoteActivity.EXTRA_DATUM);
+        Note note = new Note(uebung, datum, beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
+
+        return note;
     }
 
 }

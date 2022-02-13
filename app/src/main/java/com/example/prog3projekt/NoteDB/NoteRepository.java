@@ -1,10 +1,11 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.NoteDB;
 
 import android.app.Application;
-import android.icu.text.TimeZoneNames;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.prog3projekt.NoteDatabase;
 
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class NoteRepository {
         return  allNotes;
 
     }
+    public LiveData<List<Note>> getAllNotesFromDate(String date){
+        return  noteDao.getAllNotesFromDate(date);}
     private static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void>{
         private NoteDao noteDao;
 

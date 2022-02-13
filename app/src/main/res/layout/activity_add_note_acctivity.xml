@@ -131,7 +131,7 @@
         android:gravity="center_vertical"
         >
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/angry_Abbrechen"
             android:layout_width="105dp"
             android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
             android:textColor="#FFFFFF"
             android:textSize="10sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/angry_Weitere_Uebung"
             android:layout_width="105dp"
             android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
             android:textColor="#FFFFFF"
             android:textSize="10sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/angry_Tag_speichern"
             android:layout_width="105dp"
             android:layout_height="wrap_content"

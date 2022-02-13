@@ -7,6 +7,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.prog3projekt.NoteDB.Note;
+
 import java.util.List;
 
 @Dao
@@ -24,6 +26,6 @@ public interface DayDao {
     @Query("DELETE FROM note_table")
     void deleteAllDays();
 
-    @Query("SELECT * FROM note_table ORDER BY gewicht DESC")
+    @Query("SELECT * FROM day_table ORDER BY date DESC")
     LiveData<List<Day>> getAllDays();
 }
