@@ -1,4 +1,4 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.ExerciseDB;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,26 +9,16 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.prog3projekt.DayDB.Day;
-import com.example.prog3projekt.DayDB.DayDao;
-import com.example.prog3projekt.NoteDB.Note;
-import com.example.prog3projekt.NoteDB.NoteDao;
-import com.example.prog3projekt.VorlageDB.Vorlage;
-import com.example.prog3projekt.VorlageDB.VorlageDao;
+@Database(entities = {Exercise.class}, version = 6)
+public abstract class ExercisesDatabase extends RoomDatabase {
+    private static ExercisesDatabase instance;
 
-@Database(entities = {Note.class, Day.class, Vorlage.class}, version = 6)
-public abstract class NoteDatabase extends RoomDatabase {
+    public abstract ExerciseDao exerciseDao();
 
-    private static NoteDatabase instance;
-
-    public abstract DayDao dayDao();
-    public abstract NoteDao noteDao();
-    public abstract VorlageDao vorlageDao();
-
-    public static synchronized NoteDatabase getInstance(Context context){
+    public static synchronized ExercisesDatabase getInstance(Context context){
         if(instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    NoteDatabase.class, "note_database")
+                    ExercisesDatabase.class, "exercises_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
@@ -45,10 +35,10 @@ public abstract class NoteDatabase extends RoomDatabase {
     };
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        private VorlageDao vorlageDao;
+        private ExerciseDao exerciseDao;
 
-        private PopulateDbAsyncTask(NoteDatabase db){
-            vorlageDao = db.vorlageDao();
+        private PopulateDbAsyncTask(ExercisesDatabase db){
+            exerciseDao = db.exerciseDao();
         }
         @Override
         protected Void doInBackground(Void... voids) {

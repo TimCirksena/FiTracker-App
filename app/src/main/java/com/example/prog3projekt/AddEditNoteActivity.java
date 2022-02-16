@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,10 +26,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.prog3projekt.DayDB.DateConverter;
-import com.example.prog3projekt.DayDB.Day;
-import com.example.prog3projekt.NoteDB.Note;
-import com.example.prog3projekt.NoteDB.NoteViewModel;
+import com.example.prog3projekt.ExerciseDB.Exercise;
+import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -100,7 +99,6 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             public void onClick(View v) {
 
                 String date = editDateDialog.getText().toString();
-                Day day = new Day(date);
                 String gewicht = editTextGewicht.getText().toString();
                 String uebung = spinner.getSelectedItem().toString();
                 String beschreibung = editTextBeschreibung.getText().toString();
@@ -108,10 +106,9 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
                 int wiederholungen = editWiederholungen.getValue();
                 int saetze = editSaetze.getValue();
                 int schwierigkeit = editSchwierigkeit.getValue();
-                int dayId = day.getDayId() ;
 
-                Note note = new Note(uebung,date,dayId,beschreibung,schwierigkeit,wiederholungen,saetze,gewicht,userSpinnerChoice);
-                openNewAddActivity(note);
+                Exercise exercise = new Exercise(uebung,date,111,beschreibung,schwierigkeit,wiederholungen,saetze,gewicht,userSpinnerChoice);
+                openNewAddActivity(exercise);
             }
         });
         clickTagSpeichern.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +143,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
                 String date = dayOfMonth+"."+month+"."+year;
-
+                Log.d("Formatierung Date", date);
                 editDateDialog.setText(date);
             }
         };
@@ -262,9 +259,9 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    public void openNewAddActivity(Note note){
-        NoteViewModel noteViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(NoteViewModel.class);
-        noteViewModel.insert(note);
+    public void openNewAddActivity(Exercise exercise){
+        ExerciseViewModel exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
+        exerciseViewModel.insert(exercise);
         Intent intent = new Intent(this, AddEditNoteActivity.class);
         startActivity(intent);
     }

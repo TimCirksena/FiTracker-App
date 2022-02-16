@@ -17,6 +17,7 @@
         <entry key="..\:/Prog3Projekt/app/src/main/res/menu/main_menu.xml" value="0.3078125" />
         <entry key="..\:/Prog3Projekt/app/src/main/res/menu/menu.xml" value="0.3078125" />
         <entry key="app/src/main/res/drawable-v24/buttonshape.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/buttonshape.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/graph_background.xml" value="0.201" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.201" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.201" />
@@ -25,6 +26,7 @@
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_statistik.xml" value="0.26570415400202635" />
+        <entry key="app/src/main/res/layout/calendar_date.xml" value="0.157548125633232" />
         <entry key="app/src/main/res/layout/note_item.xml" value="0.2957427536231884" />
         <entry key="app/src/main/res/menu/add_note_menu.xml" value="0.3731481481481482" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.3731481481481482" />

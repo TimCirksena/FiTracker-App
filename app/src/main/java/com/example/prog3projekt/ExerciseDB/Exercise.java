@@ -1,23 +1,18 @@
-package com.example.prog3projekt.NoteDB;
+package com.example.prog3projekt.ExerciseDB;
 
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import com.example.prog3projekt.DayDB.Day;
-
-@Entity(tableName = "note_table", foreignKeys = {@ForeignKey(entity = Day.class, parentColumns = "dayId", childColumns = "dateId", onDelete = ForeignKey.CASCADE)})
-public class Note {
+@Entity(tableName = "exersice_table")
+public class Exercise {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String name;
 
-    private int dateId;
-
     private String datum;
-
+    private int datumInt;
     private String beschreibung;
 
     private int schwierigkeit;
@@ -28,27 +23,32 @@ public class Note {
 
     private String gewicht;
 
+    private String vorlage = null;
     private int pos;
 
 
 
-    public Note(String name, String datum, int dateId, String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos)  {
+    public Exercise(String name, String datum,int datumInt,  String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos)  {
         this.name = name;
         this.datum = datum;
+        this.datumInt = datumInt;
         this.beschreibung = beschreibung;
         this.schwierigkeit = schwierigkeit;
         this.wiederholungen = wiederholungen;
         this.saetze = saetze;
         this.gewicht = gewicht;
         this.pos = pos;
-        this.dateId = dateId;
     }
 
+    public void setVorlage(String s){
+        this.vorlage=s;
+    }
     public void setId(int id) {
         this.id = id;
     }
-    public void setDateId(int dateId) {
-        this.dateId = dateId;
+
+    public String getVorlage(){
+        return vorlage;
     }
 
     public void setSchwierigkeit(int schwierigkeit) {
@@ -102,7 +102,13 @@ public class Note {
     public int getPos() {
         return pos;
     }
-    public int getDateId() {
-        return dateId;
+
+    public int getDatumInt() {
+        return datumInt;
     }
+
+    public void setDatumInt(int datumInt) {
+        this.datumInt = datumInt;
+    }
+
 }

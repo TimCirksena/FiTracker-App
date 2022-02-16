@@ -6,8 +6,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.prog3projekt.MainActivity;
-import com.example.prog3projekt.NoteDB.Note;
-import com.example.prog3projekt.NoteDB.NoteViewModel;
+import com.example.prog3projekt.ExerciseDB.Exercise;
+import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.example.prog3projekt.R;
 import com.example.prog3projekt.statistikActivity;
 import com.jjoe64.graphview.GraphView;
@@ -25,8 +25,8 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
     Button heute;
     GraphView graphView;
-    List <Note> allNotes;
-    NoteViewModel noteViewModel;
+    List <Exercise> allExercises;
+    ExerciseViewModel exerciseViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +40,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
+                startActivity(intent); }
+            });
         //OnClickListener auf der Statistik, zur ausführlicheren Statistik in der Statistik Activity
         graphView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,18 +53,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
     // https://github.com/jjoe64/GraphView/wiki/Style-options Dokumentation von der GraphView
     void graphViewInitialisieren(int maxX, int maxY){
         graphView = findViewById(R.id.graphView);
-        noteViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(NoteViewModel.class);
-        noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+        exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
+        exerciseViewModel.getAllExercises().observe(this, new Observer<List<Exercise>>() {
             @Override
             //onChanged, ebenso wie bei der MainActivity, wird der Graph verändert wenn sich das DataSet verändert.
-            public void onChanged(@Nullable List<Note> notes) {
-                allNotes = notes;
-                DataPoint[] s = new DataPoint[allNotes.size()];
-                for (int i = 0; i<allNotes.size();i++) {
+            public void onChanged(@Nullable List<Exercise> exercises) {
+                allExercises = exercises;
+                DataPoint[] s = new DataPoint[allExercises.size()];
+                for (int i = 0; i< allExercises.size(); i++) {
                     //s[i] = new DataPoint(DataTimeHilfsKlasse.getDatesDayAsInt(allNotes.get(i).getDatum()), allNotes.get(i).getSchwierigkeit());
                     sortDates(s);
                 }
