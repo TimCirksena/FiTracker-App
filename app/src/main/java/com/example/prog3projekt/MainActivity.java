@@ -30,8 +30,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_GEWICHT_MAIN =
-            "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";
     private ExerciseViewModel exerciseViewModel;
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
@@ -53,13 +51,18 @@ public class MainActivity extends AppCompatActivity {
                         exercise.setId(id);
                         exerciseViewModel.update(exercise);
                         Toast.makeText(MainActivity.this, "updated note", Toast.LENGTH_SHORT).show();
-                    } else {
+                    }
+                    else if(result.getResultCode() == 79){
+                        String s = data.getStringExtra(VorlageActivity.EXTRA_VORLAGE_VORLAGE);
+                        Log.d(s,"mk");
+                        Toast.makeText(MainActivity.this, "List of Vorlagen", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
                         Toast.makeText(MainActivity.this, "not saved", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
     );
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Exercise t = new Exercise("Peter","10.10.1000", 1000,"asef", 10, 10, 10, "alles", 1);
+        //Exercise t = new Exercise("Peter","10.10.1000", 1000,"asef", 10, 10, 10, "alles", 1);
+        //t.setVorlage("PushDay");
+
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -86,14 +91,29 @@ public class MainActivity extends AppCompatActivity {
         ExerciseAdapter adapter = new ExerciseAdapter();
         recyclerView.setAdapter(adapter);
 
+        Intent intent = getIntent();
+        String s = intent.getStringExtra(VorlageActivity.EXTRA_VORLAGE_VORLAGE);
+        Log.d(s,"intentswag");
+
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
-        exerciseViewModel.getAllExercises().observe(this, new Observer<List<Exercise>>() {
-            @Override
-            public void onChanged(@Nullable List<Exercise> exercises) {
-                adapter.setNotes(exercises);
-            }
-        });
-        exerciseViewModel.insert(t);
+        if(s != null){
+            exerciseViewModel.getAllExercisesForVorlage(s).observe(this, new Observer<List<Exercise>>() {
+                @Override
+                public void onChanged(@Nullable List<Exercise> exercises) {
+                    adapter.setNotes(exercises);
+
+                }
+            });
+        }else{
+            exerciseViewModel.getAllExercises().observe(this, new Observer<List<Exercise>>() {
+                @Override
+                public void onChanged(@Nullable List<Exercise> exercises) {
+                    adapter.setNotes(exercises);
+                }
+            });
+        }
+
+        //exerciseViewModel.insert(t);
         //Für das Swipen von notes delete links und rechts
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -112,9 +132,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnItemClickListner(new ExerciseAdapter.OnItemClickListner() {
             @Override
             public void onItemClick(Exercise exercise) {
-                //TODO: Hier alles ändern weil wir Trainigsgeräte haben
+                //TODO: In Bundle machen
                 //Intent swaped von MainActivity zu AddEditActivity
+                //
                 Intent intent = new Intent(MainActivity.this, AddEditNoteActivity.class);
+                intent.putExtra(AddEditNoteActivity.EXTRA_VORLAGE, exercise.getVorlage());
                 intent.putExtra(AddEditNoteActivity.EXTRA_ID, exercise.getId());
                 intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, exercise.getName());
                 intent.putExtra(AddEditNoteActivity.EXTRA_DATUM, exercise.getDatum());
@@ -124,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, exercise.getWiederholungen());
                 intent.putExtra(AddEditNoteActivity.EXTRA_GEWICHT, exercise.getGewicht());
                 intent.putExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG, exercise.getBeschreibung());
+
                 someActivityResultLauncher.launch(intent);
             }
         });
@@ -152,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Exercise initalisierungNote(Intent data) {
+
         String uebung = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
         String beschreibung = data.getStringExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG);
         int schwierigkeit = data.getIntExtra(AddEditNoteActivity.EXTRA_SCHWIERIGKEIT, 1);
@@ -160,8 +184,9 @@ public class MainActivity extends AppCompatActivity {
         int saetze = data.getIntExtra(AddEditNoteActivity.EXTRA_SAETZE, 1);
         String gewicht_string = data.getStringExtra(AddEditNoteActivity.EXTRA_GEWICHT);
         String datum = data.getStringExtra(AddEditNoteActivity.EXTRA_DATUM);
+        String vorlage = data.getStringExtra(AddEditNoteActivity.EXTRA_VORLAGE);
         Exercise exercise = new Exercise(uebung, datum,1111, beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
-
+        exercise.setVorlage(vorlage);
         return exercise;
     }
 

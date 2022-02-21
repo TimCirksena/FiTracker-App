@@ -24,6 +24,7 @@ public class Exercise {
     private String gewicht;
 
     private String vorlage = null;
+
     private int pos;
 
 

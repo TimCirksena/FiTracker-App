@@ -11,11 +11,13 @@ import java.util.List;
 public class ExerciseViewModel extends AndroidViewModel{
     private ExerciseRepository repository;
     private LiveData<List<Exercise>> allExercises;
+    private LiveData<List<Exercise>> allExercisesWithVorlage;
 
     public ExerciseViewModel(@NonNull Application application){
         super(application);
         repository = new ExerciseRepository(application);
         allExercises = repository.getAllExercises();
+        allExercisesWithVorlage = repository.getAllExercisesWithVorlage();
     }
     public void insert(Exercise exercise){
         repository.insert(exercise);
@@ -29,6 +31,8 @@ public class ExerciseViewModel extends AndroidViewModel{
     public void deleteAllNotes(){
         repository.deleteAllExercises();
     }
+
+
 
     //Methoden müssen im repository angepasst werden, Code müsste an
     // sich so stehen bleiben können
@@ -44,4 +48,6 @@ public class ExerciseViewModel extends AndroidViewModel{
     public LiveData<List<Exercise>> getAllExercises() {
         return allExercises;
     }
+    public LiveData<List<Exercise>>getAllExercisesWithVorlage(){return allExercisesWithVorlage;}
+    public LiveData<List<Exercise>>getAllExercisesForVorlage(String s){return repository.getAllExercisesForVorlage(s);}
 }

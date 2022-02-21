@@ -32,4 +32,7 @@ public interface ExerciseDao {
 
     @Query("SELECT * FROM exersice_table WHERE vorlage LIKE :vorlage")
     LiveData<List<Exercise>> getAllExercisesForVorlage(String vorlage);
+
+    @Query("SELECT DISTINCT * FROM exersice_table WHERE vorlage IS NOT NULL")
+    LiveData<List<Exercise>> getAllExercisesWithVorlage();
 }
