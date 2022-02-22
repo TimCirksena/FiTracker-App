@@ -10,13 +10,11 @@ import java.util.List;
 public class ExerciseRepository {
     private ExerciseDao exerciseDao;
     private LiveData<List<Exercise>> allNotes;
-    private LiveData<List<Exercise>> allExercisesWithVorlage;
 
     public ExerciseRepository(Application application){
         ExercisesDatabase database = ExercisesDatabase.getInstance(application);
         exerciseDao = database.exerciseDao();
         allNotes = exerciseDao.getAllNotes();
-        allExercisesWithVorlage = exerciseDao.getAllExercisesWithVorlage();
     }
 
     public void insert(Exercise exercise){
@@ -32,21 +30,16 @@ public class ExerciseRepository {
         new DeleteAllExercisesExercisesAsyncTask(exerciseDao).execute();
     }
     public LiveData<List<Exercise>> getAllExercises(){
-        return  allExercisesWithVorlage;
+        return  allNotes;
     }
 
-    public LiveData<List<Exercise>> getAllExercisesWithVorlage(){return allNotes;}
-
-    public LiveData<List<Exercise>> getAllExercisesForVorlage(String s){return exerciseDao.getAllExercisesForVorlage(s);}
-    //Methoden Passen noch nicht ganz, muss ich nochmal in der doc nachschauen
-
-    /*public LiveData<List<Exercise>> getAllExercisesForVorlage(String vorlage){
-        return new GetAllExercisesForVorlage(exerciseDao).execute(vorlage);
+    public LiveData<List<Exercise>> getAllexercisesLaterThan(int tag, int monat, int jahr) {
+        return exerciseDao.getAllExercisesLaterThan(tag, monat, jahr);
     }
-    public LiveData<List<Exercise>> getAllExercisesLaterThan(int date){
-        return  exerciseDao.getAllExercisesLaterThan(date);}
-    */
 
+    public LiveData<List<Exercise>> getAllExercisesFromVorlage(String vorlage) {
+        return exerciseDao.getAllExercisesForVorlage(vorlage);
+    }
 
     private static class InsertExerciseAsyncTask extends AsyncTask<Exercise, Void, Void>{
         private ExerciseDao exerciseDao;
@@ -100,45 +93,6 @@ public class ExerciseRepository {
             return null;
         }
     }
-    /**
-    private static class GetAllExercisesForVorlage extends AsyncTask<String, Void, Void>{
-        private ExerciseDao exerciseDao;
 
-        private GetAllExercisesForVorlage(ExerciseDao exerciseDao){
-            this.exerciseDao = exerciseDao;
-        }
-        @Override
-        protected Void doInBackground(String... strings) {
-            exerciseDao.getAllExercisesForVorlage(strings[0]);
-            return null;
-        }
-    }
-    */
-    private static class GetAllExercisesFromInt extends AsyncTask<Integer, Void, Void>{
-        private ExerciseDao exerciseDao;
-
-        private GetAllExercisesFromInt(ExerciseDao exerciseDao){
-            this.exerciseDao = exerciseDao;
-        }
-        @Override
-        protected Void doInBackground(Integer... ints) {
-            exerciseDao.getAllExercisesLaterThan(ints[0]);
-            return null;
-        }
-    }
-    /**
-    private static class GetAllExercisesWithVorlage extends AsyncTask<String, Void, Void>{
-        private ExerciseDao exerciseDao;
-
-        private GetAllExercisesWithVorlage(ExerciseDao exerciseDao){
-            this.exerciseDao = exerciseDao;
-        }
-        @Override
-        protected Void doInBackground(String... strings) {
-            exerciseDao.getAllExercisesWithVorlage();
-            return null;
-        }
-    }
-    */
 }
 

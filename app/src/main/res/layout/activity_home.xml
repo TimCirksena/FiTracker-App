@@ -29,6 +29,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="278dp"
+        android:id="@+id/calendar_recycler"
         android:layout_above="@+id/graphView"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
