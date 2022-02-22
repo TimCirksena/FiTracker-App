@@ -32,21 +32,12 @@ public class ExerciseRepository {
         new DeleteAllExercisesExercisesAsyncTask(exerciseDao).execute();
     }
     public LiveData<List<Exercise>> getAllExercises(){
-        return  allExercisesWithVorlage;
+        return  allNotes;
     }
 
-    public LiveData<List<Exercise>> getAllExercisesWithVorlage(){return allNotes;}
+    public LiveData<List<Exercise>> getAllExercisesWithVorlage(){return allExercisesWithVorlage;}
 
     public LiveData<List<Exercise>> getAllExercisesForVorlage(String s){return exerciseDao.getAllExercisesForVorlage(s);}
-    //Methoden Passen noch nicht ganz, muss ich nochmal in der doc nachschauen
-
-    /*public LiveData<List<Exercise>> getAllExercisesForVorlage(String vorlage){
-        return new GetAllExercisesForVorlage(exerciseDao).execute(vorlage);
-    }
-    public LiveData<List<Exercise>> getAllExercisesLaterThan(int date){
-        return  exerciseDao.getAllExercisesLaterThan(date);}
-    */
-
 
     private static class InsertExerciseAsyncTask extends AsyncTask<Exercise, Void, Void>{
         private ExerciseDao exerciseDao;

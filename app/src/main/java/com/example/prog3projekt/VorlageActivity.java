@@ -56,6 +56,7 @@ public class VorlageActivity extends AppCompatActivity {
         exerciseViewModel.getAllExercisesWithVorlage().observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
+
                 adapter.setNotes(exercises);
             }
         });
