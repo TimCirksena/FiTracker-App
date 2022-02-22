@@ -27,12 +27,9 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exersice_table ORDER BY gewicht DESC")
     LiveData<List<Exercise>> getAllNotes();
 
-    @Query("SELECT * FROM exersice_table WHERE datumInt > :datum")
-    LiveData<List<Exercise>> getAllExercisesLaterThan(int datum);
+    @Query("SELECT * FROM exersice_table WHERE monat >= :monat AND tag >= :tag AND jahr >= :jahr ORDER BY tag ASC")
+    LiveData<List<Exercise>> getAllExercisesLaterThan(int tag, int monat, int jahr);
 
     @Query("SELECT * FROM exersice_table WHERE vorlage LIKE :vorlage")
     LiveData<List<Exercise>> getAllExercisesForVorlage(String vorlage);
-
-    @Query("SELECT DISTINCT * FROM exersice_table WHERE vorlage IS NOT NULL")
-    LiveData<List<Exercise>> getAllExercisesWithVorlage();
 }
