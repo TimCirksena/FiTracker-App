@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Exercise.class}, version = 7, exportSchema = false)
+@Database(entities = {Exercise.class}, version = 6)
 public abstract class ExercisesDatabase extends RoomDatabase {
     private static ExercisesDatabase instance;
 

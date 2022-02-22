@@ -56,9 +56,13 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             "com.example.prog3projekt.EXTRA_GEWICHT";
     public static final String EXTRA_DATUM =
             "com.example.prog3projekt.EXTRA_DATUM";
+    public static final String EXTRA_VORLAGE =
+            "com.example.prog3projekt.EXTRA_VORLAGE";
 
+    private int dick;
     private Date date;
     private EditText editTextBeschreibung;
+    private EditText editTextVorlage;
     private NumberPicker editSchwierigkeit;
     private NumberPicker editSaetze;
     private NumberPicker editWiederholungen;
@@ -78,7 +82,6 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note_acctivity);
-
 
 
         /** BEHANDLUNG BUTTONS
@@ -107,7 +110,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
                 int saetze = editSaetze.getValue();
                 int schwierigkeit = editSchwierigkeit.getValue();
 
-                Exercise exercise = new Exercise(uebung,date,beschreibung,schwierigkeit,wiederholungen,saetze,gewicht,userSpinnerChoice);
+                Exercise exercise = new Exercise(uebung, date, 111, beschreibung, schwierigkeit, wiederholungen, saetze, gewicht, userSpinnerChoice);
                 openNewAddActivity(exercise);
             }
         });
@@ -119,7 +122,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         });
 
         /** BEARBEITUNG DATEN INPUT
-        Anlegen der Views */
+         Anlegen der Views */
         editDateDialog = (TextView) findViewById(R.id.editTextDate);
         editDateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +134,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         AddEditNoteActivity.this,
-                        R.style.Theme_Material3_Light_Dialog_MinWidth,mDateSetListener,
+                        R.style.Theme_Material3_Light_Dialog_MinWidth, mDateSetListener,
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
                 dialog.show();
@@ -142,12 +145,12 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
-                String date = dayOfMonth+"."+month+"."+year;
+                String date = dayOfMonth + "." + month + "." + year;
                 Log.d("Formatierung Date", date);
                 editDateDialog.setText(date);
             }
         };
-
+        editTextVorlage = findViewById(R.id.edit_Text_Vorlage);
         adapter = ArrayAdapter.createFromResource(this, R.array.uebungen, R.layout.support_simple_spinner_dropdown_item);
         spinner = findViewById(R.id.spinner_uebung);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -174,8 +177,8 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         //In diesem Fall existiert das Object schon und wir wollen es nur verändern
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Note");
-            //TODO: Hier werte anpassen
             //Damit spinner richtige Value anzeigt
+
             String text = intent.getStringExtra(EXTRA_UEBUNG);
             int i = adapter.getPosition(text);
             spinner.setSelection(i);
@@ -186,6 +189,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             editSaetze.setValue(intent.getIntExtra(EXTRA_SAETZE, 1));
             editWiederholungen.setValue(intent.getIntExtra(EXTRA_WIEDERHOLUNGEN, 1));
             editDateDialog.setText(intent.getStringExtra(EXTRA_DATUM));
+            editTextVorlage.setText(intent.getStringExtra(EXTRA_VORLAGE));
         } else {
             setTitle("Add Note");
         }
@@ -193,6 +197,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
 
     private void saveNote() {
 
+        String vorlage = editTextVorlage.getText().toString();
         String date = editDateDialog.getText().toString();
         String gewicht = editTextGewicht.getText().toString();
         String uebung = spinner.getSelectedItem().toString();
@@ -203,10 +208,11 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         int schwierigkeit = editSchwierigkeit.getValue();
 
         if (uebung.trim().isEmpty() || beschreibung.trim().isEmpty()) {
-            Toast.makeText(this, "Schreib was rein du huso", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Beschreibung Text ausfüllen", Toast.LENGTH_SHORT).show();
             return;
         }
         Intent data = new Intent();
+        data.putExtra(EXTRA_VORLAGE, vorlage);
         data.putExtra(EXTRA_DATUM, date);
         data.putExtra(EXTRA_GEWICHT, gewicht);
         data.putExtra(EXTRA_POS_SPINNER, userSpinnerChoice);
@@ -254,12 +260,14 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
-    public void openMainActivity(){
+
+    public void openMainActivity() {
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    public void openNewAddActivity(Exercise exercise){
+
+    public void openNewAddActivity(Exercise exercise) {
         ExerciseViewModel exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
         exerciseViewModel.insert(exercise);
         Intent intent = new Intent(this, AddEditNoteActivity.class);

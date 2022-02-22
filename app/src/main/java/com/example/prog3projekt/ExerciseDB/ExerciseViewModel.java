@@ -11,11 +11,13 @@ import java.util.List;
 public class ExerciseViewModel extends AndroidViewModel{
     private ExerciseRepository repository;
     private LiveData<List<Exercise>> allExercises;
+    private LiveData<List<Exercise>> allExercisesWithVorlage;
 
     public ExerciseViewModel(@NonNull Application application){
         super(application);
         repository = new ExerciseRepository(application);
         allExercises = repository.getAllExercises();
+        allExercisesWithVorlage = repository.getAllExercisesWithVorlage();
     }
     public void insert(Exercise exercise){
         repository.insert(exercise);
@@ -29,13 +31,23 @@ public class ExerciseViewModel extends AndroidViewModel{
     public void deleteAllNotes(){
         repository.deleteAllExercises();
     }
-    public LiveData<List<Exercise>> getExerciseForDate(int tag, int monat, int jahr){
-        return repository.getAllexercisesLaterThan(tag, monat, jahr);
+
+
+
+    //Methoden müssen im repository angepasst werden, Code müsste an
+    // sich so stehen bleiben können
+
+    /*
+    public void getExerciseForDate(int date){
+        repository.getAllExercisesLaterThan(date);
     }
-    public LiveData<List<Exercise>> getAllExercisesForVorlage(String vorlage){
-        return repository.getAllExercisesFromVorlage(vorlage);
+    public void getAllExercisesForVorlage(String vorlage){
+        repository.getAllExercisesForVorlage(vorlage);
     }
+    */
     public LiveData<List<Exercise>> getAllExercises() {
         return allExercises;
     }
+    public LiveData<List<Exercise>>getAllExercisesWithVorlage(){return allExercisesWithVorlage;}
+    public LiveData<List<Exercise>>getAllExercisesForVorlage(String s){return repository.getAllExercisesForVorlage(s);}
 }

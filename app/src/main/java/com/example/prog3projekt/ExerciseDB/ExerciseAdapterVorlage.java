@@ -14,7 +14,7 @@ import com.example.prog3projekt.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder> {
+public class ExerciseAdapterVorlage extends RecyclerView.Adapter<ExerciseAdapterVorlage.ExerciseHolder>{
     private List<Exercise> exercises = new ArrayList<>();
     private OnItemClickListner listner;
 
@@ -23,7 +23,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Die View die wir später an den Context weitergeben, -> Main_activity
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.note_item, parent, false);
+                .inflate(R.layout.vorlage_item, parent, false);
         return new ExerciseHolder(itemView);
     }
 
@@ -33,9 +33,9 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         //based on the postion of the recycler view
         //Was auf dem Screen angezeigt wird
         Exercise currentExercise = exercises.get(position);
-        holder.textViewUebung.setText(currentExercise.getName());
-        holder.textViewBeschreibung.setText(currentExercise.getDatum());
-        holder.textViewGewicht.setText(String.valueOf(currentExercise.getSchwierigkeit()));
+        if(currentExercise.getVorlage() != null){
+            holder.textViewVorlageTitle.setText(currentExercise.getVorlage());
+        }
     }
 
     @Override
@@ -58,17 +58,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     //Kinda like the in the onCreate method
 
     class ExerciseHolder extends RecyclerView.ViewHolder {
-        private TextView textViewUebung;
+        private TextView textViewVorlageTitle;
         private TextView textViewBeschreibung;
-        private TextView textViewGewicht;
 
         public ExerciseHolder(View itemView) {
             super(itemView);
             /* TODO:HIER ANPASSEN */
-            textViewUebung = itemView.findViewById(R.id.text_view_title);
-            textViewBeschreibung = itemView.findViewById(R.id.text_view_description);
-            textViewGewicht = itemView.findViewById(R.id.text_view_priority);
-
+            textViewVorlageTitle = itemView.findViewById(R.id.text_view_vorlage_title);
 
             //FÜrs EDIT der Notes
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -92,3 +88,4 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         this.listner = listner;
     }
 }
+

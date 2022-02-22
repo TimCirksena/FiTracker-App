@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/addEditNoteActivity">
+
+    <activity
+        android:id="@+id/addEditNoteActivity"
+        android:name="com.example.prog3projekt.AddEditNoteActivity"
+        android:label="activity_add_note_acctivity"
+        tools:layout="@layout/activity_add_note_acctivity" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.prog3projekt.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.example.prog3projekt.Home.HomeActivity"
+        android:label="activity_home"
+        tools:layout="@layout/activity_home" />
+    <activity
+        android:id="@+id/statistikActivity"
+        android:name="com.example.prog3projekt.statistikActivity"
+        android:label="activity_statistik"
+        tools:layout="@layout/activity_statistik" />
+    <activity
+        android:id="@+id/trainingBeginnenActivity"
+        android:name="com.example.prog3projekt.TrainingBeginnenActivity"
+        android:label="activity_training_beginnen"
+        tools:layout="@layout/activity_training_beginnen" />
+    <activity
+        android:id="@+id/vorlageActivity"
+        android:name="com.example.prog3projekt.VorlageActivity"
+        android:label="activity_vorlage"
+        tools:layout="@layout/activity_vorlage" />
+</navigation>
