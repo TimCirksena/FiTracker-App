@@ -33,6 +33,9 @@ public class ExerciseRepository {
         return  allNotes;
     }
 
+    public LiveData<List<Exercise>> getExercisesForDay(int tag, int monat, int jahr){
+        return exerciseDao.getExercisesForDay(tag,monat,jahr);
+    }
     public LiveData<List<Exercise>> getAllexercisesLaterThan(int tag, int monat, int jahr) {
         return exerciseDao.getAllExercisesLaterThan(tag, monat, jahr);
     }

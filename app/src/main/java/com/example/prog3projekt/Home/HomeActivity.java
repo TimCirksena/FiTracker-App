@@ -111,16 +111,18 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
                 startActivity(intent);
             }
         });
+        addSimulationExercises();
     }
 
     void addSimulationExercises(){
-        exerciseViewModel.insert(new Exercise("Sim1","01.02.2022","gut",20,10,3,"100",5));
-        exerciseViewModel.insert(new Exercise("Sim1","03.02.2022","gut",30,10,3,"100",5));
-        exerciseViewModel.insert(new Exercise("Sim1","05.02.2022","gut",40,10,3,"100",6));
-        exerciseViewModel.insert(new Exercise("Sim1","06.02.2022","gut",50,10,3,"100",3));
-        exerciseViewModel.insert(new Exercise("Sim1","08.02.2022","gut",60,10,3,"100",2));
-        exerciseViewModel.insert(new Exercise("Sim1","10.02.2022","gut",70,10,3,"100",5));
-        exerciseViewModel.insert(new Exercise("Sim1","12.02.2022","gut",80,10,3,"100",1));
+        exerciseViewModel.insert(new Exercise("Übung","01.02.2022","gut",20,10,3,"100",5));
+        exerciseViewModel.insert(new Exercise("Übung","05.02.2022","gut",30,10,3,"100",5));
+        exerciseViewModel.insert(new Exercise("Übung","08.02.2022","gut",40,10,3,"100",6));
+        exerciseViewModel.insert(new Exercise("Übung","11.02.2022","gut",50,10,3,"100",3));
+        exerciseViewModel.insert(new Exercise("Übung","15.02.2022","gut",60,10,3,"100",2));
+        exerciseViewModel.insert(new Exercise("Übung","21.02.2022","gut",70,10,3,"100",5));
+        exerciseViewModel.insert(new Exercise("Übung","25.02.2022","gut",80,10,3,"100",1));
+        exerciseViewModel.insert(new Exercise("Übung","25.02.2022","gut",80,10,3,"100",1));
     }
 
     //Hilfsmethode um den Graphen mit der richtigen größe(x- und y-Achse) und dem richtigen UI zu bauen
@@ -140,7 +142,7 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
     //Hilsmethoden um bei upgedatetem DataSet den Graphen neu zu zeichnen
     private void updateGraphView(GraphView graphView, LineGraphSeries<DataPoint> s){
         graphView.removeAllSeries();
-        s.setThickness(50);
+        s.setThickness(30);
         graphView.addSeries(s);
     }
 
