@@ -13,19 +13,12 @@
             android:name=".DayExercisesActivity"
             android:exported="false" />
         <activity
-            android:name=".VorlageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TrainingBeginnenActivity"
-            android:exported="true"></activity>
-        <activity
             android:name=".AddEditNoteActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Home.HomeActivity"
             android:exported="true">
-            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
