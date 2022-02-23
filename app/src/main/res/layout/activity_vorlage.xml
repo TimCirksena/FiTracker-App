@@ -6,11 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".VorlageActivity">
 
+
+    <TextView
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="30dp"
+        android:inputType="textPersonName"
+        android:text="Aktuelle Vorlagen"
+        android:textColor="@android:color/background_dark"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="50dp"
         android:id="@+id/recycler_view_Vorlage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/vorlage_item"
-        />
+        tools:layout_editor_absoluteX="-101dp"
+        tools:layout_editor_absoluteY="16dp"
+        tools:listitem="@layout/vorlage_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

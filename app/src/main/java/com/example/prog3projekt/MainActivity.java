@@ -32,7 +32,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ExerciseViewModel exerciseViewModel;
 
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+    public ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override

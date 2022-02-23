@@ -12,7 +12,9 @@ public class Exercise {
     private String name;
 
     private String datum;
+
     private int datumInt;
+
     private String beschreibung;
 
     private int schwierigkeit;

@@ -122,10 +122,14 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         });
 
         /** BEARBEITUNG DATEN INPUT
+         *
+         * <h1> Hallo </h1>
+         *
          Anlegen der Views */
         editDateDialog = (TextView) findViewById(R.id.editTextDate);
         editDateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
@@ -194,7 +198,10 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             setTitle("Add Note");
         }
     }
-
+    /** <h1>Hallo</h1>
+     *
+     * LUL
+     * */
     private void saveNote() {
 
         String vorlage = editTextVorlage.getText().toString();

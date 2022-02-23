@@ -69,35 +69,8 @@ public class VorlageActivity extends AppCompatActivity {
                 setResult(79, intent);
                 startActivity(intent);
 
-                /**
-                intent.putExtra(AddEditNoteActivity.EXTRA_VORLAGE, exercise.getVorlage());
-                intent.putExtra(AddEditNoteActivity.EXTRA_ID, exercise.getId());
-                intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, exercise.getName());
-                intent.putExtra(AddEditNoteActivity.EXTRA_DATUM, exercise.getDatum());
-                intent.putExtra(AddEditNoteActivity.EXTRA_SCHWIERIGKEIT, exercise.getSchwierigkeit());
-                intent.putExtra(AddEditNoteActivity.EXTRA_POS_SPINNER, exercise.getPos());
-                intent.putExtra(AddEditNoteActivity.EXTRA_SAETZE, exercise.getSaetze());
-                intent.putExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, exercise.getWiederholungen());
-                intent.putExtra(AddEditNoteActivity.EXTRA_GEWICHT, exercise.getGewicht());
-                intent.putExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG, exercise.getBeschreibung());
-*/
                 }
         });
-
-                /**
-                 //exerciseViewModel.insert(t);
-                 //Für das Swipen von notes delete links und rechts
-                 new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-                @Override public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-                }
-
-                @Override public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                exerciseViewModel.delete(adapter.getNoteAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(VorlageActivity.this, "deleted", Toast.LENGTH_SHORT).show();
-                }
-                }).attachToRecyclerView(recyclerView);*/
     }
 
 
