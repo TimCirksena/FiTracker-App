@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Home.HomeActivity"
-    android:backgroundTint="@color/black">
+    android:background="@color/grey">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/heuteBtn"
@@ -27,15 +27,13 @@
         android:layout_marginBottom="0dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="278dp"
+        android:paddingTop="15dp"
+        android:id="@+id/calendar_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="283dp"
         android:layout_above="@+id/graphView"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="2dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="-4dp"
-        android:layout_marginBottom="121dp" />
+        android:layout_marginBottom="116dp" />
 
 </RelativeLayout>

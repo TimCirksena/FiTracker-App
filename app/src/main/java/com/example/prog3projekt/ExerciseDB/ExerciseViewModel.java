@@ -31,20 +31,13 @@ public class ExerciseViewModel extends AndroidViewModel{
     public void deleteAllNotes(){
         repository.deleteAllExercises();
     }
-
-
-
-    //Methoden müssen im repository angepasst werden, Code müsste an
-    // sich so stehen bleiben können
-
-    /*
-    public void getExerciseForDate(int date){
-        repository.getAllExercisesLaterThan(date);
+    public LiveData<List<Exercise>> getExerciseForDate(int tag, int monat, int jahr){
+        return repository.getAllexercisesLaterThan(tag, monat, jahr);
     }
-    public void getAllExercisesForVorlage(String vorlage){
-        repository.getAllExercisesForVorlage(vorlage);
+    public LiveData<List<Exercise>> getExerciseForDay(int tag, int monat, int jahr){
+        return repository.getExercisesForDay(tag, monat, jahr);
     }
-    */
+
     public LiveData<List<Exercise>> getAllExercises() {
         return allExercises;
     }

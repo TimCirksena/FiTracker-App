@@ -25,14 +25,17 @@ import android.widget.Toast;
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseAdapter;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
+import com.example.prog3projekt.ExerciseDB.OnItemClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String EXTRA_GEWICHT_MAIN =
+            "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";
     private ExerciseViewModel exerciseViewModel;
 
-    public ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
     );
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,10 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 someActivityResultLauncher.launch(intent);
             }
         });
-
-        //Exercise t = new Exercise("Peter","10.10.1000", 1000,"asef", 10, 10, 10, "alles", 1);
-        //t.setVorlage("PushDay");
-
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
-        adapter.setOnItemClickListner(new ExerciseAdapter.OnItemClickListner() {
+        adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(Exercise exercise) {
                 //TODO: In Bundle machen
