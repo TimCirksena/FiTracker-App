@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".VorlageActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_back_vorlage"
+        android:layout_width="36dp"
+        android:layout_height="39dp"
+        android:layout_gravity="top|right"
+        android:layout_margin="15dp"
+        android:backgroundTint="@color/main_color"
+        android:backgroundTintMode="add"
+        android:baselineAligned="false"
+        android:foreground="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/editTextTextPersonName"

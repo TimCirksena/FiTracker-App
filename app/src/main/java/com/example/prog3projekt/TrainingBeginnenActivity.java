@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.prog3projekt.Home.HomeActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class TrainingBeginnenActivity extends AppCompatActivity {
 
     private Button vorlage;
@@ -43,6 +46,14 @@ public class TrainingBeginnenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TrainingBeginnenActivity.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+        FloatingActionButton buttonBack = findViewById(R.id.button_back_trainingBeginnen);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TrainingBeginnenActivity.this, HomeActivity.class);
+                startActivity(intent);;
             }
         });
     }

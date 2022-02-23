@@ -19,12 +19,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseAdapter;
 import com.example.prog3projekt.ExerciseDB.ExerciseAdapterVorlage;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -70,6 +72,13 @@ public class VorlageActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 }
+        });
+        FloatingActionButton buttonBack = findViewById(R.id.button_back_vorlage);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
     }
 

@@ -82,6 +82,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton buttonBack = findViewById(R.id.button_back_main);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TrainingBeginnenActivity.class);
+                startActivity(intent);
+            }
+        });
+        FloatingActionButton buttonDeleteAll = findViewById(R.id.button_delete_main);
+        buttonDeleteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exerciseViewModel.deleteAllNotes();
+            }
+        });
+
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -152,27 +168,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //Menu für Delete all notes
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //Zum öffnen des Textfensters
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.delete_all_notes:
-                exerciseViewModel.deleteAllNotes();
-                Toast.makeText(this, "Alles gelöscht amk", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.back:
-                finish();
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     private Exercise initalisierungNote(Intent data) {
 

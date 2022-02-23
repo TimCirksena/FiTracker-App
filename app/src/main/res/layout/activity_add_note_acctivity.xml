@@ -4,10 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".AddEditNoteActivity"
-    android:background="@color/grey">
+    tools:context=".AddEditNoteActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/button_back_addEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="right"
+            android:backgroundTint="@color/main_color"
+            android:baselineAligned="false"
+            app:borderWidth="0dp"
+            android:cropToPadding="false"
+            android:foreground="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/textView4"
@@ -30,9 +53,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:textSize="20sp"
         android:hint="Wähle das Datum aus"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/edit_text_description"
@@ -61,7 +84,7 @@
         android:ems="10"
         android:hint="Willst du die Übung einer Vorlage hinzufügen?"
         android:inputType="textAutoComplete"
-        android:minHeight="48dp"/>
+        android:minHeight="48dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -139,8 +162,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        >
+        android:gravity="center_vertical">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/angry_Abbrechen"

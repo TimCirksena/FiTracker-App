@@ -1,6 +1,7 @@
 package com.example.prog3projekt;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +30,7 @@ import android.widget.Toast;
 
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -59,8 +62,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     public static final String EXTRA_VORLAGE =
             "com.example.prog3projekt.EXTRA_VORLAGE";
 
-    private int dick;
-    private Date date;
+
     private EditText editTextBeschreibung;
     private EditText editTextVorlage;
     private NumberPicker editSchwierigkeit;
@@ -76,6 +78,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     private Button clickAbbrechen;
     private Button clickTagSpeichern;
     private Button clickWeitereÜbunng;
+    private FloatingActionButton buttonBack;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -91,7 +94,14 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         clickAbbrechen = findViewById(R.id.angry_Abbrechen);
         clickTagSpeichern = findViewById(R.id.angry_Tag_speichern);
         clickWeitereÜbunng = findViewById(R.id.angry_Weitere_Uebung);
+        buttonBack = findViewById(R.id.button_back_addEdit);
 
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
+            }
+        });
         clickAbbrechen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,7 +199,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         editSaetze.setMinValue(1);
         editSaetze.setMaxValue(10);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         Intent intent = getIntent();
         //In diesem Fall existiert das Object schon und wir wollen es nur verändern
@@ -217,7 +227,6 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
      * LUL
      * */
     private void saveNote() {
-
         String vorlage = editTextVorlage.getText().toString();
         String date = editDateDialog.getText().toString();
         String gewicht = editTextGewicht.getText().toString();
@@ -228,8 +237,8 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         int saetze = editSaetze.getValue();
         int schwierigkeit = editSchwierigkeit.getValue();
 
-        if (uebung.trim().isEmpty() || beschreibung.trim().isEmpty()) {
-            Toast.makeText(this, "Beschreibung Text ausfüllen", Toast.LENGTH_SHORT).show();
+        if (uebung.trim().isEmpty() || beschreibung.trim().isEmpty() || date.isEmpty() || gewicht.isEmpty() || vorlage.isEmpty()) {
+            Toast.makeText(this, "Bitte alle Felder ausfüllen!", Toast.LENGTH_SHORT).show();
             return;
         }
         Intent data = new Intent();
@@ -283,7 +292,6 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     }
 
     public void openMainActivity() {
-
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -294,4 +302,36 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         Intent intent = new Intent(this, AddEditNoteActivity.class);
         startActivity(intent);
     }
-}
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        clickAbbrechen = findViewById(R.id.angry_Abbrechen);
+        clickTagSpeichern = findViewById(R.id.angry_Tag_speichern);
+        clickWeitereÜbunng = findViewById(R.id.angry_Weitere_Uebung);
+        buttonBack = findViewById(R.id.button_back_addEdit);
+
+
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
+            }
+        });
+        clickAbbrechen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
+            }
+        });
+        clickTagSpeichern.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveNote();
+            }
+        });
+
+    }
+
+
+    }

@@ -25,12 +25,12 @@ public class DataTimeConverter {
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
     public static int getDayFromDate(String s){
-        if(Integer.parseInt(String.valueOf(s.charAt(0)))==0){
-            return Integer.parseInt(String.valueOf(s.charAt(1)));
-        }
+            if (Integer.parseInt(String.valueOf(s.charAt(0))) == 0) {
+                return Integer.parseInt(String.valueOf(s.charAt(1)));
+            }
+
         else{
             int j = Integer.parseInt(String.valueOf(s.charAt(0)))*10 + Integer.parseInt(String.valueOf(s.charAt(1)));
-            Log.d("j= ", "+"+j);
             return j;
         }
     }
