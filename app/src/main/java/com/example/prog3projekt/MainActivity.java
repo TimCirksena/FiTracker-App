@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -158,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         int saetze = data.getIntExtra(AddEditNoteActivity.EXTRA_SAETZE, 1);
         String gewicht_string = data.getStringExtra(AddEditNoteActivity.EXTRA_GEWICHT);
         String datum = data.getStringExtra(AddEditNoteActivity.EXTRA_DATUM);
-        Exercise exercise = new Exercise(uebung,"1111", beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
+        Exercise exercise = new Exercise(uebung, datum, beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
 
         return exercise;
     }

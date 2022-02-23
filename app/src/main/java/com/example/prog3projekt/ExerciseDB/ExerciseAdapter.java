@@ -1,5 +1,6 @@
 package com.example.prog3projekt.ExerciseDB;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,13 @@ import java.util.List;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder> {
     private List<Exercise> exercises = new ArrayList<>();
     private OnItemClickListener listener;
+    private ViewGroup x;
 
     @NonNull
     @Override
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Die View die wir später an den Context weitergeben, -> Main_activity
+        x = parent;
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.note_item, parent, false);
         return new ExerciseHolder(itemView);
@@ -65,6 +68,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         public ExerciseHolder(View itemView) {
             super(itemView);
             /* TODO:HIER ANPASSEN */
+            itemView.setBackground(x.getResources().getDrawable(R.drawable.buttonshape));
             textViewUebung = itemView.findViewById(R.id.text_view_title);
             textViewBeschreibung = itemView.findViewById(R.id.text_view_description);
             textViewGewicht = itemView.findViewById(R.id.text_view_priority);

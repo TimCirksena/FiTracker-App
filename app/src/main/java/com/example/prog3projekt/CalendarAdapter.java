@@ -1,6 +1,9 @@
 package com.example.prog3projekt;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prog3projekt.ExerciseDB.OnCalendarItemClickListener;
 import com.example.prog3projekt.ExerciseDB.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -16,10 +20,13 @@ import java.util.List;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder> {
     private List<Datum> daten = new ArrayList<>();
-    private OnItemClickListener listener;
+    private OnCalendarItemClickListener listener;
     private String [] kalenderTage;
     ViewGroup x;
 
+    public CalendarAdapter(OnCalendarItemClickListener clickListener){
+        listener = clickListener;
+    }
     @NonNull
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,13 +65,16 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         }
         public void bind(final Datum datum){
                     valueTextView.setText(kalenderTage[datum.getDay()]);
-                    valueTextView.setTextColor(Color.BLACK);
+                    valueTextView.setTextColor(Color.WHITE);
                     if(datum.trained){
-                    itemView.setBackgroundColor(Color.BLUE);
+                    itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape_trained));
                     }
                     else{
-                        itemView.setBackgroundColor(Color.CYAN);
+                        itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape));
                     }
+                    itemView.setOnClickListener(view -> {
+                        listener.onItemClick(datum);
+                        });
             }
         }
     }

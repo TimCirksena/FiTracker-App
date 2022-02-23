@@ -2,7 +2,6 @@ package com.example.prog3projekt.Home;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,35 +10,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.prog3projekt.CalendarAdapter;
 import com.example.prog3projekt.DataTimeConverter;
 import com.example.prog3projekt.Datum;
+import com.example.prog3projekt.DayExercisesActivity;
+import com.example.prog3projekt.ExerciseDB.OnCalendarItemClickListener;
 import com.example.prog3projekt.MainActivity;
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.example.prog3projekt.R;
 import com.example.prog3projekt.statistikActivity;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.Series;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.GridLayout;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity  implements OnCalendarItemClickListener {
     Button heute;
     GraphView graphView;
     List <Exercise> allExercises;
     ExerciseViewModel exerciseViewModel;
     CalendarAdapter adapter;
+    public static String EXTRADATUM = "com.example.prog3projekt.Home.EXTRA_DATUM";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +45,8 @@ public class HomeActivity extends AppCompatActivity {
         heute = findViewById(R.id.heuteBtn);
         graphView = findViewById(R.id.graphView);
         RecyclerView recyclerView = findViewById(R.id.calendar_recycler);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 10));
-        adapter = new CalendarAdapter();
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 7));
+        adapter = new CalendarAdapter(this);
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
 
 
@@ -66,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
                 for(int i=0;i< DataTimeConverter.getAmountDay();i++) {
                     changed = false;
                     for (int j = 0; j < exercises.size(); j++) {
-                        if (exercises.get(j).getTag() == i) {
+                        if (exercises.get(j).getTag()-1 == i) {
                             adapter.getDatumAt(i).setTrained(true);
                             changed=true;
 
@@ -75,27 +73,28 @@ public class HomeActivity extends AppCompatActivity {
                     if(!changed){
                         adapter.getDatumAt(i).setTrained(false);
                     }
-                    adapter.notifyItemChanged(i);
+                    adapter.notifyDataSetChanged();
                 }
                 }
         });
 
-        addSimulationExercises();
-
-        exerciseViewModel.getExerciseForDate(01, 02, 2022).observe(this, new Observer<List<Exercise>>() {
+        exerciseViewModel.getExerciseForDate(01, DataTimeConverter.getMonth(), DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
-                allExercises = exercises;
-                DataPoint[] s = new DataPoint[allExercises.size()];
-                for(int i = 0; i<allExercises.size(); i++) {
-                    s[i] = new DataPoint(allExercises.get(i).getTag(), allExercises.get(i).getSchwierigkeit());
+                DataPoint[] s = new DataPoint[DataTimeConverter.getAmountDay()];
+                for(int j = 0; j<DataTimeConverter.getAmountDay();j++) {
+                    s[j] = new DataPoint(j,0);
+                    for (int i = 0; i < exercises.size(); i++) {
+                        if(exercises.get(i).getTag()==j) {
+                            s[j] = new DataPoint(j, s[j].getY()+exercises.get(i).getSchwierigkeit());
+                        }
+                    }
                 }
-                Series<DataPoint> series = new LineGraphSeries<>(s);
-                setUpGraphView(graphView, 30, 100);
+                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(s);
+                setUpGraphView(graphView, DataTimeConverter.getAmountDay(), 100);
                 updateGraphView(graphView, series);
             }
         });
-
 
         //Button zur "Erstellung" eines neuen Tages"
         heute.setOnClickListener(new View.OnClickListener() {
@@ -130,14 +129,25 @@ public class HomeActivity extends AppCompatActivity {
         graphView.getViewport().setYAxisBoundsManual(true);
         graphView.getViewport().setMinY(0);
         graphView.getViewport().setMaxY(maxY);
-        graphView.getViewport().setMinX(0);
+        graphView.getViewport().setMinX(1);
         graphView.getViewport().setMaxX(maxX);
         graphView.setTitleColor(R.color.main_color);
         graphView.setTitleTextSize(18);
+        graphView.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
+        graphView.getGridLabelRenderer().setHorizontalLabelsColor(Color.WHITE);
+        graphView.getGridLabelRenderer().setVerticalLabelsColor(Color.WHITE);
     }
     //Hilsmethoden um bei upgedatetem DataSet den Graphen neu zu zeichnen
-    private void updateGraphView(GraphView graphView, Series<DataPoint> s){
+    private void updateGraphView(GraphView graphView, LineGraphSeries<DataPoint> s){
         graphView.removeAllSeries();
+        s.setThickness(50);
         graphView.addSeries(s);
+    }
+
+    @Override
+    public void onItemClick(Datum datum) {
+        Intent intent = new Intent(this, DayExercisesActivity.class);
+        intent.putExtra(EXTRADATUM, datum.getDay());
+        startActivity(intent);
     }
 }

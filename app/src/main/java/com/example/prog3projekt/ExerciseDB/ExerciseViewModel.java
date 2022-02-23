@@ -32,6 +32,9 @@ public class ExerciseViewModel extends AndroidViewModel{
     public LiveData<List<Exercise>> getExerciseForDate(int tag, int monat, int jahr){
         return repository.getAllexercisesLaterThan(tag, monat, jahr);
     }
+    public LiveData<List<Exercise>> getExerciseForDay(int tag, int monat, int jahr){
+        return repository.getExercisesForDay(tag, monat, jahr);
+    }
     public LiveData<List<Exercise>> getAllExercisesForVorlage(String vorlage){
         return repository.getAllExercisesFromVorlage(vorlage);
     }

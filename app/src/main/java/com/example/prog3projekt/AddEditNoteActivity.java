@@ -142,7 +142,20 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
-                String date = dayOfMonth+"."+month+"."+year;
+                String date = new String();
+                if (month < 10 || dayOfMonth < 10){
+                    if (month < 10 && dayOfMonth < 10) {
+                        date = "0" + dayOfMonth + ".0" + month + "." + year;
+                    }
+                    if (month < 10 && dayOfMonth > 9) {
+                        date = "0" + dayOfMonth + "." + month + "." + year;
+                    }
+                    if (month < 10 && dayOfMonth > 9) {
+                        date = dayOfMonth + ".0" + month + "." + year;
+                    }
+                }else{
+                    date = dayOfMonth + "." + month + "." + year;
+                }
                 Log.d("Formatierung Date", date);
                 editDateDialog.setText(date);
             }

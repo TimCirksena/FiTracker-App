@@ -27,6 +27,9 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exersice_table ORDER BY gewicht DESC")
     LiveData<List<Exercise>> getAllNotes();
 
+    @Query("SELECT * FROM exersice_table WHERE monat=:monat AND tag=:tag AND jahr=:jahr")
+    LiveData<List<Exercise>> getExercisesForDay(int tag, int monat, int jahr);
+
     @Query("SELECT * FROM exersice_table WHERE monat >= :monat AND tag >= :tag AND jahr >= :jahr ORDER BY tag ASC")
     LiveData<List<Exercise>> getAllExercisesLaterThan(int tag, int monat, int jahr);
 

@@ -52,4 +52,5 @@ public class DataTimeConverter {
     public static int getYear(){
         return getYearFromDate(getDate());
     }
+    public static int getDay(){return getDayFromDate(getDate());}
 }
