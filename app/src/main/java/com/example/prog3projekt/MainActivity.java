@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         String gewicht_string = data.getStringExtra(AddEditNoteActivity.EXTRA_GEWICHT);
         String datum = data.getStringExtra(AddEditNoteActivity.EXTRA_DATUM);
         String vorlage = data.getStringExtra(AddEditNoteActivity.EXTRA_VORLAGE);
-        Exercise exercise = new Exercise(uebung, datum,1111, beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
+        Exercise exercise = new Exercise(uebung, datum, beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
         exercise.setVorlage(vorlage);
         return exercise;
     }

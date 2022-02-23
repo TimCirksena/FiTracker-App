@@ -3,6 +3,8 @@ package com.example.prog3projekt.ExerciseDB;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.prog3projekt.DataTimeConverter;
+
 @Entity(tableName = "exersice_table")
 public class Exercise {
 
@@ -13,7 +15,7 @@ public class Exercise {
 
     private String datum;
 
-    private int datumInt;
+
 
     private String beschreibung;
 
@@ -29,18 +31,22 @@ public class Exercise {
 
     private int pos;
 
+    private int tag;
+    private int monat;
+    private int jahr;
 
-
-    public Exercise(String name, String datum,int datumInt,  String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos)  {
+    public Exercise(String name, String datum,  String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos)  {
         this.name = name;
         this.datum = datum;
-        this.datumInt = datumInt;
         this.beschreibung = beschreibung;
         this.schwierigkeit = schwierigkeit;
         this.wiederholungen = wiederholungen;
         this.saetze = saetze;
         this.gewicht = gewicht;
         this.pos = pos;
+        this.tag = DataTimeConverter.getDayFromDate(datum);
+        this.monat= DataTimeConverter.getMonthFromDate(datum);
+        this.jahr = DataTimeConverter.getYearFromDate(datum);
     }
 
     public void setVorlage(String s){
@@ -106,12 +112,27 @@ public class Exercise {
         return pos;
     }
 
-    public int getDatumInt() {
-        return datumInt;
+    public int getTag() {
+        return tag;
     }
 
-    public void setDatumInt(int datumInt) {
-        this.datumInt = datumInt;
+    public void setTag(int tagInt) {
+        this.tag = tagInt;
     }
 
+    public int getMonat() {
+        return monat;
+    }
+
+    public void setMonat(int monatInt) {
+        this.monat = monatInt;
+    }
+
+    public int getJahr() {
+        return jahr;
+    }
+
+    public void setJahr(int jahrInt) {
+        this.jahr = jahrInt;
+    }
 }

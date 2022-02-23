@@ -111,7 +111,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
                 int saetze = editSaetze.getValue();
                 int schwierigkeit = editSchwierigkeit.getValue();
 
-                Exercise exercise = new Exercise(uebung, date, 111, beschreibung, schwierigkeit, wiederholungen, saetze, gewicht, userSpinnerChoice);
+                Exercise exercise = new Exercise(uebung, date, beschreibung, schwierigkeit, wiederholungen, saetze, gewicht, userSpinnerChoice);
                 openNewAddActivity(exercise);
             }
         });

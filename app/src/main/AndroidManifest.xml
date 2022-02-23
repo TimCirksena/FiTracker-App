@@ -12,6 +12,8 @@
         <activity
             android:name=".DayExercisesActivity"
             android:exported="false" />
+        <activity android:name=".TrainingBeginnenActivity" android:exported="false"/>
+        <activity android:name=".VorlageActivity" android:exported="false"/>
         <activity
             android:name=".AddEditNoteActivity"
             android:exported="false"

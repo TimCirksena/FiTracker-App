@@ -16,6 +16,7 @@ import com.example.prog3projekt.MainActivity;
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.example.prog3projekt.R;
+import com.example.prog3projekt.TrainingBeginnenActivity;
 import com.example.prog3projekt.statistikActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -100,7 +101,7 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
         heute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                Intent intent = new Intent(HomeActivity.this, TrainingBeginnenActivity.class);
                 startActivity(intent); }
             });
         //OnClickListener auf der Statistik, zur ausführlicheren Statistik in der Statistik Activity
