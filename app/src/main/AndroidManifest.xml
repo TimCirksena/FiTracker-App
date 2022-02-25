@@ -12,12 +12,12 @@
         <activity
             android:name=".DayExercisesActivity"
             android:exported="false" />
-        <activity android:name=".TrainingBeginnenActivity" android:exported="false"/>
-        <activity android:name=".VorlageActivity" android:exported="false"/>
+        <activity android:name=".StartTrainingActivity" android:exported="false"/>
+        <activity android:name=".TemplateActivity" android:exported="false"/>
         <activity
-            android:name=".AddEditNoteActivity"
+            android:name=".AddEditUebungActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ListUebungActivity" />
         <activity
             android:name=".Home.HomeActivity"
             android:exported="true">
@@ -28,11 +28,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ListUebungActivity"
             android:exported="false"
             android:launchMode="singleTop"></activity>
         <activity
-            android:name=".statistikActivity"
+            android:name=".StatisticActivity"
             android:exported="false"
             android:launchMode="singleTop"></activity>
     </application>

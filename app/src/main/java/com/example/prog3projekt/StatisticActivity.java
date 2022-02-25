@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -29,8 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
-public class statistikActivity extends AppCompatActivity {
+public class StatisticActivity extends AppCompatActivity {
 
     private TextView minDate;
     private TextView maxDate;
@@ -72,7 +70,7 @@ public class statistikActivity extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        statistikActivity.this,
+                        StatisticActivity.this,
                         R.style.Theme_Material3_Light_Dialog_MinWidth, minDateSetListener,
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
@@ -91,7 +89,7 @@ public class statistikActivity extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        statistikActivity.this,
+                        StatisticActivity.this,
                         R.style.Theme_Material3_Light_Dialog_MinWidth, maxDateSetListener,
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
@@ -139,7 +137,7 @@ public class statistikActivity extends AppCompatActivity {
                                 DataTimeConverter.getDayFromDate(dateFormatMax),
                                 DataTimeConverter.getMonthFromDate(dateFormatMax),
                                 DataTimeConverter.getYearFromDate(dateFormatMax))
-                                .observe(statistikActivity.this, new Observer<List<Exercise>>() {
+                                .observe(StatisticActivity.this, new Observer<List<Exercise>>() {
                                             @Override
                                             public void onChanged(@Nullable List<Exercise> exercises) {
                                                 {
@@ -172,7 +170,7 @@ public class statistikActivity extends AppCompatActivity {
                                                         iterator++;
                                                     }
                                                     LineGraphSeries<DataPoint> series = new LineGraphSeries<>(s);
-                                                    GraphViewHelper.setUpGraphViewWithDate(graphView, minD, maxD, max, statistikActivity.this);
+                                                    GraphViewHelper.setUpGraphViewWithDate(graphView, minD, maxD, max, StatisticActivity.this);
                                                     GraphViewHelper.updateGraphView(graphView, series);
                                                 }
                                             }
@@ -187,7 +185,7 @@ public class statistikActivity extends AppCompatActivity {
                                 DataTimeConverter.getYearFromDate(dateFormatMax),
                                 übungenArray[spinner.getSelectedItemPosition()]
                         )
-                                .observe(statistikActivity.this, new Observer<List<Exercise>>() {
+                                .observe(StatisticActivity.this, new Observer<List<Exercise>>() {
                                     @Override
                                             public void onChanged(@Nullable List<Exercise> exercises) {
                                                 Log.d("Spinner Selection: ", übungenArray[spinner.getSelectedItemPosition()]);
@@ -222,7 +220,7 @@ public class statistikActivity extends AppCompatActivity {
                                                     iterator++;
                                                 }
                                                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(s);
-                                                GraphViewHelper.setUpGraphViewWithDate(graphView, minD, maxD, max, statistikActivity.this);
+                                                GraphViewHelper.setUpGraphViewWithDate(graphView, minD, maxD, max, StatisticActivity.this);
                                                 GraphViewHelper.updateGraphView(graphView, series);
                                             }
                                         }
@@ -240,13 +238,13 @@ public class statistikActivity extends AppCompatActivity {
                 if(DataTimeConverter.getDayFromDate(minDate)<DataTimeConverter.getDayFromDate(maxDate)||DataTimeConverter.getYearFromDate(minDate)<DataTimeConverter.getYearFromDate(maxDate)||DataTimeConverter.getYearFromDate(minDate)==DataTimeConverter.getYearFromDate(maxDate)&&DataTimeConverter.getMonthFromDate(minDate)<DataTimeConverter.getMonthFromDate(maxDate)){
                     return true;
                 }else{
-                    Toast.makeText(statistikActivity.this,"Der tag des Anfangsdatums darf nicht hinter dem Tag des Enddatums liegen.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StatisticActivity.this,"Der tag des Anfangsdatums darf nicht hinter dem Tag des Enddatums liegen.",Toast.LENGTH_SHORT).show();
                 }
             }else{
-                Toast.makeText(statistikActivity.this,"Der Monat des Anfangsdatums darf nicht höher sein, als der des Enddatums", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StatisticActivity.this,"Der Monat des Anfangsdatums darf nicht höher sein, als der des Enddatums", Toast.LENGTH_SHORT).show();
             }
         }else{
-            Toast.makeText(statistikActivity.this,"Es können nur Intervalle inheralb eines Jahres eingetragen werden.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(StatisticActivity.this,"Es können nur Intervalle inheralb eines Jahres eingetragen werden.", Toast.LENGTH_SHORT).show();
         }
         return false;
     }

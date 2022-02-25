@@ -32,11 +32,10 @@ import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.Date;
 import java.util.Arrays;
 import java.util.Calendar;
 
-public class AddEditNoteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddEditUebungActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String EXTRA_DAY_ID =
             "com.example.prog3projekt.EXTRA_DAY_ID";
     public static final String EXTRA_UEBUNG =
@@ -148,7 +147,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        AddEditNoteActivity.this,
+                        AddEditUebungActivity.this,
                         R.style.Theme_Material3_Light_Dialog_MinWidth, mDateSetListener,
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
@@ -292,14 +291,14 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     }
 
     public void openMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ListUebungActivity.class);
         startActivity(intent);
     }
 
     public void openNewAddActivity(Exercise exercise) {
         ExerciseViewModel exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
         exerciseViewModel.insert(exercise);
-        Intent intent = new Intent(this, AddEditNoteActivity.class);
+        Intent intent = new Intent(this, AddEditUebungActivity.class);
         startActivity(intent);
     }
 

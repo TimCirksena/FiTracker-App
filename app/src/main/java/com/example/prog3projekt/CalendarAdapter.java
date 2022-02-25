@@ -1,9 +1,6 @@
 package com.example.prog3projekt;
 
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prog3projekt.ExerciseDB.OnCalendarItemClickListener;
-import com.example.prog3projekt.ExerciseDB.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder> {
-    private List<Datum> daten = new ArrayList<>();
+    private List<Date> daten = new ArrayList<>();
     private OnCalendarItemClickListener listener;
     private String [] kalenderTage;
     ViewGroup x;
@@ -47,11 +43,11 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         return this.daten.size();
     }
 
-    public void setDaten(List<Datum> daten) {
+    public void setDaten(List<Date> daten) {
         this.daten = daten;
         notifyDataSetChanged();
     }
-    public Datum getDatumAt(int position) {
+    public Date getDatumAt(int position) {
         return daten.get(position);
     }
 
@@ -63,7 +59,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
             super(itemView);
             valueTextView = itemView.findViewById(R.id.feld_value);
         }
-        public void bind(final Datum datum){
+        public void bind(final Date datum){
                     valueTextView.setText(kalenderTage[datum.getDay()]);
                     valueTextView.setTextColor(Color.WHITE);
                     if(datum.trained){

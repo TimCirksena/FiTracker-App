@@ -1,10 +1,10 @@
 package com.example.prog3projekt;
 
-public class Datum {
+public class Date {
 
     boolean trained;
     int day;
-    public Datum(int day, boolean trained){
+    public Date(int day, boolean trained){
         this.day=day;
         this.trained=trained;
     }

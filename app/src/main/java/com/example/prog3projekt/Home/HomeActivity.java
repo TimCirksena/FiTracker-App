@@ -9,23 +9,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prog3projekt.CalendarAdapter;
 import com.example.prog3projekt.DataTimeConverter;
-import com.example.prog3projekt.Datum;
+import com.example.prog3projekt.Date;
 import com.example.prog3projekt.DayExercisesActivity;
 import com.example.prog3projekt.ExerciseDB.OnCalendarItemClickListener;
 import com.example.prog3projekt.GraphViewHelper;
-import com.example.prog3projekt.MainActivity;
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.example.prog3projekt.R;
-import com.example.prog3projekt.TrainingBeginnenActivity;
-import com.example.prog3projekt.statistikActivity;
+import com.example.prog3projekt.StartTrainingActivity;
+import com.example.prog3projekt.StatisticActivity;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -52,10 +49,10 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
 
 
-        ArrayList<Datum> listDatesInMonth = new ArrayList<Datum>();
+        ArrayList<Date> listDatesInMonth = new ArrayList<Date>();
         recyclerView.setAdapter(adapter);
         for(int i=0;i< DataTimeConverter.getAmountDay();i++){
-            listDatesInMonth.add(new Datum(i, false));
+            listDatesInMonth.add(new Date(i, false));
         }
         adapter.setDaten(listDatesInMonth);
 
@@ -106,14 +103,14 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
         heute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, TrainingBeginnenActivity.class);
+                Intent intent = new Intent(HomeActivity.this, StartTrainingActivity.class);
                 startActivity(intent); }
             });
         //OnClickListener auf der Statistik, zur ausführlicheren Statistik in der Statistik Activity
         graphView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, statistikActivity.class);
+                Intent intent = new Intent(HomeActivity.this, StatisticActivity.class);
                 startActivity(intent);
             }
         });
@@ -132,7 +129,7 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
     }
 
     @Override
-    public void onItemClick(Datum datum) {
+    public void onItemClick(Date datum) {
         Intent intent = new Intent(this, DayExercisesActivity.class);
         intent.putExtra(EXTRADATUM, datum.getDay());
         startActivity(intent);
