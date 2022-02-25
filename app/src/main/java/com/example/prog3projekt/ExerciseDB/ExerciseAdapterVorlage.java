@@ -17,11 +17,13 @@ import java.util.List;
 public class ExerciseAdapterVorlage extends RecyclerView.Adapter<ExerciseAdapterVorlage.ExerciseHolder>{
     private List<Exercise> exercises = new ArrayList<>();
     private OnItemClickListner listner;
+    ViewGroup x;
 
     @NonNull
     @Override
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Die View die wir später an den Context weitergeben, -> Main_activity
+        x = parent;
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.vorlage_item, parent, false);
         return new ExerciseHolder(itemView);
@@ -65,7 +67,8 @@ public class ExerciseAdapterVorlage extends RecyclerView.Adapter<ExerciseAdapter
             super(itemView);
             /* TODO:HIER ANPASSEN */
             textViewVorlageTitle = itemView.findViewById(R.id.text_view_vorlage_title);
-
+            textViewVorlageTitle.setBackground(x.getResources().getDrawable(R.drawable.buttonshape));
+            textViewVorlageTitle.setTextColor(x.getResources().getColor(R.color.white));
             //FÜrs EDIT der Notes
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

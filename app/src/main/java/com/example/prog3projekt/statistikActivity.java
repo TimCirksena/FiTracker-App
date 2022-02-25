@@ -188,8 +188,9 @@ public class statistikActivity extends AppCompatActivity {
                                 übungenArray[spinner.getSelectedItemPosition()]
                         )
                                 .observe(statistikActivity.this, new Observer<List<Exercise>>() {
-                                            @Override
+                                    @Override
                                             public void onChanged(@Nullable List<Exercise> exercises) {
+                                                Log.d("Spinner Selection: ", übungenArray[spinner.getSelectedItemPosition()]);
                                                 Date minD = new Date(DataTimeConverter.getYearFromDate(minDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(minDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(minDate.getText().toString()));
                                                 Date maxD = new Date(DataTimeConverter.getYearFromDate(maxDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(maxDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(maxDate.getText().toString()));
                                                 int max = 1;
