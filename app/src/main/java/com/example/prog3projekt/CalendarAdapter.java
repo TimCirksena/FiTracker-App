@@ -72,6 +72,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
                     else{
                         itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape));
                     }
+                    if(datum.getDay()==DataTimeConverter.getDay()-1){
+                        itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape_today));
+                    }
                     itemView.setOnClickListener(view -> {
                         listener.onItemClick(datum);
                         });

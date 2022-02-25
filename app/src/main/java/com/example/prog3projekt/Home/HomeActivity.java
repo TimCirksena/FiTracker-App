@@ -12,6 +12,7 @@ import com.example.prog3projekt.DataTimeConverter;
 import com.example.prog3projekt.Datum;
 import com.example.prog3projekt.DayExercisesActivity;
 import com.example.prog3projekt.ExerciseDB.OnCalendarItemClickListener;
+import com.example.prog3projekt.GraphViewHelper;
 import com.example.prog3projekt.MainActivity;
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
@@ -82,6 +83,7 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
         exerciseViewModel.getExerciseForDate(01, DataTimeConverter.getMonth(), DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
+                int max=0;
                 DataPoint[] s = new DataPoint[DataTimeConverter.getAmountDay()];
                 for(int j = 0; j<DataTimeConverter.getAmountDay();j++) {
                     s[j] = new DataPoint(j,0);
@@ -90,10 +92,13 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
                             s[j] = new DataPoint(j, s[j].getY()+exercises.get(i).getSchwierigkeit());
                         }
                     }
+                    if(max<s[j].getY()){
+                        max = (int)s[j].getY();
+                    }
                 }
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(s);
-                setUpGraphView(graphView, DataTimeConverter.getAmountDay(), 100);
-                updateGraphView(graphView, series);
+                GraphViewHelper.setUpGraphView(graphView, DataTimeConverter.getAmountDay(), max);
+                GraphViewHelper.updateGraphView(graphView, series);
             }
         });
 
@@ -116,35 +121,14 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
     }
 
     void addSimulationExercises(){
-        exerciseViewModel.insert(new Exercise("Übung","01.02.2022","gut",20,10,3,"100",5));
-        exerciseViewModel.insert(new Exercise("Übung","05.02.2022","gut",30,10,3,"100",5));
-        exerciseViewModel.insert(new Exercise("Übung","08.02.2022","gut",40,10,3,"100",6));
-        exerciseViewModel.insert(new Exercise("Übung","11.02.2022","gut",50,10,3,"100",3));
-        exerciseViewModel.insert(new Exercise("Übung","15.02.2022","gut",60,10,3,"100",2));
-        exerciseViewModel.insert(new Exercise("Übung","21.02.2022","gut",70,10,3,"100",5));
-        exerciseViewModel.insert(new Exercise("Übung","25.02.2022","gut",80,10,3,"100",1));
-        exerciseViewModel.insert(new Exercise("Übung","25.02.2022","gut",80,10,3,"100",1));
-    }
-
-    //Hilfsmethode um den Graphen mit der richtigen größe(x- und y-Achse) und dem richtigen UI zu bauen
-    private void setUpGraphView(GraphView graphView, int maxX, int maxY){
-        graphView.getViewport().setXAxisBoundsManual(true);
-        graphView.getViewport().setYAxisBoundsManual(true);
-        graphView.getViewport().setMinY(0);
-        graphView.getViewport().setMaxY(maxY);
-        graphView.getViewport().setMinX(1);
-        graphView.getViewport().setMaxX(maxX);
-        graphView.setTitleColor(R.color.main_color);
-        graphView.setTitleTextSize(18);
-        graphView.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
-        graphView.getGridLabelRenderer().setHorizontalLabelsColor(Color.WHITE);
-        graphView.getGridLabelRenderer().setVerticalLabelsColor(Color.WHITE);
-    }
-    //Hilsmethoden um bei upgedatetem DataSet den Graphen neu zu zeichnen
-    private void updateGraphView(GraphView graphView, LineGraphSeries<DataPoint> s){
-        graphView.removeAllSeries();
-        s.setThickness(30);
-        graphView.addSeries(s);
+        exerciseViewModel.insert(new Exercise("Bench Press","01.02.2022","gut",20,10,3,"100",5));
+        exerciseViewModel.insert(new Exercise("Bench Press","05.02.2022","gut",30,10,3,"100",5));
+        exerciseViewModel.insert(new Exercise("Bench Press","08.02.2022","gut",40,10,3,"100",6));
+        exerciseViewModel.insert(new Exercise("Bench Press","11.02.2022","gut",50,10,3,"100",3));
+        exerciseViewModel.insert(new Exercise("Bench Press","15.02.2022","gut",60,10,3,"100",2));
+        exerciseViewModel.insert(new Exercise("Bench Press","21.02.2022","gut",70,10,3,"100",5));
+        exerciseViewModel.insert(new Exercise("Bench Press","25.02.2022","gut",80,10,3,"100",1));
+        exerciseViewModel.insert(new Exercise("Bench Press","25.02.2022","gut",80,10,3,"100",1));
     }
 
     @Override

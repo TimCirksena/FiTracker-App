@@ -15,16 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseAdapter;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.example.prog3projekt.ExerciseDB.OnItemClickListener;
+import com.example.prog3projekt.Home.HomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -66,12 +69,31 @@ public class DayExercisesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent data = getIntent();
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_note);
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DayExercisesActivity.this, AddEditNoteActivity.class);
                 someActivityResultLauncher.launch(intent);
+            }
+        });
+
+        FloatingActionButton buttonBack = findViewById(R.id.button_back_main);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DayExercisesActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+        FloatingActionButton buttonDeleteAll = findViewById(R.id.button_delete_main);
+        buttonDeleteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int tag = data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM",1)+1;
+                exerciseViewModel.deleteExerciseForDay(DataTimeConverter.addZerosToDate(tag,DataTimeConverter.getMonth(),DataTimeConverter.getYear()));
+                Log.d("Exercise to delete: ", data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM",1)+1+"."+DataTimeConverter.getMonth()+"."+DataTimeConverter.getYear());
             }
         });
 
@@ -83,7 +105,6 @@ public class DayExercisesActivity extends AppCompatActivity {
         //Adapter mit der RecyclerView verbinden
         ExerciseAdapter adapter = new ExerciseAdapter();
         recyclerView.setAdapter(adapter);
-        Intent data = getIntent();
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
         exerciseViewModel.getExerciseForDay(data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM",1)+1,DataTimeConverter.getMonth(),DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
             @Override
@@ -136,19 +157,7 @@ public class DayExercisesActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.delete_all_notes:
-                exerciseViewModel.deleteAllNotes();
-                Toast.makeText(this, "Alles gelöscht amk", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.back:
-                finish();
 
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     private Exercise initalisierungNote(Intent data) {
         String uebung = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);

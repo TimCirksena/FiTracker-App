@@ -31,13 +31,19 @@ public class ExerciseViewModel extends AndroidViewModel{
     public void deleteAllNotes(){
         repository.deleteAllExercises();
     }
+    public void deleteExerciseForDay(String datum){repository.deleteExerciseForDay(datum);}
     public LiveData<List<Exercise>> getExerciseForDate(int tag, int monat, int jahr){
         return repository.getAllexercisesLaterThan(tag, monat, jahr);
     }
     public LiveData<List<Exercise>> getExerciseForDay(int tag, int monat, int jahr){
         return repository.getExercisesForDay(tag, monat, jahr);
     }
-
+    public LiveData<List<Exercise>> getAllExercisesInBetween(int tagMin, int monatMin, int jahrMin,int tagMax, int monatMax, int jahrMax, String name){
+        return repository.getAllExercisesInBetween(tagMin,monatMin,jahrMin,tagMax,monatMax,jahrMax, name);
+    }
+    public LiveData<List<Exercise>> getAllExercisesInBetweenDates(int tagMin, int monatMin, int jahrMin,int tagMax, int monatMax, int jahrMax){
+        return repository.getAllExercisesInBetweenDates(tagMin,monatMin,jahrMin,tagMax,monatMax,jahrMax);
+    }
     public LiveData<List<Exercise>> getAllExercises() {
         return allExercises;
     }

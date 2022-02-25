@@ -7,6 +7,8 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,6 +19,12 @@ public class DataTimeConverter {
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat curFormater = new SimpleDateFormat("dd.MM.yyyy");
         String s = curFormater.format(c);
+        return s;
+    }
+
+    public static String formattedDate(Date date){
+        SimpleDateFormat curFormater = new SimpleDateFormat("dd.MM.yyyy");
+        String s = curFormater.format(date);
         return s;
     }
 
@@ -53,4 +61,28 @@ public class DataTimeConverter {
         return getYearFromDate(getDate());
     }
     public static int getDay(){return getDayFromDate(getDate());}
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static int differenceOfTwoDates(String startDate, String endDate){
+        LocalDate date1 = LocalDate.of(getYearFromDate(startDate),getMonthFromDate(startDate),getDayFromDate(startDate));
+        LocalDate date2 = LocalDate.of(getYearFromDate(endDate),getMonthFromDate(endDate),getDayFromDate(endDate));
+        int numDays = Period.between(date1, date2).getDays();
+        return numDays;
+    }
+    public static String addZerosToDate(int dayOfMonth, int month, int year){
+        String date = new String();
+        if (month < 10 || dayOfMonth < 10) {
+            if (month < 10 && dayOfMonth < 10) {
+                date = "0" + dayOfMonth + ".0" + month + "." + year;
+            }
+            if (month < 10 && dayOfMonth > 9) {
+                date = "0" + dayOfMonth + "." + month + "." + year;
+            }
+            if (month < 10 && dayOfMonth > 9) {
+                date = dayOfMonth + ".0" + month + "." + year;
+            }
+        } else {
+            date = dayOfMonth + "." + month + "." + year;
+        }
+        return date;
+    }
 }
