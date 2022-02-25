@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
+import com.example.prog3projekt.Home.HomeActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -42,6 +45,7 @@ public class StatisticActivity extends AppCompatActivity {
     String[] übungenArray;
     String dateFormatMin;
     String dateFormatMax;
+    private FloatingActionButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +105,7 @@ public class StatisticActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
-                String date = DataTimeConverter.addZerosToDate(dayOfMonth,month,year);
+                String date = DataTimeConverter.addZerosToDate(dayOfMonth, month, year);
                 minDate.setText(date);
                 dateFormatMin = date;
             }
@@ -110,7 +114,7 @@ public class StatisticActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
-                String date = DataTimeConverter.addZerosToDate(dayOfMonth,month,year);
+                String date = DataTimeConverter.addZerosToDate(dayOfMonth, month, year);
                 Log.d("Formatierung Date", date);
                 maxDate.setText(date);
                 dateFormatMax = date;
@@ -128,8 +132,7 @@ public class StatisticActivity extends AppCompatActivity {
                 end.setTime(maxD);
 
 
-
-                if (!minDate.getText().toString().equals("") && !maxDate.getText().toString().equals("")&&allInputsCorrect(dateFormatMin, dateFormatMax)) {
+                if (!minDate.getText().toString().equals("") && !maxDate.getText().toString().equals("") && allInputsCorrect(dateFormatMin, dateFormatMax)) {
                     if (übungenArray[spinner.getSelectedItemPosition()].equals("All Exercises")) {
                         viewModel.getAllExercisesInBetweenDates(DataTimeConverter.getDayFromDate(dateFormatMin),
                                 DataTimeConverter.getMonthFromDate(dateFormatMin),
@@ -142,7 +145,7 @@ public class StatisticActivity extends AppCompatActivity {
                                             public void onChanged(@Nullable List<Exercise> exercises) {
                                                 {
                                                     int anzahlTage = 0;
-                                                    for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()){
+                                                    for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()) {
                                                         anzahlTage++;
                                                     }
                                                     //https://stackoverflow.com/questions/4534924/how-to-iterate-through-range-of-dates-in-java
@@ -186,14 +189,14 @@ public class StatisticActivity extends AppCompatActivity {
                                 übungenArray[spinner.getSelectedItemPosition()]
                         )
                                 .observe(StatisticActivity.this, new Observer<List<Exercise>>() {
-                                    @Override
+                                            @Override
                                             public void onChanged(@Nullable List<Exercise> exercises) {
                                                 Log.d("Spinner Selection: ", übungenArray[spinner.getSelectedItemPosition()]);
                                                 Date minD = new Date(DataTimeConverter.getYearFromDate(minDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(minDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(minDate.getText().toString()));
                                                 Date maxD = new Date(DataTimeConverter.getYearFromDate(maxDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(maxDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(maxDate.getText().toString()));
                                                 int max = 1;
-                                                int anzahlTage=0;
-                                                for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()){
+                                                int anzahlTage = 0;
+                                                for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()) {
                                                     anzahlTage++;
                                                 }
                                                 DataPoint[] s = new DataPoint[anzahlTage];
@@ -231,20 +234,29 @@ public class StatisticActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-    private boolean allInputsCorrect(String minDate, String maxDate){
-        if(DataTimeConverter.getYearFromDate(minDate)==DataTimeConverter.getYearFromDate(maxDate)){
-            if(DataTimeConverter.getMonthFromDate(minDate)<=DataTimeConverter.getMonthFromDate(maxDate)){
-                if(DataTimeConverter.getDayFromDate(minDate)<DataTimeConverter.getDayFromDate(maxDate)||DataTimeConverter.getYearFromDate(minDate)<DataTimeConverter.getYearFromDate(maxDate)||DataTimeConverter.getYearFromDate(minDate)==DataTimeConverter.getYearFromDate(maxDate)&&DataTimeConverter.getMonthFromDate(minDate)<DataTimeConverter.getMonthFromDate(maxDate)){
-                    return true;
-                }else{
-                    Toast.makeText(StatisticActivity.this,"Der tag des Anfangsdatums darf nicht hinter dem Tag des Enddatums liegen.",Toast.LENGTH_SHORT).show();
-                }
-            }else{
-                Toast.makeText(StatisticActivity.this,"Der Monat des Anfangsdatums darf nicht höher sein, als der des Enddatums", Toast.LENGTH_SHORT).show();
+
+        FloatingActionButton buttonBack = findViewById(R.id.button_back_stat);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
-        }else{
-            Toast.makeText(StatisticActivity.this,"Es können nur Intervalle inheralb eines Jahres eingetragen werden.", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private boolean allInputsCorrect(String minDate, String maxDate) {
+        if (DataTimeConverter.getYearFromDate(minDate) == DataTimeConverter.getYearFromDate(maxDate)) {
+            if (DataTimeConverter.getMonthFromDate(minDate) <= DataTimeConverter.getMonthFromDate(maxDate)) {
+                if (DataTimeConverter.getDayFromDate(minDate) < DataTimeConverter.getDayFromDate(maxDate) || DataTimeConverter.getYearFromDate(minDate) < DataTimeConverter.getYearFromDate(maxDate) || DataTimeConverter.getYearFromDate(minDate) == DataTimeConverter.getYearFromDate(maxDate) && DataTimeConverter.getMonthFromDate(minDate) < DataTimeConverter.getMonthFromDate(maxDate)) {
+                    return true;
+                } else {
+                    Toast.makeText(StatisticActivity.this, "Der tag des Anfangsdatums darf nicht hinter dem Tag des Enddatums liegen.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(StatisticActivity.this, "Der Monat des Anfangsdatums darf nicht höher sein, als der des Enddatums", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(StatisticActivity.this, "Es können nur Intervalle inheralb eines Jahres eingetragen werden.", Toast.LENGTH_SHORT).show();
         }
         return false;
     }

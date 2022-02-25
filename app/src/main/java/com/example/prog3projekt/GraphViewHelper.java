@@ -13,8 +13,9 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.Date;
 
 public class GraphViewHelper {
-    //Hilfsmethode um den Graphen mit der richtigen größe(x- und y-Achse) und dem richtigen UI zu bauen
-    public static void setUpGraphView(GraphView graphView, int maxX, int maxY){
+    /** <i>Tom Sattler</i>
+     * Hilfsmethode um den Graphen mit der richtigen größe(x- und y-Achse) und dem richtigen UI zu bauen */
+    public static void setUpGraphView(GraphView graphView, int maxX, int maxY) {
         graphView.getViewport().setXAxisBoundsManual(true);
         graphView.getViewport().setYAxisBoundsManual(true);
         graphView.getViewport().setMinY(0);
@@ -27,7 +28,9 @@ public class GraphViewHelper {
         graphView.getGridLabelRenderer().setHorizontalLabelsColor(Color.WHITE);
         graphView.getGridLabelRenderer().setVerticalLabelsColor(Color.WHITE);
     }
-    public static void setUpGraphViewWithDate(GraphView graphView, Date minX, Date maxX, int maxY, Activity context){
+    /** <i>Tom Sattler</i>
+     * */
+    public static void setUpGraphViewWithDate(GraphView graphView, Date minX, Date maxX, int maxY, Activity context) {
         graphView.getViewport().setXAxisBoundsManual(true);
         graphView.getViewport().setYAxisBoundsManual(true);
         graphView.getViewport().setMinY(0);
@@ -42,8 +45,10 @@ public class GraphViewHelper {
         graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(context));
         graphView.getGridLabelRenderer().setNumHorizontalLabels(5);
     }
-    //Hilsmethoden um bei upgedatetem DataSet den Graphen neu zu zeichnen
-    public static  void updateGraphView(GraphView graphView, LineGraphSeries<DataPoint> s){
+
+    /** <i>Tom Sattler</i>
+     *  Hilsmethoden um bei upgedatetem DataSet den Graphen neu zu zeichnen */
+    public static void updateGraphView(GraphView graphView, LineGraphSeries<DataPoint> s) {
         graphView.removeAllSeries();
         s.setThickness(10);
         graphView.addSeries(s);

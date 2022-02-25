@@ -32,38 +32,6 @@ public class ListUebungActivity extends AppCompatActivity {
             "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";
     private ExerciseViewModel exerciseViewModel;
 
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    Intent data = result.getData();
-                    if (result.getResultCode() == 77) {
-                        //Neues Note bekommt Daten durch Intent übergeben und wird erzeugt, anschließend in die Datenbank inserted
-                        exerciseViewModel.insert(initalisierungNote(data));
-                    } else if (result.getResultCode() == 78) {
-                        int id = data.getIntExtra(AddEditUebungActivity.EXTRA_ID, -1);
-                        if (id == -1) {
-                            Toast.makeText(ListUebungActivity.this, "note cant be updated", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Exercise exercise = initalisierungNote(data);
-                        exercise.setId(id);
-                        exerciseViewModel.update(exercise);
-                        Toast.makeText(ListUebungActivity.this, "updated note", Toast.LENGTH_SHORT).show();
-                    }
-                    else if(result.getResultCode() == 79){
-                        String s = data.getStringExtra(TemplateActivity.EXTRA_VORLAGE_VORLAGE);
-                        Log.d(s,"mk");
-                        Toast.makeText(ListUebungActivity.this, "List of Vorlagen", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(ListUebungActivity.this, "not saved", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-    );
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +76,9 @@ public class ListUebungActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String s = intent.getStringExtra(TemplateActivity.EXTRA_VORLAGE_VORLAGE);
-        Log.d(s,"intentswag");
 
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
-        if(s != null){
+        if (s != null) {
             exerciseViewModel.getAllExercisesForVorlage(s).observe(this, new Observer<List<Exercise>>() {
                 @Override
                 public void onChanged(@Nullable List<Exercise> exercises) {
@@ -119,8 +86,8 @@ public class ListUebungActivity extends AppCompatActivity {
 
                 }
             });
-        }else{
-            exerciseViewModel.getExerciseForDay(DataTimeConverter.getDay(),DataTimeConverter.getMonth(), DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
+        } else {
+            exerciseViewModel.getExerciseForDay(DataTimeConverter.getDay(), DataTimeConverter.getMonth(), DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
                 @Override
                 public void onChanged(@Nullable List<Exercise> exercises) {
 
@@ -185,4 +152,30 @@ public class ListUebungActivity extends AppCompatActivity {
         return exercise;
     }
 
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent data = result.getData();
+                    if (result.getResultCode() == 77) {
+                        //Neues Note bekommt Daten durch Intent übergeben und wird erzeugt, anschließend in die Datenbank inserted
+                        exerciseViewModel.insert(initalisierungNote(data));
+                    } else if (result.getResultCode() == 78) {
+                        int id = data.getIntExtra(AddEditUebungActivity.EXTRA_ID, -1);
+                        if (id == -1) {
+                            Toast.makeText(ListUebungActivity.this, "Die Übung kann nicht geupdated werden!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Exercise exercise = initalisierungNote(data);
+                        exercise.setId(id);
+                        exerciseViewModel.update(exercise);
+                        Toast.makeText(ListUebungActivity.this, "Die Übung wurde geupdated!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ListUebungActivity.this, "Die Übung wurde nicht gespeichert!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
 }

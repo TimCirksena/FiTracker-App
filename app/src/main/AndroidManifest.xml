@@ -10,31 +10,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Prog3Projekt">
         <activity
+            android:name=".SplashScreen"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
             android:name=".DayExercisesActivity"
             android:exported="false" />
-        <activity android:name=".StartTrainingActivity" android:exported="false"/>
-        <activity android:name=".TemplateActivity" android:exported="false"/>
+        <activity
+            android:name=".StartTrainingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TemplateActivity"
+            android:exported="false" />
         <activity
             android:name=".AddEditUebungActivity"
             android:exported="false"
             android:parentActivityName=".ListUebungActivity" />
         <activity
             android:name=".Home.HomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ListUebungActivity"
             android:exported="false"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".StatisticActivity"
             android:exported="false"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

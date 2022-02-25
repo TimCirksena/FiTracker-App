@@ -14,7 +14,7 @@ import com.example.prog3projekt.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseAdapterVorlage extends RecyclerView.Adapter<ExerciseAdapterVorlage.ExerciseHolder>{
+public class ExerciseAdapterVorlage extends RecyclerView.Adapter<ExerciseAdapterVorlage.ExerciseHolder> {
     private List<Exercise> exercises = new ArrayList<>();
     private OnItemClickListner listner;
     ViewGroup x;
@@ -35,7 +35,7 @@ public class ExerciseAdapterVorlage extends RecyclerView.Adapter<ExerciseAdapter
         //based on the postion of the recycler view
         //Was auf dem Screen angezeigt wird
         Exercise currentExercise = exercises.get(position);
-        if(currentExercise.getVorlage() != null){
+        if (currentExercise.getVorlage() != null) {
             holder.textViewVorlageTitle.setText(currentExercise.getVorlage());
         }
     }

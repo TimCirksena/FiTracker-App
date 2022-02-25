@@ -30,13 +30,15 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity  implements OnCalendarItemClickListener {
+public class HomeActivity extends AppCompatActivity implements OnCalendarItemClickListener {
     Button heute;
     GraphView graphView;
-    List <Exercise> allExercises;
     ExerciseViewModel exerciseViewModel;
     CalendarAdapter adapter;
     public static String EXTRADATUM = "com.example.prog3projekt.Home.EXTRA_DATUM";
+
+    /** <h2>Tom Sattler</h2>
+     * Start-Screen nachdem Splash-Screen*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
 
         ArrayList<Date> listDatesInMonth = new ArrayList<Date>();
         recyclerView.setAdapter(adapter);
-        for(int i=0;i< DataTimeConverter.getAmountDay();i++){
+        for (int i = 0; i < DataTimeConverter.getAmountDay(); i++) {
             listDatesInMonth.add(new Date(i, false));
         }
         adapter.setDaten(listDatesInMonth);
@@ -60,37 +62,37 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
             @Override
             public void onChanged(List<Exercise> exercises) {
                 boolean changed = false;
-                for(int i=0;i< DataTimeConverter.getAmountDay();i++) {
+                for (int i = 0; i < DataTimeConverter.getAmountDay(); i++) {
                     changed = false;
                     for (int j = 0; j < exercises.size(); j++) {
-                        if (exercises.get(j).getTag()-1 == i) {
+                        if (exercises.get(j).getTag() - 1 == i) {
                             adapter.getDatumAt(i).setTrained(true);
-                            changed=true;
+                            changed = true;
 
                         }
                     }
-                    if(!changed){
+                    if (!changed) {
                         adapter.getDatumAt(i).setTrained(false);
                     }
                     adapter.notifyDataSetChanged();
                 }
-                }
+            }
         });
 
         exerciseViewModel.getExerciseForDate(01, DataTimeConverter.getMonth(), DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
-                int max=0;
+                int max = 0;
                 DataPoint[] s = new DataPoint[DataTimeConverter.getAmountDay()];
-                for(int j = 0; j<DataTimeConverter.getAmountDay();j++) {
-                    s[j] = new DataPoint(j,0);
+                for (int j = 0; j < DataTimeConverter.getAmountDay(); j++) {
+                    s[j] = new DataPoint(j, 0);
                     for (int i = 0; i < exercises.size(); i++) {
-                        if(exercises.get(i).getTag()==j) {
-                            s[j] = new DataPoint(j, s[j].getY()+exercises.get(i).getSchwierigkeit());
+                        if (exercises.get(i).getTag() == j) {
+                            s[j] = new DataPoint(j, s[j].getY() + exercises.get(i).getSchwierigkeit());
                         }
                     }
-                    if(max<s[j].getY()){
-                        max = (int)s[j].getY();
+                    if (max < s[j].getY()) {
+                        max = (int) s[j].getY();
                     }
                 }
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(s);
@@ -99,14 +101,15 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
             }
         });
 
-        //Button zur "Erstellung" eines neuen Tages"
+        /** Button zur "Erstellung" eines neuen Tages" */
         heute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, StartTrainingActivity.class);
-                startActivity(intent); }
-            });
-        //OnClickListener auf der Statistik, zur ausführlicheren Statistik in der Statistik Activity
+                startActivity(intent);
+            }
+        });
+        /** OnClickListener auf der Statistik, zur ausführlicheren Statistik in der Statistik Activity */
         graphView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,18 +117,19 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
                 startActivity(intent);
             }
         });
-        addSimulationExercises();
+        /** Zum Testen, sonst alle Übungen immer einzeln inserten */
+        //addSimulationExercises();
     }
 
-    void addSimulationExercises(){
-        exerciseViewModel.insert(new Exercise("Bench Press","01.02.2022","gut",20,10,3,"100",5));
-        exerciseViewModel.insert(new Exercise("Bench Press","05.02.2022","gut",30,10,3,"100",5));
-        exerciseViewModel.insert(new Exercise("Bench Press","08.02.2022","gut",40,10,3,"100",6));
-        exerciseViewModel.insert(new Exercise("Bench Press","11.02.2022","gut",50,10,3,"100",3));
-        exerciseViewModel.insert(new Exercise("Bench Press","15.02.2022","gut",60,10,3,"100",2));
-        exerciseViewModel.insert(new Exercise("Bench Press","21.02.2022","gut",70,10,3,"100",5));
-        exerciseViewModel.insert(new Exercise("Bench Press","25.02.2022","gut",80,10,3,"100",1));
-        exerciseViewModel.insert(new Exercise("Bench Press","25.02.2022","gut",80,10,3,"100",1));
+    void addSimulationExercises() {
+        exerciseViewModel.insert(new Exercise("Bench Press", "01.02.2022", "gut", 20, 10, 3, "100", 5));
+        exerciseViewModel.insert(new Exercise("Bench Press", "05.02.2022", "gut", 30, 10, 3, "100", 5));
+        exerciseViewModel.insert(new Exercise("Bench Press", "08.02.2022", "gut", 40, 10, 3, "100", 6));
+        exerciseViewModel.insert(new Exercise("Bench Press", "11.02.2022", "gut", 50, 10, 3, "100", 3));
+        exerciseViewModel.insert(new Exercise("Bench Press", "15.02.2022", "gut", 60, 10, 3, "100", 2));
+        exerciseViewModel.insert(new Exercise("Bench Press", "21.02.2022", "gut", 70, 10, 3, "100", 5));
+        exerciseViewModel.insert(new Exercise("Bench Press", "25.02.2022", "gut", 80, 10, 3, "100", 1));
+        exerciseViewModel.insert(new Exercise("Bench Press", "25.02.2022", "gut", 80, 10, 3, "100", 1));
     }
 
     @Override

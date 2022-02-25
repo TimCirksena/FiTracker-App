@@ -34,34 +34,9 @@ public class DayExercisesActivity extends AppCompatActivity {
     public static final String EXTRA_GEWICHT_MAIN =
             "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";
     private ExerciseViewModel exerciseViewModel;
-
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    Intent data = result.getData();
-                    if (result.getResultCode() == 77) {
-                        //Neues Note bekommt Daten durch Intent übergeben und wird erzeugt, anschließend in die Datenbank inserted
-                        exerciseViewModel.insert(initalisierungNote(data));
-                    } else if (result.getResultCode() == 78) {
-                        int id = data.getIntExtra(AddEditUebungActivity.EXTRA_ID, -1);
-                        if (id == -1) {
-                            Toast.makeText(DayExercisesActivity.this, "note cant be updated", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Exercise exercise = initalisierungNote(data);
-                        exercise.setId(id);
-                        exerciseViewModel.update(exercise);
-                        Toast.makeText(DayExercisesActivity.this, "updated note", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(DayExercisesActivity.this, "not saved", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-    );
-
-
+    /** <h2>Tim Cirksena & Tom Sattler</h2>
+     *  Ansicht von
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,9 +64,9 @@ public class DayExercisesActivity extends AppCompatActivity {
         buttonDeleteAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int tag = data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM",1)+1;
-                exerciseViewModel.deleteExerciseForDay(DataTimeConverter.addZerosToDate(tag,DataTimeConverter.getMonth(),DataTimeConverter.getYear()));
-                Log.d("Exercise to delete: ", data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM",1)+1+"."+DataTimeConverter.getMonth()+"."+DataTimeConverter.getYear());
+                int tag = data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM", 1) + 1;
+                exerciseViewModel.deleteExerciseForDay(DataTimeConverter.addZerosToDate(tag, DataTimeConverter.getMonth(), DataTimeConverter.getYear()));
+                Log.d("Exercise to delete: ", data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM", 1) + 1 + "." + DataTimeConverter.getMonth() + "." + DataTimeConverter.getYear());
             }
         });
 
@@ -100,11 +75,11 @@ public class DayExercisesActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
 
-        //Adapter mit der RecyclerView verbinden
+        /**Adapter mit der RecyclerView verbinden */
         ExerciseAdapter adapter = new ExerciseAdapter();
         recyclerView.setAdapter(adapter);
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
-        exerciseViewModel.getExerciseForDay(data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM",1)+1,DataTimeConverter.getMonth(),DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
+        exerciseViewModel.getExerciseForDay(data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM", 1) + 1, DataTimeConverter.getMonth(), DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
                 adapter.setNotes(exercises);
@@ -112,7 +87,7 @@ public class DayExercisesActivity extends AppCompatActivity {
         });
 
 
-        //Für das Swipen von notes delete links und rechts
+        /** Für das Swipen von notes delete links und rechts */
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -146,16 +121,32 @@ public class DayExercisesActivity extends AppCompatActivity {
             }
         });
     }
-
-    //Menu für Delete all notes
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //Zum öffnen des Textfensters
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent data = result.getData();
+                    /** Result code wichtig für indenifiaktion */
+                    if (result.getResultCode() == 77) {
+                        /** Neue Übung bekommt Daten durch Intent übergeben und wird erzeugt, anschließend in die Datenbank inserted */
+                        exerciseViewModel.insert(initalisierungNote(data));
+                    } else if (result.getResultCode() == 78) {
+                        int id = data.getIntExtra(AddEditUebungActivity.EXTRA_ID, -1);
+                        if (id == -1) {
+                            Toast.makeText(DayExercisesActivity.this, "note cant be updated", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Exercise exercise = initalisierungNote(data);
+                        exercise.setId(id);
+                        exerciseViewModel.update(exercise);
+                        Toast.makeText(DayExercisesActivity.this, "updated note", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(DayExercisesActivity.this, "not saved", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
 
     private Exercise initalisierungNote(Intent data) {
         String uebung = data.getStringExtra(AddEditUebungActivity.EXTRA_TITLE);
