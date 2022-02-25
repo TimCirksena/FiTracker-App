@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TrainingBeginnenActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                MainActivity.this.finish();
             }
         });
         FloatingActionButton buttonDeleteAll = findViewById(R.id.button_delete_main);
@@ -121,9 +123,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }else{
-            exerciseViewModel.getAllExercises().observe(this, new Observer<List<Exercise>>() {
+            exerciseViewModel.getExerciseForDay(DataTimeConverter.getDay(),DataTimeConverter.getMonth(), DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
                 @Override
                 public void onChanged(@Nullable List<Exercise> exercises) {
+
                     adapter.setNotes(exercises);
                 }
             });

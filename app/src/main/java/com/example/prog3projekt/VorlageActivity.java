@@ -58,7 +58,6 @@ public class VorlageActivity extends AppCompatActivity {
         exerciseViewModel.getAllExercisesWithVorlage().observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
-
                 adapter.setNotes(exercises);
             }
         });
@@ -66,10 +65,12 @@ public class VorlageActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Exercise exercise) {
                 Intent intent = new Intent(VorlageActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(EXTRA_VORLAGE_VORLAGE, exercise.getVorlage());
                 Log.d(exercise.getVorlage(),"mk2");
                 setResult(79, intent);
                 startActivity(intent);
+                VorlageActivity.this.finish();
 
                 }
         });
@@ -77,7 +78,11 @@ public class VorlageActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+                Intent intent = new Intent(VorlageActivity.this, TrainingBeginnenActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                VorlageActivity.this.finish();
             }
         });
     }

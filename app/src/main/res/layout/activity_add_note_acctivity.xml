@@ -4,15 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@drawable/gradient"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".AddEditNoteActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right">
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_back_addEdit"
@@ -29,7 +26,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
 
-    </LinearLayout>
 
 
     <TextView
@@ -37,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
+
         android:text="Wähle deine Übung aus"
         android:textSize="30sp" />
 

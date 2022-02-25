@@ -30,22 +30,29 @@ public class TrainingBeginnenActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(TrainingBeginnenActivity.this, VorlageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                TrainingBeginnenActivity.this.finish();
             }
         });
+        /** Auf Back Stack liegende Activities werden bearbeitet */
         neuesTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(TrainingBeginnenActivity.this, AddEditNoteActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                TrainingBeginnenActivity.this.finish();
             }
         });
         aktuellesTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TrainingBeginnenActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                TrainingBeginnenActivity.this.finish();
             }
         });
         FloatingActionButton buttonBack = findViewById(R.id.button_back_trainingBeginnen);
@@ -53,7 +60,9 @@ public class TrainingBeginnenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TrainingBeginnenActivity.this, HomeActivity.class);
-                startActivity(intent);;
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                TrainingBeginnenActivity.this.finish();
             }
         });
     }

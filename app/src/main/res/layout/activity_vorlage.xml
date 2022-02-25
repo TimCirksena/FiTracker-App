@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context=".VorlageActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,6 +16,7 @@
         android:backgroundTint="@color/main_color"
         android:backgroundTintMode="add"
         android:baselineAligned="false"
+        app:borderWidth="0dp"
         android:foreground="@drawable/ic_baseline_arrow_back_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+
         android:textSize="30dp"
         android:inputType="textPersonName"
         android:text="Aktuelle Vorlagen"
@@ -36,6 +39,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="50dp"
+        android:background="@drawable/gradient"
         android:id="@+id/recycler_view_Vorlage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
