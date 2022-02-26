@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.prog3projekt.Home.HomeActivity;
-
+/** <h2>Tim Cirksena</h2> */
 public class SplashScreen extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.P)

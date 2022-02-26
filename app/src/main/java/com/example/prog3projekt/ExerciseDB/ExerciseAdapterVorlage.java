@@ -67,7 +67,7 @@ public class ExerciseAdapterVorlage extends RecyclerView.Adapter<ExerciseAdapter
             super(itemView);
             /* TODO:HIER ANPASSEN */
             textViewVorlageTitle = itemView.findViewById(R.id.text_view_vorlage_title);
-            textViewVorlageTitle.setBackground(x.getResources().getDrawable(R.drawable.buttonshape));
+            itemView.setBackground(x.getResources().getDrawable(R.drawable.buttonshape));
             textViewVorlageTitle.setTextColor(x.getResources().getColor(R.color.white));
             //FÜrs EDIT der Notes
             itemView.setOnClickListener(new View.OnClickListener() {

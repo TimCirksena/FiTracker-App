@@ -32,7 +32,7 @@ public class ListUebungActivity extends AppCompatActivity {
             "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";
     private ExerciseViewModel exerciseViewModel;
 
-
+/** <h2>Tim Cirksena</h2> */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

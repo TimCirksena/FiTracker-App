@@ -29,7 +29,7 @@ public class GraphViewHelper {
         graphView.getGridLabelRenderer().setVerticalLabelsColor(Color.WHITE);
     }
     /** <i>Tom Sattler</i>
-     * */
+     *  */
     public static void setUpGraphViewWithDate(GraphView graphView, Date minX, Date maxX, int maxY, Activity context) {
         graphView.getViewport().setXAxisBoundsManual(true);
         graphView.getViewport().setYAxisBoundsManual(true);

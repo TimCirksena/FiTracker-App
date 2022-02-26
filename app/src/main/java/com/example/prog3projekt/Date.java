@@ -1,7 +1,9 @@
 package com.example.prog3projekt;
 
 public class Date {
-
+    /**
+     * Tom Sattler
+     */
     boolean trained;
     int day;
 

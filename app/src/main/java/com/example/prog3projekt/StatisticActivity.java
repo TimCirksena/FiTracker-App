@@ -46,7 +46,7 @@ public class StatisticActivity extends AppCompatActivity {
     String dateFormatMin;
     String dateFormatMax;
     private FloatingActionButton back;
-
+    /** <h2>Tom Sattler</h2> */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,39 +124,89 @@ public class StatisticActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //https://stackoverflow.com/questions/4534924/how-to-iterate-through-range-of-dates-in-java
-                Date minD = new Date(DataTimeConverter.getYearFromDate(minDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(minDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(minDate.getText().toString()));
-                Date maxD = new Date(DataTimeConverter.getYearFromDate(maxDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(maxDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(maxDate.getText().toString()));
-                Calendar start = Calendar.getInstance();
-                start.setTime(minD);
-                Calendar end = Calendar.getInstance();
-                end.setTime(maxD);
+                if (minDate.length() == 10 && maxDate.length() == 10) {
+                    Date minD = new Date(DataTimeConverter.getYearFromDate(minDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(minDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(minDate.getText().toString()));
+                    Date maxD = new Date(DataTimeConverter.getYearFromDate(maxDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(maxDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(maxDate.getText().toString()));
+                    Calendar start = Calendar.getInstance();
+                    start.setTime(minD);
+                    Calendar end = Calendar.getInstance();
+                    end.setTime(maxD);
 
 
-                if (!minDate.getText().toString().equals("") && !maxDate.getText().toString().equals("") && allInputsCorrect(dateFormatMin, dateFormatMax)) {
-                    if (übungenArray[spinner.getSelectedItemPosition()].equals("All Exercises")) {
-                        viewModel.getAllExercisesInBetweenDates(DataTimeConverter.getDayFromDate(dateFormatMin),
-                                DataTimeConverter.getMonthFromDate(dateFormatMin),
-                                DataTimeConverter.getYearFromDate(dateFormatMin),
-                                DataTimeConverter.getDayFromDate(dateFormatMax),
-                                DataTimeConverter.getMonthFromDate(dateFormatMax),
-                                DataTimeConverter.getYearFromDate(dateFormatMax))
-                                .observe(StatisticActivity.this, new Observer<List<Exercise>>() {
-                                            @Override
-                                            public void onChanged(@Nullable List<Exercise> exercises) {
-                                                {
+                    if (allInputsCorrect(dateFormatMin, dateFormatMax)) {
+                        if (übungenArray[spinner.getSelectedItemPosition()].equals("All Exercises")) {
+                            viewModel.getAllExercisesInBetweenDates(DataTimeConverter.getDayFromDate(dateFormatMin),
+                                    DataTimeConverter.getMonthFromDate(dateFormatMin),
+                                    DataTimeConverter.getYearFromDate(dateFormatMin),
+                                    DataTimeConverter.getDayFromDate(dateFormatMax),
+                                    DataTimeConverter.getMonthFromDate(dateFormatMax),
+                                    DataTimeConverter.getYearFromDate(dateFormatMax))
+                                    .observe(StatisticActivity.this, new Observer<List<Exercise>>() {
+                                                @Override
+                                                public void onChanged(@Nullable List<Exercise> exercises) {
+                                                    {
+                                                        int anzahlTage = 0;
+                                                        for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()) {
+                                                            anzahlTage++;
+                                                        }
+                                                        //https://stackoverflow.com/questions/4534924/how-to-iterate-through-range-of-dates-in-java
+                                                        Date minD = new Date(DataTimeConverter.getYearFromDate(minDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(minDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(minDate.getText().toString()));
+                                                        Date maxD = new Date(DataTimeConverter.getYearFromDate(maxDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(maxDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(maxDate.getText().toString()));
+                                                        Calendar start = Calendar.getInstance();
+                                                        start.setTime(minD);
+                                                        Calendar end = Calendar.getInstance();
+                                                        end.setTime(maxD);
+                                                        int max = 1;
+                                                        DataPoint[] s = new DataPoint[anzahlTage];
+                                                        int iterator = 0;
+
+                                                        for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()) {
+
+                                                            s[iterator] = new DataPoint(j, 0);
+                                                            for (int i = 0; i < exercises.size(); i++) {
+                                                                if (exercises.get(i).getDatum().equals(DataTimeConverter.formattedDate(j))) {
+                                                                    s[iterator] = new DataPoint(j, s[iterator].getY() + exercises.get(i).getSchwierigkeit());
+                                                                }
+                                                            }
+                                                            if (max < s[iterator].getY()) {
+                                                                max = (int) s[iterator].getY();
+                                                            }
+                                                            iterator++;
+                                                        }
+                                                        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(s);
+                                                        GraphViewHelper.setUpGraphViewWithDate(graphView, minD, maxD, max, StatisticActivity.this);
+                                                        GraphViewHelper.updateGraphView(graphView, series);
+                                                    }
+                                                }
+                                            }
+                                    );
+                        } else {
+                            viewModel.getAllExercisesInBetween(DataTimeConverter.getDayFromDate(dateFormatMin),
+                                    DataTimeConverter.getMonthFromDate(dateFormatMin),
+                                    DataTimeConverter.getYearFromDate(dateFormatMin),
+                                    DataTimeConverter.getDayFromDate(dateFormatMax),
+                                    DataTimeConverter.getMonthFromDate(dateFormatMax),
+                                    DataTimeConverter.getYearFromDate(dateFormatMax),
+                                    übungenArray[spinner.getSelectedItemPosition()]
+                            )
+                                    .observe(StatisticActivity.this, new Observer<List<Exercise>>() {
+                                                @Override
+                                                public void onChanged(@Nullable List<Exercise> exercises) {
+                                                    Log.d("Spinner Selection: ", übungenArray[spinner.getSelectedItemPosition()]);
+                                                    Date minD = new Date(DataTimeConverter.getYearFromDate(minDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(minDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(minDate.getText().toString()));
+                                                    Date maxD = new Date(DataTimeConverter.getYearFromDate(maxDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(maxDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(maxDate.getText().toString()));
+                                                    int max = 1;
                                                     int anzahlTage = 0;
                                                     for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()) {
                                                         anzahlTage++;
                                                     }
+                                                    DataPoint[] s = new DataPoint[anzahlTage];
+
                                                     //https://stackoverflow.com/questions/4534924/how-to-iterate-through-range-of-dates-in-java
-                                                    Date minD = new Date(DataTimeConverter.getYearFromDate(minDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(minDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(minDate.getText().toString()));
-                                                    Date maxD = new Date(DataTimeConverter.getYearFromDate(maxDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(maxDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(maxDate.getText().toString()));
                                                     Calendar start = Calendar.getInstance();
                                                     start.setTime(minD);
                                                     Calendar end = Calendar.getInstance();
                                                     end.setTime(maxD);
-                                                    int max = 1;
-                                                    DataPoint[] s = new DataPoint[anzahlTage];
                                                     int iterator = 0;
 
                                                     for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()) {
@@ -164,6 +214,7 @@ public class StatisticActivity extends AppCompatActivity {
                                                         s[iterator] = new DataPoint(j, 0);
                                                         for (int i = 0; i < exercises.size(); i++) {
                                                             if (exercises.get(i).getDatum().equals(DataTimeConverter.formattedDate(j))) {
+                                                                Log.d(exercises.get(i).getDatum() + " equals", DataTimeConverter.formattedDate(j));
                                                                 s[iterator] = new DataPoint(j, s[iterator].getY() + exercises.get(i).getSchwierigkeit());
                                                             }
                                                         }
@@ -177,61 +228,15 @@ public class StatisticActivity extends AppCompatActivity {
                                                     GraphViewHelper.updateGraphView(graphView, series);
                                                 }
                                             }
-                                        }
-                                );
-                    } else {
-                        viewModel.getAllExercisesInBetween(DataTimeConverter.getDayFromDate(dateFormatMin),
-                                DataTimeConverter.getMonthFromDate(dateFormatMin),
-                                DataTimeConverter.getYearFromDate(dateFormatMin),
-                                DataTimeConverter.getDayFromDate(dateFormatMax),
-                                DataTimeConverter.getMonthFromDate(dateFormatMax),
-                                DataTimeConverter.getYearFromDate(dateFormatMax),
-                                übungenArray[spinner.getSelectedItemPosition()]
-                        )
-                                .observe(StatisticActivity.this, new Observer<List<Exercise>>() {
-                                            @Override
-                                            public void onChanged(@Nullable List<Exercise> exercises) {
-                                                Log.d("Spinner Selection: ", übungenArray[spinner.getSelectedItemPosition()]);
-                                                Date minD = new Date(DataTimeConverter.getYearFromDate(minDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(minDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(minDate.getText().toString()));
-                                                Date maxD = new Date(DataTimeConverter.getYearFromDate(maxDate.getText().toString()) - 1900, DataTimeConverter.getMonthFromDate(maxDate.getText().toString()) - 1, DataTimeConverter.getDayFromDate(maxDate.getText().toString()));
-                                                int max = 1;
-                                                int anzahlTage = 0;
-                                                for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()) {
-                                                    anzahlTage++;
-                                                }
-                                                DataPoint[] s = new DataPoint[anzahlTage];
+                                    );
 
-                                                //https://stackoverflow.com/questions/4534924/how-to-iterate-through-range-of-dates-in-java
-                                                Calendar start = Calendar.getInstance();
-                                                start.setTime(minD);
-                                                Calendar end = Calendar.getInstance();
-                                                end.setTime(maxD);
-                                                int iterator = 0;
-
-                                                for (Date j = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), j = start.getTime()) {
-
-                                                    s[iterator] = new DataPoint(j, 0);
-                                                    for (int i = 0; i < exercises.size(); i++) {
-                                                        if (exercises.get(i).getDatum().equals(DataTimeConverter.formattedDate(j))) {
-                                                            Log.d(exercises.get(i).getDatum() + " equals", DataTimeConverter.formattedDate(j));
-                                                            s[iterator] = new DataPoint(j, s[iterator].getY() + exercises.get(i).getSchwierigkeit());
-                                                        }
-                                                    }
-                                                    if (max < s[iterator].getY()) {
-                                                        max = (int) s[iterator].getY();
-                                                    }
-                                                    iterator++;
-                                                }
-                                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(s);
-                                                GraphViewHelper.setUpGraphViewWithDate(graphView, minD, maxD, max, StatisticActivity.this);
-                                                GraphViewHelper.updateGraphView(graphView, series);
-                                            }
-                                        }
-                                );
-
+                        }
+                        graphView.setVisibility(View.VISIBLE);
                     }
-                    graphView.setVisibility(View.VISIBLE);
+                }else{
+                    Toast.makeText(StatisticActivity.this, "Das Datum in beiden Kalendern muss gesetzt werden!",Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
@@ -245,18 +250,22 @@ public class StatisticActivity extends AppCompatActivity {
     }
 
     private boolean allInputsCorrect(String minDate, String maxDate) {
-        if (DataTimeConverter.getYearFromDate(minDate) == DataTimeConverter.getYearFromDate(maxDate)) {
-            if (DataTimeConverter.getMonthFromDate(minDate) <= DataTimeConverter.getMonthFromDate(maxDate)) {
-                if (DataTimeConverter.getDayFromDate(minDate) < DataTimeConverter.getDayFromDate(maxDate) || DataTimeConverter.getYearFromDate(minDate) < DataTimeConverter.getYearFromDate(maxDate) || DataTimeConverter.getYearFromDate(minDate) == DataTimeConverter.getYearFromDate(maxDate) && DataTimeConverter.getMonthFromDate(minDate) < DataTimeConverter.getMonthFromDate(maxDate)) {
-                    return true;
+        if (minDate != null && maxDate != null) {
+            if (DataTimeConverter.getYearFromDate(minDate) == DataTimeConverter.getYearFromDate(maxDate)) {
+                if (DataTimeConverter.getMonthFromDate(minDate) <= DataTimeConverter.getMonthFromDate(maxDate)) {
+                    if (DataTimeConverter.getDayFromDate(minDate) < DataTimeConverter.getDayFromDate(maxDate) || DataTimeConverter.getYearFromDate(minDate) < DataTimeConverter.getYearFromDate(maxDate) || DataTimeConverter.getYearFromDate(minDate) == DataTimeConverter.getYearFromDate(maxDate) && DataTimeConverter.getMonthFromDate(minDate) < DataTimeConverter.getMonthFromDate(maxDate)) {
+                        return true;
+                    } else {
+                        Toast.makeText(StatisticActivity.this, "Der tag des Anfangsdatums darf nicht hinter dem Tag des Enddatums liegen.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(StatisticActivity.this, "Der tag des Anfangsdatums darf nicht hinter dem Tag des Enddatums liegen.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StatisticActivity.this, "Der Monat des Anfangsdatums darf nicht höher sein, als der des Enddatums", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(StatisticActivity.this, "Der Monat des Anfangsdatums darf nicht höher sein, als der des Enddatums", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StatisticActivity.this, "Es können nur Intervalle inheralb eines Jahres eingetragen werden.", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(StatisticActivity.this, "Es können nur Intervalle inheralb eines Jahres eingetragen werden.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(StatisticActivity.this, "Es müssen beide Daten eingetragen werden.", Toast.LENGTH_SHORT);
         }
         return false;
     }

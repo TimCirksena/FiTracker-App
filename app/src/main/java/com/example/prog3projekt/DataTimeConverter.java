@@ -13,7 +13,7 @@ import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
+ /** <h2>Tom Sattler</h2> */
 public class DataTimeConverter {
     public static String getDate() {
         Date c = Calendar.getInstance().getTime();

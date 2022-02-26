@@ -28,10 +28,10 @@ public class TemplateActivity extends AppCompatActivity {
     public static final String EXTRA_VORLAGE_VORLAGE =
             "com.example.prog3projekt.EXTRA_VORLAGE_VORLAGE";
 
-    //Ich brauch Day damit ich Übungen dem Day hinzufügen kann
+    /**Ich brauch Day damit ich Übungen dem Day hinzufügen kann
     //Adapter für die RecyclerView erstellen
-    //Mit AddEditNote verbinden
-
+    //Mit AddEditNote verbinden */
+    /** <h2>Tim Cirksena</h2> */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
