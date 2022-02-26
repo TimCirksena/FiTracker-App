@@ -13,19 +13,16 @@ import com.example.prog3projekt.Datum;
 import com.example.prog3projekt.DayExercisesActivity;
 import com.example.prog3projekt.ExerciseDB.OnCalendarItemClickListener;
 import com.example.prog3projekt.GraphViewHelper;
-import com.example.prog3projekt.MainActivity;
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.example.prog3projekt.R;
 import com.example.prog3projekt.TrainingBeginnenActivity;
 import com.example.prog3projekt.statistikActivity;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,12 +46,12 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
         RecyclerView recyclerView = findViewById(R.id.calendar_recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 7));
         adapter = new CalendarAdapter(this);
+        recyclerView.setAdapter(adapter);
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
 
 
         ArrayList<Datum> listDatesInMonth = new ArrayList<Datum>();
-        recyclerView.setAdapter(adapter);
-        for(int i=0;i< DataTimeConverter.getAmountDay();i++){
+        for(int i = 0; i< DataTimeConverter.getAmountDaysOfMonth(); i++){
             listDatesInMonth.add(new Datum(i, false));
         }
         adapter.setDaten(listDatesInMonth);
@@ -63,7 +60,7 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
             @Override
             public void onChanged(List<Exercise> exercises) {
                 boolean changed = false;
-                for(int i=0;i< DataTimeConverter.getAmountDay();i++) {
+                for(int i = 0; i< DataTimeConverter.getAmountDaysOfMonth(); i++) {
                     changed = false;
                     for (int j = 0; j < exercises.size(); j++) {
                         if (exercises.get(j).getTag()-1 == i) {
@@ -84,8 +81,8 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
                 int max=0;
-                DataPoint[] s = new DataPoint[DataTimeConverter.getAmountDay()];
-                for(int j = 0; j<DataTimeConverter.getAmountDay();j++) {
+                DataPoint[] s = new DataPoint[DataTimeConverter.getAmountDaysOfMonth()];
+                for(int j = 0; j<DataTimeConverter.getAmountDaysOfMonth(); j++) {
                     s[j] = new DataPoint(j,0);
                     for (int i = 0; i < exercises.size(); i++) {
                         if(exercises.get(i).getTag()==j) {
@@ -97,7 +94,7 @@ public class HomeActivity extends AppCompatActivity  implements OnCalendarItemCl
                     }
                 }
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(s);
-                GraphViewHelper.setUpGraphView(graphView, DataTimeConverter.getAmountDay(), max);
+                GraphViewHelper.setUpGraphView(graphView, DataTimeConverter.getAmountDaysOfMonth(), max);
                 GraphViewHelper.updateGraphView(graphView, series);
             }
         });

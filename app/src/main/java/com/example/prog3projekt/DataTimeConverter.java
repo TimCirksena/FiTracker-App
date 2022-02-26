@@ -1,18 +1,8 @@
 package com.example.prog3projekt;
 
-
-import android.os.Build;
-import android.util.Log;
-
-import androidx.annotation.RequiresApi;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class DataTimeConverter {
     public static String getDate(){
@@ -28,7 +18,7 @@ public class DataTimeConverter {
         return s;
     }
 
-    public static int getAmountDay(){
+    public static int getAmountDaysOfMonth(){
         Calendar calendar = Calendar.getInstance();
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
@@ -61,13 +51,6 @@ public class DataTimeConverter {
         return getYearFromDate(getDate());
     }
     public static int getDay(){return getDayFromDate(getDate());}
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static int differenceOfTwoDates(String startDate, String endDate){
-        LocalDate date1 = LocalDate.of(getYearFromDate(startDate),getMonthFromDate(startDate),getDayFromDate(startDate));
-        LocalDate date2 = LocalDate.of(getYearFromDate(endDate),getMonthFromDate(endDate),getDayFromDate(endDate));
-        int numDays = Period.between(date1, date2).getDays();
-        return numDays;
-    }
     public static String addZerosToDate(int dayOfMonth, int month, int year){
         String date = new String();
         if (month < 10 || dayOfMonth < 10) {
