@@ -4,49 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".statistikActivity"
-    android:background="@color/grey">
+    tools:context=".StatisticActivity"
+    android:background="@drawable/gradient">
 
-    <Spinner
-        android:id="@+id/spinner_statistik_übung"
-        android:layout_width="179dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="4dp"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toStartOf="@+id/button_statistik_anzeigen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/text_date_min"
-        android:layout_width="180dp"
-        android:layout_height="39dp"
+        <Spinner
+            android:id="@+id/spinner_statistik_übung"
+            android:layout_width="179dp"
+            android:layout_height="46dp"
+            android:gravity="top"
+            android:minHeight="48dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_statistik_anzeigen"
+            android:layout_width="193dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center|right"
+            android:background="@drawable/buttonshape"
+            android:text="Anzeigen" />
+
+    </TableRow>
+
+    <TableRow
         android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="Von"
-        android:minHeight="48dp"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/ltgrey"
-        app:layout_constraintBottom_toTopOf="@+id/graphViewStatistik"
-        app:layout_constraintEnd_toStartOf="@+id/text_date_max"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_statistik_übung" />
+        android:layout_marginLeft="20dp"
+        android:id="@+id/tableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tableRow2">
 
-    <TextView
-        android:id="@+id/text_date_max"
-        android:layout_width="199dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
-        android:textColor="@color/white"
-        android:ems="10"
-        android:hint="Bis"
-        android:textColorHint="@color/ltgrey"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/graphViewStatistik"
-        app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/text_date_min"
+            android:layout_width="180dp"
+            android:layout_height="39dp"
+            android:ems="10"
+            android:hint="Von"
+            android:minHeight="48dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/ltgrey"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/text_date_max"
+            android:layout_width="199dp"
+            android:layout_height="39dp"
+            android:ems="10"
+            android:hint="Bis"
+            android:textColor="@color/white"
+            android:textColorHint="@color/ltgrey"
+            android:textSize="20sp" />
+
+    </TableRow>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_back_stat"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/main_color"
+        android:baselineAligned="false"
+        android:cropToPadding="false"
+        android:foreground="@drawable/ic_baseline_arrow_back_24"
+        app:borderWidth="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graphViewStatistik"
@@ -57,15 +88,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_statistik_anzeigen"
-        android:layout_width="193dp"
-        android:layout_height="41dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/buttonshape"
-        android:text="Anzeigen"
-        app:layout_constraintBottom_toTopOf="@+id/text_date_max"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.391" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.example.prog3projekt.Home.HomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class TrainingBeginnenActivity extends AppCompatActivity {
+public class StartTrainingActivity extends AppCompatActivity {
 
     private Button vorlage;
     private Button neuesTraining;
@@ -29,10 +29,10 @@ public class TrainingBeginnenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(TrainingBeginnenActivity.this, VorlageActivity.class);
+                Intent intent = new Intent(StartTrainingActivity.this, TemplateActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                TrainingBeginnenActivity.this.finish();
+                StartTrainingActivity.this.finish();
             }
         });
         /** Auf Back Stack liegende Activities werden bearbeitet */
@@ -40,29 +40,29 @@ public class TrainingBeginnenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(TrainingBeginnenActivity.this, AddEditNoteActivity.class);
+                Intent intent = new Intent(StartTrainingActivity.this, AddEditUebungActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                TrainingBeginnenActivity.this.finish();
+                StartTrainingActivity.this.finish();
             }
         });
         aktuellesTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TrainingBeginnenActivity.this, MainActivity.class);
+                Intent intent = new Intent(StartTrainingActivity.this, ListUebungActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                TrainingBeginnenActivity.this.finish();
+                StartTrainingActivity.this.finish();
             }
         });
         FloatingActionButton buttonBack = findViewById(R.id.button_back_trainingBeginnen);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TrainingBeginnenActivity.this, HomeActivity.class);
+                Intent intent = new Intent(StartTrainingActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                TrainingBeginnenActivity.this.finish();
+                StartTrainingActivity.this.finish();
             }
         });
     }

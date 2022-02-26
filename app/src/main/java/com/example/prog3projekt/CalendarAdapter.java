@@ -1,9 +1,6 @@
 package com.example.prog3projekt;
 
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prog3projekt.ExerciseDB.OnCalendarItemClickListener;
-import com.example.prog3projekt.ExerciseDB.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder> {
-    private List<Datum> daten = new ArrayList<>();
+    private List<Date> daten = new ArrayList<>();
     private OnCalendarItemClickListener listener;
-    private String [] kalenderTage;
+    private String[] kalenderTage;
     ViewGroup x;
-
-    public CalendarAdapter(OnCalendarItemClickListener clickListener){
+    /** <h2>Tom Sattler</h2> */
+    public CalendarAdapter(OnCalendarItemClickListener clickListener) {
         listener = clickListener;
     }
+
     @NonNull
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,37 +44,38 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         return this.daten.size();
     }
 
-    public void setDaten(List<Datum> daten) {
+    public void setDaten(List<Date> daten) {
         this.daten = daten;
         notifyDataSetChanged();
     }
-    public Datum getDatumAt(int position) {
+
+    public Date getDatumAt(int position) {
         return daten.get(position);
     }
 
 
-    class CalendarViewHolder extends RecyclerView.ViewHolder{
+    class CalendarViewHolder extends RecyclerView.ViewHolder {
         TextView valueTextView;
 
-        public CalendarViewHolder(@NonNull View itemView){
+        public CalendarViewHolder(@NonNull View itemView) {
             super(itemView);
             valueTextView = itemView.findViewById(R.id.feld_value);
         }
-        public void bind(final Datum datum){
-                    valueTextView.setText(kalenderTage[datum.getDay()]);
-                    valueTextView.setTextColor(Color.WHITE);
-                    if(datum.trained){
-                    itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape_trained));
-                    }
-                    else{
-                        itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape));
-                    }
-                    if(datum.getDay()==DataTimeConverter.getDay()-1){
-                        itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape_today));
-                    }
-                    itemView.setOnClickListener(view -> {
-                        listener.onItemClick(datum);
-                        });
+
+        public void bind(final Date datum) {
+            valueTextView.setText(kalenderTage[datum.getDay()]);
+            valueTextView.setTextColor(Color.WHITE);
+            if (datum.trained) {
+                itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape_trained));
+            } else {
+                itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape));
             }
+            if (datum.getDay() == DataTimeConverter.getDay() - 1) {
+                itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape_today));
+            }
+            itemView.setOnClickListener(view -> {
+                listener.onItemClick(datum);
+            });
         }
     }
+}

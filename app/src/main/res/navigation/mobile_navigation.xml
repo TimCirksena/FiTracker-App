@@ -7,12 +7,12 @@
 
     <activity
         android:id="@+id/addEditNoteActivity"
-        android:name="com.example.prog3projekt.AddEditNoteActivity"
+        android:name="com.example.prog3projekt.AddEditUebungActivity"
         android:label="activity_add_note_acctivity"
         tools:layout="@layout/activity_add_note_acctivity" />
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.example.prog3projekt.MainActivity"
+        android:name="com.example.prog3projekt.ListUebungActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
     <activity
@@ -22,17 +22,17 @@
         tools:layout="@layout/activity_home" />
     <activity
         android:id="@+id/statistikActivity"
-        android:name="com.example.prog3projekt.statistikActivity"
+        android:name="com.example.prog3projekt.StatisticActivity"
         android:label="activity_statistik"
         tools:layout="@layout/activity_statistik" />
     <activity
         android:id="@+id/trainingBeginnenActivity"
-        android:name="com.example.prog3projekt.TrainingBeginnenActivity"
+        android:name="com.example.prog3projekt.StartTrainingActivity"
         android:label="activity_training_beginnen"
         tools:layout="@layout/activity_training_beginnen" />
     <activity
         android:id="@+id/vorlageActivity"
-        android:name="com.example.prog3projekt.VorlageActivity"
+        android:name="com.example.prog3projekt.TemplateActivity"
         android:label="activity_vorlage"
         tools:layout="@layout/activity_vorlage" />
 </navigation>

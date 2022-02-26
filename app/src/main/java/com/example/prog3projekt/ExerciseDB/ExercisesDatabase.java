@@ -15,8 +15,8 @@ public abstract class ExercisesDatabase extends RoomDatabase {
 
     public abstract ExerciseDao exerciseDao();
 
-    public static synchronized ExercisesDatabase getInstance(Context context){
-        if(instance == null){
+    public static synchronized ExercisesDatabase getInstance(Context context) {
+        if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     ExercisesDatabase.class, "exercises_database")
                     .fallbackToDestructiveMigration()
@@ -26,7 +26,7 @@ public abstract class ExercisesDatabase extends RoomDatabase {
         return instance;
     }
 
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -37,9 +37,10 @@ public abstract class ExercisesDatabase extends RoomDatabase {
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private ExerciseDao exerciseDao;
 
-        private PopulateDbAsyncTask(ExercisesDatabase db){
+        private PopulateDbAsyncTask(ExercisesDatabase db) {
             exerciseDao = db.exerciseDao();
         }
+
         @Override
         protected Void doInBackground(Void... voids) {
             return null;

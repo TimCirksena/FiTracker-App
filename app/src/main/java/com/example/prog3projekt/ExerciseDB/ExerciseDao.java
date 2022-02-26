@@ -32,6 +32,7 @@ public interface ExerciseDao {
 
     @Query("DELETE FROM exersice_table WHERE datum = :datum")
     void deleteExercisesOfDay(String datum);
+
     @Query("SELECT * FROM exersice_table WHERE monat >= :monat AND tag >= :tag AND jahr >= :jahr ORDER BY tag ASC")
     LiveData<List<Exercise>> getAllExercisesLaterThan(int tag, int monat, int jahr);
 
@@ -41,7 +42,7 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exersice_table WHERE monat >= :monatMin AND tag >= :tagMin AND jahr >= :jahrMin AND tag<= :tagMax AND monat<= :monatMax AND jahr<= :jahrMax  AND name = :name ORDER BY tag ASC")
     LiveData<List<Exercise>> getAllExercisesBetween(int tagMin, int monatMin, int jahrMin, int tagMax, int monatMax, int jahrMax, String name);
 
-    @Query("SELECT * FROM exersice_table WHERE vorlage LIKE :vorlage")
+    @Query("SELECT * FROM exersice_table WHERE vorlage LIKE :vorlage GROUP BY name")
     LiveData<List<Exercise>> getAllExercisesForVorlage(String vorlage);
 
     @Query("SELECT * FROM exersice_table WHERE vorlage IS NOT NULL GROUP BY vorlage")

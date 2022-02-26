@@ -10,31 +10,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Prog3Projekt">
         <activity
-            android:name=".DayExercisesActivity"
-            android:exported="false" />
-        <activity android:name=".TrainingBeginnenActivity" android:exported="false"/>
-        <activity android:name=".VorlageActivity" android:exported="false"/>
-        <activity
-            android:name=".AddEditNoteActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".Home.HomeActivity"
+            android:name=".SplashScreen"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:launchMode="singleTop"></activity>
+            android:name=".DayExercisesActivity"
+            android:exported="false" />
         <activity
-            android:name=".statistikActivity"
+            android:name=".StartTrainingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TemplateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddEditUebungActivity"
             android:exported="false"
-            android:launchMode="singleTop"></activity>
+            android:parentActivityName=".ListUebungActivity" />
+        <activity
+            android:name=".Home.HomeActivity"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".ListUebungActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".StatisticActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

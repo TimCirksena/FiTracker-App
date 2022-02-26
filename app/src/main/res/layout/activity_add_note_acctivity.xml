@@ -7,7 +7,7 @@
     android:background="@drawable/gradient"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".AddEditNoteActivity">
+    tools:context=".AddEditUebungActivity">
 
 
 

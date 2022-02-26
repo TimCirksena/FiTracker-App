@@ -16,7 +16,6 @@ public class Exercise {
     private String datum;
 
 
-
     private String beschreibung;
 
     private int schwierigkeit;
@@ -35,7 +34,7 @@ public class Exercise {
     private int monat;
     private int jahr;
 
-    public Exercise(String name, String datum,  String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos)  {
+    public Exercise(String name, String datum, String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos) {
         this.name = name;
         this.datum = datum;
         this.beschreibung = beschreibung;
@@ -45,18 +44,19 @@ public class Exercise {
         this.gewicht = gewicht;
         this.pos = pos;
         this.tag = DataTimeConverter.getDayFromDate(datum);
-        this.monat= DataTimeConverter.getMonthFromDate(datum);
+        this.monat = DataTimeConverter.getMonthFromDate(datum);
         this.jahr = DataTimeConverter.getYearFromDate(datum);
     }
 
-    public void setVorlage(String s){
-        this.vorlage=s;
+    public void setVorlage(String s) {
+        this.vorlage = s;
     }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getVorlage(){
+    public String getVorlage() {
         return vorlage;
     }
 

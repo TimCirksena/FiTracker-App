@@ -32,11 +32,10 @@ import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.Date;
 import java.util.Arrays;
 import java.util.Calendar;
 
-public class AddEditNoteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddEditUebungActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String EXTRA_DAY_ID =
             "com.example.prog3projekt.EXTRA_DAY_ID";
     public static final String EXTRA_UEBUNG =
@@ -80,6 +79,10 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     private Button clickWeitereÜbunng;
     private FloatingActionButton buttonBack;
 
+
+    /**
+     * <h2> Tim Cirksena </h2>
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +90,8 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         setContentView(R.layout.activity_add_note_acctivity);
 
 
-
-        /** BEHANDLUNG BUTTONS
+        /** Erstellung der Buttons im Erstellungsmenü
+         *  Anschließende Bearbeitung und Backend Logik der Button
          */
 
         clickAbbrechen = findViewById(R.id.angry_Abbrechen);
@@ -134,7 +137,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
 
         /** BEARBEITUNG DATEN INPUT
          *
-         * <h1> Hallo </h1>
+         *
          *
          Anlegen der Views */
         editDateDialog = (TextView) findViewById(R.id.editTextDate);
@@ -148,7 +151,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        AddEditNoteActivity.this,
+                        AddEditUebungActivity.this,
                         R.style.Theme_Material3_Light_Dialog_MinWidth, mDateSetListener,
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
@@ -161,7 +164,7 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
                 String date = new String();
-                if (month < 10 || dayOfMonth < 10){
+                if (month < 10 || dayOfMonth < 10) {
                     if (month < 10 && dayOfMonth < 10) {
                         date = "0" + dayOfMonth + ".0" + month + "." + year;
                     }
@@ -171,42 +174,22 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
                     if (month < 10 && dayOfMonth > 9) {
                         date = dayOfMonth + ".0" + month + "." + year;
                     }
-                }else{
+                } else {
                     date = dayOfMonth + "." + month + "." + year;
                 }
                 Log.d("Formatierung Date", date);
                 editDateDialog.setText(date);
             }
         };
-        editTextVorlage = findViewById(R.id.edit_Text_Vorlage);
-        adapter = ArrayAdapter.createFromResource(this, R.array.uebungen, R.layout.support_simple_spinner_dropdown_item);
-        spinner = findViewById(R.id.spinner_uebung);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-        editTextGewicht = findViewById(R.id.edit_Text_Gewicht);
-        editTextBeschreibung = findViewById(R.id.edit_text_description);
-        editSchwierigkeit = findViewById(R.id.number_picker_schwierigkeit);
-        editSaetze = findViewById(R.id.number_picker_saetze);
-        editWiederholungen = findViewById(R.id.number_picker_wiederholung);
-        uebungen = getResources().getStringArray(R.array.uebungen);
-        Arrays.stream(uebungen).sorted();
-        //Number picker
-        editSchwierigkeit.setMinValue(1);
-        editSchwierigkeit.setMaxValue(10);
-        editWiederholungen.setMinValue(1);
-        editWiederholungen.setMaxValue(25);
-        editSaetze.setMinValue(1);
-        editSaetze.setMaxValue(10);
+        initialisierungViews();
 
 //        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
         Intent intent = getIntent();
-        //In diesem Fall existiert das Object schon und wir wollen es nur verändern
+        /** In diesem Fall existiert das Object schon und wir wollen es nur verändern */
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Note");
-            //Damit spinner richtige Value anzeigt
-
+            /** Damit spinner richtige Value anzeigt */
             String text = intent.getStringExtra(EXTRA_UEBUNG);
             int i = adapter.getPosition(text);
             spinner.setSelection(i);
@@ -222,10 +205,10 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
             setTitle("Add Note");
         }
     }
-    /** <h1>Hallo</h1>
-     *
-     * LUL
-     * */
+
+    /**
+     * Logik hinter den Views, wie werden die Daten weitergeleitet
+     */
     private void saveNote() {
         String vorlage = editTextVorlage.getText().toString();
         String date = editDateDialog.getText().toString();
@@ -252,33 +235,18 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
         data.putExtra(EXTRA_SAETZE, saetze);
         data.putExtra(EXTRA_WIEDERHOLUNGEN, wiederholungen);
 
+        /** Wichtig für die Bearbeitung bereits vorhandenen Entitäten */
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        /** In diesem Fall exisitiert eine Übung*/
         if (id != -1) {
             setResult(78, data);
             data.putExtra(EXTRA_ID, id);
         } else {
+            /** In diesem Fall exisitiert die Übung noch nicht */
             setResult(77, data);
         }
         finish();
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.add_note_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.save_note:
-                saveNote();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override
@@ -290,17 +258,39 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
-
+    /** <h2>Abteilung Hilfsmethoden</h2> */
     public void openMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ListUebungActivity.class);
         startActivity(intent);
     }
 
     public void openNewAddActivity(Exercise exercise) {
         ExerciseViewModel exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
         exerciseViewModel.insert(exercise);
-        Intent intent = new Intent(this, AddEditNoteActivity.class);
+        Intent intent = new Intent(this, AddEditUebungActivity.class);
         startActivity(intent);
+    }
+
+    public void initialisierungViews() {
+        editTextVorlage = findViewById(R.id.edit_Text_Vorlage);
+        adapter = ArrayAdapter.createFromResource(this, R.array.uebungen, R.layout.support_simple_spinner_dropdown_item);
+        spinner = findViewById(R.id.spinner_uebung);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+        editTextGewicht = findViewById(R.id.edit_Text_Gewicht);
+        editTextBeschreibung = findViewById(R.id.edit_text_description);
+        editSchwierigkeit = findViewById(R.id.number_picker_schwierigkeit);
+        editSaetze = findViewById(R.id.number_picker_saetze);
+        editWiederholungen = findViewById(R.id.number_picker_wiederholung);
+        uebungen = getResources().getStringArray(R.array.uebungen);
+        //Number picker
+        editSchwierigkeit.setMinValue(1);
+        editSchwierigkeit.setMaxValue(10);
+        editWiederholungen.setMinValue(1);
+        editWiederholungen.setMaxValue(25);
+        editSaetze.setMinValue(1);
+        editSaetze.setMaxValue(10);
     }
 
     @Override
@@ -334,4 +324,4 @@ public class AddEditNoteActivity extends AppCompatActivity implements AdapterVie
     }
 
 
-    }
+}

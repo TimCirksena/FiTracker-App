@@ -1,15 +1,9 @@
 package com.example.prog3projekt;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,17 +14,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.prog3projekt.ExerciseDB.Exercise;
-import com.example.prog3projekt.ExerciseDB.ExerciseAdapter;
 import com.example.prog3projekt.ExerciseDB.ExerciseAdapterVorlage;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class VorlageActivity extends AppCompatActivity {
+public class TemplateActivity extends AppCompatActivity {
     private ExerciseViewModel exerciseViewModel;
 
     public static final String EXTRA_VORLAGE_VORLAGE =
@@ -64,25 +56,24 @@ public class VorlageActivity extends AppCompatActivity {
         adapter.setOnItemClickListner(new ExerciseAdapterVorlage.OnItemClickListner() {
             @Override
             public void onItemClick(Exercise exercise) {
-                Intent intent = new Intent(VorlageActivity.this, MainActivity.class);
+                Intent intent = new Intent(TemplateActivity.this, ListUebungActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(EXTRA_VORLAGE_VORLAGE, exercise.getVorlage());
-                Log.d(exercise.getVorlage(),"mk2");
                 setResult(79, intent);
                 startActivity(intent);
-                VorlageActivity.this.finish();
+                TemplateActivity.this.finish();
 
-                }
+            }
         });
         FloatingActionButton buttonBack = findViewById(R.id.button_back_vorlage);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(VorlageActivity.this, TrainingBeginnenActivity.class);
+                Intent intent = new Intent(TemplateActivity.this, StartTrainingActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                VorlageActivity.this.finish();
+                TemplateActivity.this.finish();
             }
         });
     }

@@ -18,9 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.prog3projekt.ExerciseDB.Exercise;
@@ -36,34 +34,9 @@ public class DayExercisesActivity extends AppCompatActivity {
     public static final String EXTRA_GEWICHT_MAIN =
             "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";
     private ExerciseViewModel exerciseViewModel;
-
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    Intent data = result.getData();
-                    if (result.getResultCode() == 77) {
-                        //Neues Note bekommt Daten durch Intent übergeben und wird erzeugt, anschließend in die Datenbank inserted
-                        exerciseViewModel.insert(initalisierungNote(data));
-                    } else if (result.getResultCode() == 78) {
-                        int id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1);
-                        if (id == -1) {
-                            Toast.makeText(DayExercisesActivity.this, "note cant be updated", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Exercise exercise = initalisierungNote(data);
-                        exercise.setId(id);
-                        exerciseViewModel.update(exercise);
-                        Toast.makeText(DayExercisesActivity.this, "updated note", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(DayExercisesActivity.this, "not saved", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-    );
-
-
+    /** <h2>Tim Cirksena & Tom Sattler</h2>
+     *  Ansicht von
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +47,7 @@ public class DayExercisesActivity extends AppCompatActivity {
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DayExercisesActivity.this, AddEditNoteActivity.class);
+                Intent intent = new Intent(DayExercisesActivity.this, AddEditUebungActivity.class);
                 someActivityResultLauncher.launch(intent);
             }
         });
@@ -91,9 +64,9 @@ public class DayExercisesActivity extends AppCompatActivity {
         buttonDeleteAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int tag = data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM",1)+1;
-                exerciseViewModel.deleteExerciseForDay(DataTimeConverter.addZerosToDate(tag,DataTimeConverter.getMonth(),DataTimeConverter.getYear()));
-                Log.d("Exercise to delete: ", data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM",1)+1+"."+DataTimeConverter.getMonth()+"."+DataTimeConverter.getYear());
+                int tag = data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM", 1) + 1;
+                exerciseViewModel.deleteExerciseForDay(DataTimeConverter.addZerosToDate(tag, DataTimeConverter.getMonth(), DataTimeConverter.getYear()));
+                Log.d("Exercise to delete: ", data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM", 1) + 1 + "." + DataTimeConverter.getMonth() + "." + DataTimeConverter.getYear());
             }
         });
 
@@ -102,11 +75,11 @@ public class DayExercisesActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
 
-        //Adapter mit der RecyclerView verbinden
+        /**Adapter mit der RecyclerView verbinden */
         ExerciseAdapter adapter = new ExerciseAdapter();
         recyclerView.setAdapter(adapter);
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
-        exerciseViewModel.getExerciseForDay(data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM",1)+1,DataTimeConverter.getMonth(),DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
+        exerciseViewModel.getExerciseForDay(data.getIntExtra("com.example.prog3projekt.Home.EXTRA_DATUM", 1) + 1, DataTimeConverter.getMonth(), DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
                 adapter.setNotes(exercises);
@@ -114,7 +87,7 @@ public class DayExercisesActivity extends AppCompatActivity {
         });
 
 
-        //Für das Swipen von notes delete links und rechts
+        /** Für das Swipen von notes delete links und rechts */
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -134,40 +107,56 @@ public class DayExercisesActivity extends AppCompatActivity {
             public void onItemClick(Exercise exercise) {
                 //TODO: Hier alles ändern weil wir Trainigsgeräte haben
                 //Intent swaped von MainActivity zu AddEditActivity
-                Intent intent = new Intent(DayExercisesActivity.this, AddEditNoteActivity.class);
-                intent.putExtra(AddEditNoteActivity.EXTRA_ID, exercise.getId());
-                intent.putExtra(AddEditNoteActivity.EXTRA_TITLE, exercise.getName());
-                intent.putExtra(AddEditNoteActivity.EXTRA_DATUM, exercise.getDatum());
-                intent.putExtra(AddEditNoteActivity.EXTRA_SCHWIERIGKEIT, exercise.getSchwierigkeit());
-                intent.putExtra(AddEditNoteActivity.EXTRA_POS_SPINNER, exercise.getPos());
-                intent.putExtra(AddEditNoteActivity.EXTRA_SAETZE, exercise.getSaetze());
-                intent.putExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, exercise.getWiederholungen());
-                intent.putExtra(AddEditNoteActivity.EXTRA_GEWICHT, exercise.getGewicht());
-                intent.putExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG, exercise.getBeschreibung());
+                Intent intent = new Intent(DayExercisesActivity.this, AddEditUebungActivity.class);
+                intent.putExtra(AddEditUebungActivity.EXTRA_ID, exercise.getId());
+                intent.putExtra(AddEditUebungActivity.EXTRA_TITLE, exercise.getName());
+                intent.putExtra(AddEditUebungActivity.EXTRA_DATUM, exercise.getDatum());
+                intent.putExtra(AddEditUebungActivity.EXTRA_SCHWIERIGKEIT, exercise.getSchwierigkeit());
+                intent.putExtra(AddEditUebungActivity.EXTRA_POS_SPINNER, exercise.getPos());
+                intent.putExtra(AddEditUebungActivity.EXTRA_SAETZE, exercise.getSaetze());
+                intent.putExtra(AddEditUebungActivity.EXTRA_WIEDERHOLUNGEN, exercise.getWiederholungen());
+                intent.putExtra(AddEditUebungActivity.EXTRA_GEWICHT, exercise.getGewicht());
+                intent.putExtra(AddEditUebungActivity.EXTRA_BESCHREIBUNG, exercise.getBeschreibung());
                 someActivityResultLauncher.launch(intent);
             }
         });
     }
-
-    //Menu für Delete all notes
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //Zum öffnen des Textfensters
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent data = result.getData();
+                    /** Result code wichtig für indenifiaktion */
+                    if (result.getResultCode() == 77) {
+                        /** Neue Übung bekommt Daten durch Intent übergeben und wird erzeugt, anschließend in die Datenbank inserted */
+                        exerciseViewModel.insert(initalisierungNote(data));
+                    } else if (result.getResultCode() == 78) {
+                        int id = data.getIntExtra(AddEditUebungActivity.EXTRA_ID, -1);
+                        if (id == -1) {
+                            Toast.makeText(DayExercisesActivity.this, "note cant be updated", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Exercise exercise = initalisierungNote(data);
+                        exercise.setId(id);
+                        exerciseViewModel.update(exercise);
+                        Toast.makeText(DayExercisesActivity.this, "updated note", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(DayExercisesActivity.this, "not saved", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
 
     private Exercise initalisierungNote(Intent data) {
-        String uebung = data.getStringExtra(AddEditNoteActivity.EXTRA_TITLE);
-        String beschreibung = data.getStringExtra(AddEditNoteActivity.EXTRA_BESCHREIBUNG);
-        int schwierigkeit = data.getIntExtra(AddEditNoteActivity.EXTRA_SCHWIERIGKEIT, 1);
-        int spinner_pos = data.getIntExtra(AddEditNoteActivity.EXTRA_POS_SPINNER, 0);
-        int wiederholungen = data.getIntExtra(AddEditNoteActivity.EXTRA_WIEDERHOLUNGEN, 1);
-        int saetze = data.getIntExtra(AddEditNoteActivity.EXTRA_SAETZE, 1);
-        String gewicht_string = data.getStringExtra(AddEditNoteActivity.EXTRA_GEWICHT);
-        String datum = data.getStringExtra(AddEditNoteActivity.EXTRA_DATUM);
+        String uebung = data.getStringExtra(AddEditUebungActivity.EXTRA_TITLE);
+        String beschreibung = data.getStringExtra(AddEditUebungActivity.EXTRA_BESCHREIBUNG);
+        int schwierigkeit = data.getIntExtra(AddEditUebungActivity.EXTRA_SCHWIERIGKEIT, 1);
+        int spinner_pos = data.getIntExtra(AddEditUebungActivity.EXTRA_POS_SPINNER, 0);
+        int wiederholungen = data.getIntExtra(AddEditUebungActivity.EXTRA_WIEDERHOLUNGEN, 1);
+        int saetze = data.getIntExtra(AddEditUebungActivity.EXTRA_SAETZE, 1);
+        String gewicht_string = data.getStringExtra(AddEditUebungActivity.EXTRA_GEWICHT);
+        String datum = data.getStringExtra(AddEditUebungActivity.EXTRA_DATUM);
         Exercise exercise = new Exercise(uebung, datum, beschreibung, schwierigkeit, wiederholungen, saetze, gewicht_string, spinner_pos);
 
         return exercise;
