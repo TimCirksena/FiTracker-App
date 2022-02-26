@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context=".TemplateActivity">
+    tools:context=".Activity.TemplateActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_back_vorlage"
@@ -44,6 +44,6 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-101dp"
         tools:layout_editor_absoluteY="16dp"
-        tools:listitem="@layout/vorlage_item" />
+        tools:listitem="@layout/template_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

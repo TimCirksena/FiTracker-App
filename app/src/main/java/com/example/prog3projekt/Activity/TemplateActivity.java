@@ -1,4 +1,4 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.prog3projekt.ExerciseDB.Exercise;
-import com.example.prog3projekt.ExerciseDB.ExerciseAdapterVorlage;
+import com.example.prog3projekt.Adapter.ExerciseVorlageAdapter;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
+import com.example.prog3projekt.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class TemplateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vorlage);
+        setContentView(R.layout.activity_template);
 
 
         RecyclerView recyclerViewVorlage = findViewById(R.id.recycler_view_Vorlage);
@@ -43,20 +43,20 @@ public class TemplateActivity extends AppCompatActivity {
         recyclerViewVorlage.setHasFixedSize(true);
 
         //Adapter mit der RecyclerView verbinden
-        ExerciseAdapterVorlage adapter = new ExerciseAdapterVorlage();
+        ExerciseVorlageAdapter adapter = new ExerciseVorlageAdapter();
         recyclerViewVorlage.setAdapter(adapter);
 
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
         exerciseViewModel.getAllExercisesWithVorlage().observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable List<Exercise> exercises) {
-                adapter.setNotes(exercises);
+                adapter.setExercises(exercises);
             }
         });
-        adapter.setOnItemClickListner(new ExerciseAdapterVorlage.OnItemClickListner() {
+        adapter.setOnItemClickListner(new ExerciseVorlageAdapter.OnItemClickListner() {
             @Override
             public void onItemClick(Exercise exercise) {
-                Intent intent = new Intent(TemplateActivity.this, ListUebungActivity.class);
+                Intent intent = new Intent(TemplateActivity.this, ListExercisesActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(EXTRA_VORLAGE_VORLAGE, exercise.getVorlage());
                 setResult(79, intent);

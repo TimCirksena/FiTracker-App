@@ -7,7 +7,8 @@
     android:background="@drawable/gradient"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".AddEditUebungActivity">
+    tools:context=".Activity.AddEditExercisesActivity"
+    >
 
 
 
@@ -33,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-
+        android:textColorHint="#2E2E2E"
         android:text="Wähle deine Übung aus"
         android:textSize="30sp" />
 
@@ -41,6 +42,7 @@
         android:id="@+id/spinner_uebung"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColorHint="#2E2E2E"
         android:layout_marginTop="20dp"
         android:minHeight="48dp" />
 
@@ -49,6 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textColorHint="#2E2E2E"
         android:ems="10"
         android:hint="Wähle das Datum aus"
         android:minHeight="48dp"
@@ -58,6 +61,7 @@
         android:id="@+id/edit_text_description"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:textColorHint="#2E2E2E"
         android:layout_marginTop="20dp"
         android:hint="Wie lief die Übung heute?"
         android:inputType="textMultiLine" />
@@ -66,6 +70,7 @@
         android:id="@+id/edit_Text_Gewicht"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="#2E2E2E"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Mit wie viel Gewicht hast du trainiert?"
@@ -78,6 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textColorHint="#2E2E2E"
         android:ems="10"
         android:hint="Willst du die Übung einer Vorlage hinzufügen?"
         android:inputType="textAutoComplete"
@@ -94,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
+
             android:gravity="center"
             android:orientation="vertical">
 
@@ -101,12 +108,14 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColorHint="#2E2E2E"
                 android:text="Sätze:"
                 android:textSize="18sp" />
 
             <NumberPicker
                 android:id="@+id/number_picker_saetze"
                 android:layout_width="wrap_content"
+                android:textColorHint="#2E2E2E"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
                 tools:layout_editor_absoluteY="622dp" />
@@ -123,6 +132,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColorHint="#2E2E2E"
                 android:text="Wiederholungen:" />
 
             <NumberPicker
@@ -143,6 +153,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColorHint="#2E2E2E"
                 android:text="Schwierigkeit" />
 
             <NumberPicker

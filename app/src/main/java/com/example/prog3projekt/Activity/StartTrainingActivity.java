@@ -1,4 +1,4 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.prog3projekt.Home.HomeActivity;
+import com.example.prog3projekt.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class StartTrainingActivity extends AppCompatActivity {
@@ -19,7 +19,7 @@ public class StartTrainingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_training_beginnen);
+        setContentView(R.layout.activity_training_start);
 
         vorlage = findViewById(R.id.VorlageBtn);
         neuesTraining = findViewById(R.id.NeuesTrainingBtn);
@@ -40,7 +40,7 @@ public class StartTrainingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(StartTrainingActivity.this, AddEditUebungActivity.class);
+                Intent intent = new Intent(StartTrainingActivity.this, AddEditExercisesActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 StartTrainingActivity.this.finish();
@@ -49,7 +49,7 @@ public class StartTrainingActivity extends AppCompatActivity {
         aktuellesTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StartTrainingActivity.this, ListUebungActivity.class);
+                Intent intent = new Intent(StartTrainingActivity.this, ListExercisesActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 StartTrainingActivity.this.finish();

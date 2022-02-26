@@ -25,7 +25,7 @@ public interface ExerciseDao {
     void deleteAllExercises();
 
     @Query("SELECT * FROM exersice_table ORDER BY gewicht DESC")
-    LiveData<List<Exercise>> getAllNotes();
+    LiveData<List<Exercise>> getAllExercises();
 
     @Query("SELECT * FROM exersice_table WHERE monat=:monat AND tag=:tag AND jahr=:jahr")
     LiveData<List<Exercise>> getExercisesForDay(int tag, int monat, int jahr);

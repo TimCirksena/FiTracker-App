@@ -3,7 +3,7 @@ package com.example.prog3projekt.ExerciseDB;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.prog3projekt.DataTimeConverter;
+import com.example.prog3projekt.HelperClasses.DataTimeConverter;
 
 @Entity(tableName = "exersice_table")
 public class Exercise {

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Prog3Projekt">
         <activity
-            android:name=".SplashScreen"
+            android:name=".Activity.SplashScreenActivity"
             android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -19,29 +19,29 @@
         </intent-filter>
         </activity>
         <activity
-            android:name=".DayExercisesActivity"
+            android:name=".Activity.DayExercisesActivity"
             android:exported="false" />
         <activity
-            android:name=".StartTrainingActivity"
+            android:name=".Activity.StartTrainingActivity"
             android:exported="false" />
         <activity
-            android:name=".TemplateActivity"
+            android:name=".Activity.TemplateActivity"
             android:exported="false" />
         <activity
-            android:name=".AddEditUebungActivity"
+            android:name=".Activity.AddEditExercisesActivity"
             android:exported="false"
-            android:parentActivityName=".ListUebungActivity" />
+            android:parentActivityName=".Activity.ListExercisesActivity" />
         <activity
-            android:name=".Home.HomeActivity"
+            android:name=".Activity.HomeActivity"
             android:exported="false">
 
         </activity>
         <activity
-            android:name=".ListUebungActivity"
+            android:name=".Activity.ListExercisesActivity"
             android:exported="false"
             android:launchMode="singleTop" />
         <activity
-            android:name=".StatisticActivity"
+            android:name=".Activity.StatisticActivity"
             android:exported="false"
             android:launchMode="singleTop" />
     </application>

@@ -1,6 +1,5 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,12 +26,12 @@ import android.widget.Toast;
 
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
+import com.example.prog3projekt.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Arrays;
 import java.util.Calendar;
 
-public class AddEditUebungActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddEditExercisesActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String EXTRA_DAY_ID =
             "com.example.prog3projekt.EXTRA_DAY_ID";
     public static final String EXTRA_UEBUNG =
@@ -87,7 +83,7 @@ public class AddEditUebungActivity extends AppCompatActivity implements AdapterV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_note_acctivity);
+        setContentView(R.layout.activity_add_exercises_acctivity);
 
 
         /** Erstellung der Buttons im Erstellungsmenü
@@ -131,7 +127,7 @@ public class AddEditUebungActivity extends AppCompatActivity implements AdapterV
         clickTagSpeichern.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveNote();
+                saveExercise();
             }
         });
 
@@ -151,7 +147,7 @@ public class AddEditUebungActivity extends AppCompatActivity implements AdapterV
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        AddEditUebungActivity.this,
+                        AddEditExercisesActivity.this,
                         R.style.Theme_Material3_Light_Dialog_MinWidth, mDateSetListener,
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
@@ -209,7 +205,7 @@ public class AddEditUebungActivity extends AppCompatActivity implements AdapterV
     /**
      * Logik hinter den Views, wie werden die Daten weitergeleitet
      */
-    private void saveNote() {
+    private void saveExercise() {
         String vorlage = editTextVorlage.getText().toString();
         String date = editDateDialog.getText().toString();
         String gewicht = editTextGewicht.getText().toString();
@@ -260,14 +256,14 @@ public class AddEditUebungActivity extends AppCompatActivity implements AdapterV
     }
     /** <h2>Abteilung Hilfsmethoden</h2> */
     public void openMainActivity() {
-        Intent intent = new Intent(this, ListUebungActivity.class);
+        Intent intent = new Intent(this, ListExercisesActivity.class);
         startActivity(intent);
     }
 
     public void openNewAddActivity(Exercise exercise) {
         ExerciseViewModel exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
         exerciseViewModel.insert(exercise);
-        Intent intent = new Intent(this, AddEditUebungActivity.class);
+        Intent intent = new Intent(this, AddEditExercisesActivity.class);
         startActivity(intent);
     }
 
@@ -317,7 +313,7 @@ public class AddEditUebungActivity extends AppCompatActivity implements AdapterV
         clickTagSpeichern.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveNote();
+                saveExercise();
             }
         });
 

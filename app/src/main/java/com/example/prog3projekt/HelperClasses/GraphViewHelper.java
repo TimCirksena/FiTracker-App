@@ -1,9 +1,10 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.HelperClasses;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 
+import com.example.prog3projekt.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;

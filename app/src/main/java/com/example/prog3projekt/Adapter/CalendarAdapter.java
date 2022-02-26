@@ -1,4 +1,4 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.Adapter;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,7 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prog3projekt.ExerciseDB.OnCalendarItemClickListener;
+import com.example.prog3projekt.HelperClasses.Date;
+import com.example.prog3projekt.Interface.OnCalendarItemClickListener;
+import com.example.prog3projekt.HelperClasses.DataTimeConverter;
+import com.example.prog3projekt.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     @NonNull
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View calendarView = LayoutInflater.from(parent.getContext()).inflate(R.layout.calendar_field, parent, false);
+        View calendarView = LayoutInflater.from(parent.getContext()).inflate(R.layout.calendar_item, parent, false);
         this.x = parent;
         kalenderTage = x.getResources().getStringArray(R.array.kalendertage);
         return new CalendarViewHolder(calendarView);
@@ -65,7 +68,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         public void bind(final Date datum) {
             valueTextView.setText(kalenderTage[datum.getDay()]);
             valueTextView.setTextColor(Color.WHITE);
-            if (datum.trained) {
+            if (datum.getTrained()) {
                 itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape_trained));
             } else {
                 itemView.setBackground(x.getResources().getDrawable(R.drawable.calendar_item_shape));

@@ -32,7 +32,7 @@ public class ExerciseViewModel extends AndroidViewModel {
         repository.delete(exercise);
     }
 
-    public void deleteAllNotes() {
+    public void deleteAllExercise() {
         repository.deleteAllExercises();
     }
 

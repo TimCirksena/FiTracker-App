@@ -9,13 +9,13 @@ import java.util.List;
 
 public class ExerciseRepository {
     private ExerciseDao exerciseDao;
-    private LiveData<List<Exercise>> allNotes;
+    private LiveData<List<Exercise>> allExercise;
     private LiveData<List<Exercise>> allExercisesWithVorlage;
 
     public ExerciseRepository(Application application) {
         ExercisesDatabase database = ExercisesDatabase.getInstance(application);
         exerciseDao = database.exerciseDao();
-        allNotes = exerciseDao.getAllNotes();
+        allExercise = exerciseDao.getAllExercises();
         allExercisesWithVorlage = exerciseDao.getAllExercisesWithVorlage();
     }
 
@@ -36,7 +36,7 @@ public class ExerciseRepository {
     }
 
     public LiveData<List<Exercise>> getAllExercises() {
-        return allNotes;
+        return allExercise;
     }
 
     public LiveData<List<Exercise>> getAllExercisesWithVorlage() {

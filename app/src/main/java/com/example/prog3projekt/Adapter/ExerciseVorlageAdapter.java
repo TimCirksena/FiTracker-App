@@ -1,6 +1,5 @@
-package com.example.prog3projekt.ExerciseDB;
+package com.example.prog3projekt.Adapter;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder> {
+public class ExerciseVorlageAdapter extends RecyclerView.Adapter<ExerciseVorlageAdapter.ExerciseHolder> {
     private List<Exercise> exercises = new ArrayList<>();
-    private OnItemClickListener listener;
-    private ViewGroup x;
+    private OnItemClickListner listner;
+    ViewGroup x;
 
     @NonNull
     @Override
@@ -26,7 +26,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         //Die View die wir später an den Context weitergeben, -> Main_activity
         x = parent;
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.note_item, parent, false);
+                .inflate(R.layout.template_item, parent, false);
         return new ExerciseHolder(itemView);
     }
 
@@ -36,9 +36,9 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         //based on the postion of the recycler view
         //Was auf dem Screen angezeigt wird
         Exercise currentExercise = exercises.get(position);
-        holder.textViewUebung.setText(currentExercise.getName());
-        holder.textViewBeschreibung.setText(currentExercise.getDatum());
-        holder.textViewGewicht.setText(String.valueOf(currentExercise.getSchwierigkeit()));
+        if (currentExercise.getVorlage() != null) {
+            holder.textViewVorlageTitle.setText(currentExercise.getVorlage());
+        }
     }
 
     @Override
@@ -48,46 +48,48 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         return exercises.size();
     }
 
-    public void setNotes(List<Exercise> exercises) {
+    public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
         notifyDataSetChanged();
     }
 
     //Hilfsmethode um die Position unsere Note an den ItemTouchHelper zu übergeben
-    public Exercise getNoteAt(int position) {
+    public Exercise getExercisesAt(int position) {
         return exercises.get(position);
     }
     //grabbing the views from our recycler_view layout
     //Kinda like the in the onCreate method
 
     class ExerciseHolder extends RecyclerView.ViewHolder {
-        private TextView textViewUebung;
+        private TextView textViewVorlageTitle;
         private TextView textViewBeschreibung;
-        private TextView textViewGewicht;
 
         public ExerciseHolder(View itemView) {
             super(itemView);
             /* TODO:HIER ANPASSEN */
+            textViewVorlageTitle = itemView.findViewById(R.id.text_view_vorlage_title);
             itemView.setBackground(x.getResources().getDrawable(R.drawable.buttonshape));
-            textViewUebung = itemView.findViewById(R.id.text_view_title);
-            textViewBeschreibung = itemView.findViewById(R.id.text_view_description);
-            textViewGewicht = itemView.findViewById(R.id.text_view_priority);
-
+            textViewVorlageTitle.setTextColor(x.getResources().getColor(R.color.white));
             //FÜrs EDIT der Notes
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(exercises.get(position));
+                    if (listner != null && position != RecyclerView.NO_POSITION) {
+                        listner.onItemClick(exercises.get(position));
                     }
                 }
             });
         }
     }
 
+    public interface OnItemClickListner {
+        void onItemClick(Exercise exercise);
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
+    }
+
+    public void setOnItemClickListner(OnItemClickListner listner) {
+        this.listner = listner;
     }
 }
+

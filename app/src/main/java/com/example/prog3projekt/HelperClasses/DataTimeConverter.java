@@ -1,4 +1,4 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.HelperClasses;
 
 
 import android.os.Build;

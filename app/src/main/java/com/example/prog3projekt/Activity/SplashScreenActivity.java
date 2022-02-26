@@ -1,4 +1,4 @@
-package com.example.prog3projekt;
+package com.example.prog3projekt.Activity;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,9 +8,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.prog3projekt.Home.HomeActivity;
+import com.example.prog3projekt.R;
+
 /** <h2>Tim Cirksena</h2> */
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
@@ -22,7 +23,7 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         },2000);

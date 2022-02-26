@@ -1,4 +1,4 @@
-package com.example.prog3projekt.Home;
+package com.example.prog3projekt.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,17 +7,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prog3projekt.CalendarAdapter;
-import com.example.prog3projekt.DataTimeConverter;
-import com.example.prog3projekt.Date;
-import com.example.prog3projekt.DayExercisesActivity;
-import com.example.prog3projekt.ExerciseDB.OnCalendarItemClickListener;
-import com.example.prog3projekt.GraphViewHelper;
+import com.example.prog3projekt.Adapter.CalendarAdapter;
+import com.example.prog3projekt.HelperClasses.DataTimeConverter;
+import com.example.prog3projekt.HelperClasses.Date;
+import com.example.prog3projekt.Interface.OnCalendarItemClickListener;
+import com.example.prog3projekt.HelperClasses.GraphViewHelper;
 import com.example.prog3projekt.ExerciseDB.Exercise;
 import com.example.prog3projekt.ExerciseDB.ExerciseViewModel;
 import com.example.prog3projekt.R;
-import com.example.prog3projekt.StartTrainingActivity;
-import com.example.prog3projekt.StatisticActivity;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
