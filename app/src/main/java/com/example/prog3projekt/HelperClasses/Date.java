@@ -8,7 +8,7 @@ public class Date {
 
     private boolean trained;
     private int day;
-/** Konstruktor der Hilfsklasse */
+    /** Konstruktor der Hilfsklasse */
     public Date(int day, boolean trained) {
         this.day = day;
         this.trained = trained;

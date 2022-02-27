@@ -16,7 +16,9 @@ public class StartTrainingActivity extends AppCompatActivity {
     private Button vorlage;
     private Button neuesTraining;
     private Button aktuellesTraining;
-
+    /** Übersicht Activity fungiert als eine Art Menü
+     * Es werden drei Buttons angelegt die zu Vorlage, AddEdit und ListExercise führen
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

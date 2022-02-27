@@ -22,6 +22,7 @@ public class ExerciseVorlageAdapter extends RecyclerView.Adapter<ExerciseVorlage
     private OnItemClickListner listner;
     ViewGroup x;
 
+    /** Die View die wir später an den Context weitergeben, -> Template_activity */
     @NonNull
     @Override
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,9 +35,9 @@ public class ExerciseVorlageAdapter extends RecyclerView.Adapter<ExerciseVorlage
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseHolder holder, int position) {
-        //assigning values to the views we created in the recycler_view layout file
+        /** assigning values to the views we created in the recycler_view layout file
         //based on the postion of the recycler view
-        //Was auf dem Screen angezeigt wird
+        //Was auf dem Screen angezeigt wird */
         Exercise currentExercise = exercises.get(position);
         if (currentExercise.getVorlage() != null) {
             holder.textViewVorlageTitle.setText(currentExercise.getVorlage());
@@ -45,7 +46,7 @@ public class ExerciseVorlageAdapter extends RecyclerView.Adapter<ExerciseVorlage
 
     @Override
     public int getItemCount() {
-        //the recycler view wants to know the number of item we're passing
+        /**the recycler view wants to know the number of item we're passing */
         Log.d("note.size", exercises.size() + "");
         return exercises.size();
     }
@@ -55,24 +56,26 @@ public class ExerciseVorlageAdapter extends RecyclerView.Adapter<ExerciseVorlage
         notifyDataSetChanged();
     }
 
-    //Hilfsmethode um die Position unsere Note an den ItemTouchHelper zu übergeben
+    /**Hilfsmethode um die Position unsere Note an den ItemTouchHelper zu übergeben */
     public Exercise getExercisesAt(int position) {
         return exercises.get(position);
     }
-    //grabbing the views from our recycler_view layout
-    //Kinda like the in the onCreate method
+    /** Hilfsmethode um die Position unsere Exercise an den ItemTouchHelper zu übergeben
+     * grabbing the views from our recycler_view layout
+     Kinda like the in the onCreate method*/
 
+    /** ViewHolder Klasse die zum verwalten eines einzelnen Elementes konstruiert wird*/
     class ExerciseHolder extends RecyclerView.ViewHolder {
         private TextView textViewVorlageTitle;
         private TextView textViewBeschreibung;
-
+        /** Konstruktor */
         public ExerciseHolder(View itemView) {
             super(itemView);
-            /* TODO:HIER ANPASSEN */
+
             textViewVorlageTitle = itemView.findViewById(R.id.text_view_vorlage_title);
             itemView.setBackground(x.getResources().getDrawable(R.drawable.buttonshape));
             textViewVorlageTitle.setTextColor(x.getResources().getColor(R.color.white));
-            //FÜrs EDIT der Notes
+            /**FÜrs EDIT der Exercises */
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

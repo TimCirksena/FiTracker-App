@@ -16,7 +16,7 @@ public class ExerciseViewModel extends AndroidViewModel {
     private ExerciseRepository repository;
     private LiveData<List<Exercise>> allExercises;
     private LiveData<List<Exercise>> allExercisesWithVorlage;
-
+    /** Konstruktor */
     public ExerciseViewModel(@NonNull Application application) {
         super(application);
         repository = new ExerciseRepository(application);
@@ -43,7 +43,7 @@ public class ExerciseViewModel extends AndroidViewModel {
     public void deleteExerciseForDay(String datum) {
         repository.deleteExerciseForDay(datum);
     }
-
+    /** LiveData Methoden */
     public LiveData<List<Exercise>> getExerciseForDate(int tag, int monat, int jahr) {
         return repository.getAllexercisesLaterThan(tag, monat, jahr);
     }

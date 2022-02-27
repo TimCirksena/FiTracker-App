@@ -24,7 +24,7 @@ public class Exercise {
     private int tag;
     private int monat;
     private int jahr;
-
+    /** Konstruktor */
     public Exercise(String name, String datum, String beschreibung, int schwierigkeit, int wiederholungen, int saetze, String gewicht, int pos) {
         this.name = name;
         this.datum = datum;
@@ -38,7 +38,7 @@ public class Exercise {
         this.monat = DataTimeConverter.getMonthFromDate(datum);
         this.jahr = DataTimeConverter.getYearFromDate(datum);
     }
-
+    /** Getter & Setter */
     public void setVorlage(String s) {
         this.vorlage = s;
     }

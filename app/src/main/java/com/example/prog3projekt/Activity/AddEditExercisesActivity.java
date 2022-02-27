@@ -156,6 +156,7 @@ public class AddEditExercisesActivity extends AppCompatActivity implements Adapt
 
             }
         });
+        /** Hilfsmethode um an das Aktuelle Datum zu gelangen*/
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -221,6 +222,7 @@ public class AddEditExercisesActivity extends AppCompatActivity implements Adapt
             Toast.makeText(this, "Bitte alle Felder ausfüllen!", Toast.LENGTH_SHORT).show();
             return;
         }
+        /** Daten werde übermittelt */
         Intent data = new Intent();
         data.putExtra(EXTRA_VORLAGE, vorlage);
         data.putExtra(EXTRA_DATUM, date);

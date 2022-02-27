@@ -28,21 +28,21 @@ public class TemplateActivity extends AppCompatActivity {
     public static final String EXTRA_VORLAGE_VORLAGE =
             "com.example.prog3projekt.EXTRA_VORLAGE_VORLAGE";
 
-    /**Ich brauch Day damit ich Übungen dem Day hinzufügen kann
-    //Adapter für die RecyclerView erstellen
-    //Mit AddEditNote verbinden */
+
+    /**Adapter für die RecyclerView erstellen
+     * Mit AddEditNote verbinden */
     /** <h2>Tim Cirksena</h2> */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template);
 
-
+        /** RecyclerView für Exercise die eine Vorlage besitzen */
         RecyclerView recyclerViewVorlage = findViewById(R.id.recycler_view_Vorlage);
         recyclerViewVorlage.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewVorlage.setHasFixedSize(true);
 
-        //Adapter mit der RecyclerView verbinden
+        /**Adapter mit der RecyclerView verbinden */
         ExerciseVorlageAdapter adapter = new ExerciseVorlageAdapter();
         recyclerViewVorlage.setAdapter(adapter);
 
@@ -53,6 +53,8 @@ public class TemplateActivity extends AppCompatActivity {
                 adapter.setExercises(exercises);
             }
         });
+        /** Es soll differenziert werden zwischen den verschiedenen
+         * Exercises, eine Vorlage soll nur Exercises erhalten die eine Vorlage besitzen */
         adapter.setOnItemClickListner(new ExerciseVorlageAdapter.OnItemClickListner() {
             @Override
             public void onItemClick(Exercise exercise) {
@@ -65,6 +67,7 @@ public class TemplateActivity extends AppCompatActivity {
 
             }
         });
+        /** zurück zur StartTraining Activity Button */
         FloatingActionButton buttonBack = findViewById(R.id.button_back_vorlage);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,22 +79,5 @@ public class TemplateActivity extends AppCompatActivity {
                 TemplateActivity.this.finish();
             }
         });
-    }
-
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //Zum öffnen des Textfensters
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.go_back_menu, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.go_back:
-                finish();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

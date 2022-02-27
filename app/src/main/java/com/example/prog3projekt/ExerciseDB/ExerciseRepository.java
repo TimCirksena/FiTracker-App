@@ -10,10 +10,12 @@ import java.util.List;
  Repository Klasse der Database, für Skalierbarkeit der
  App*/
 public class ExerciseRepository {
+    /** Membervariablen */
     private ExerciseDao exerciseDao;
     private LiveData<List<Exercise>> allExercise;
     private LiveData<List<Exercise>> allExercisesWithVorlage;
 
+    /** Konstruktor */
     public ExerciseRepository(Application application) {
         ExercisesDatabase database = ExercisesDatabase.getInstance(application);
         exerciseDao = database.exerciseDao();
@@ -39,7 +41,7 @@ public class ExerciseRepository {
     public void deleteAllExercises() {
         new DeleteAllExercisesExercisesAsyncTask(exerciseDao).execute();
     }
-
+    /** LiveData methoden */
     public LiveData<List<Exercise>> getAllExercises() {
         return allExercise;
     }
@@ -68,7 +70,7 @@ public class ExerciseRepository {
         return exerciseDao.getAllExercisesBetweenDates(tagMin, monatMin, jahrMin, tagMax, monatMax, jahrMax);
     }
 
-
+    /** AsyncTask Methoden */
     private static class InsertExerciseAsyncTask extends AsyncTask<Exercise, Void, Void> {
         private ExerciseDao exerciseDao;
 

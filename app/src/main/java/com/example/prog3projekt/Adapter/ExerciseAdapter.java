@@ -23,7 +23,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     private OnItemClickListener listener;
     private ViewGroup x;
 
-    /** Die View die wir später an den Context weitergeben, -> Main_activity */
+    /** Die View die wir später an den Context weitergeben, -> Listexercises_activity */
     @NonNull
     @Override
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,7 +53,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         this.exercises = exercises;
         notifyDataSetChanged();
     }
-    /** Hilfsmethode um die Position unsere Note an den ItemTouchHelper zu übergeben
+    /** Hilfsmethode um die Position unsere Exercise an den ItemTouchHelper zu übergeben
      * grabbing the views from our recycler_view layout
      Kinda like the in the onCreate method*/
     public Exercise getExercisesAt(int position) {
@@ -70,14 +70,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         /** Konstruktor */
         public ExerciseHolder(View itemView) {
             super(itemView);
-            /* TODO:HIER ANPASSEN */
             itemView.setBackground(x.getResources().getDrawable(R.drawable.buttonshape));
             textViewUebung = itemView.findViewById(R.id.text_view_title);
             textViewBeschreibung = itemView.findViewById(R.id.text_view_description);
             textViewGewicht = itemView.findViewById(R.id.text_view_priority);
 
-            /** Für das Anpassen der UI der Notes*/
-            //FÜrs EDIT der Notes
+            /** Für das Anpassen der UI der Exercises
+            FÜrs EDIT der Exercises */
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

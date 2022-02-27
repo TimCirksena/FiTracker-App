@@ -32,12 +32,15 @@ public class ListExercisesActivity extends AppCompatActivity {
             "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";
     private ExerciseViewModel exerciseViewModel;
 
-/** <h2>Tim Cirksena</h2> */
+/** <h2>Tim Cirksena</h2>
+ * Standart View mit einer List aus Exercise
+ * Button werde initalsiert
+ * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        /** Button zum um zur AddEdit Activity zu gelangen */
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_exercise);
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +49,7 @@ public class ListExercisesActivity extends AppCompatActivity {
                 someActivityResultLauncher.launch(intent);
             }
         });
-
+        /** Button um zur StartTrainingActivity zu gelangen */
         FloatingActionButton buttonBack = findViewById(R.id.button_back_main);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +60,7 @@ public class ListExercisesActivity extends AppCompatActivity {
                 ListExercisesActivity.this.finish();
             }
         });
+        /** Deleted alle vorhanden exercises */
         FloatingActionButton buttonDeleteAll = findViewById(R.id.button_delete_main);
         buttonDeleteAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,13 +74,13 @@ public class ListExercisesActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
 
-        //Adapter mit der RecyclerView verbinden
+        /**Adapter mit der RecyclerView verbinden */
         ExerciseAdapter adapter = new ExerciseAdapter();
         recyclerView.setAdapter(adapter);
 
         Intent intent = getIntent();
         String s = intent.getStringExtra(TemplateActivity.EXTRA_VORLAGE_VORLAGE);
-
+        /** Unterteilung der Vorlagen View und der normalen Tages ansicht von exercises */
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
         if (s != null) {
             exerciseViewModel.getAllExercisesForVorlage(s).observe(this, new Observer<List<Exercise>>() {
@@ -96,8 +100,8 @@ public class ListExercisesActivity extends AppCompatActivity {
             });
         }
 
-        //exerciseViewModel.insert(t);
-        //Für das Swipen von notes delete links und rechts
+
+        /** Für das Swipen von notes delete links und rechts */
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -115,9 +119,9 @@ public class ListExercisesActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(Exercise exercise) {
-                //TODO: In Bundle machen
-                //Intent swaped von MainActivity zu AddEditActivity
-                //
+
+                /**Intent swaped von MainActivity zu AddEditActivity */
+
                 Intent intent = new Intent(ListExercisesActivity.this, AddEditExercisesActivity.class);
                 intent.putExtra(AddEditExercisesActivity.EXTRA_VORLAGE, exercise.getVorlage());
                 intent.putExtra(AddEditExercisesActivity.EXTRA_ID, exercise.getId());
@@ -135,7 +139,7 @@ public class ListExercisesActivity extends AppCompatActivity {
         });
     }
 
-
+    /** Hilfsmethoden */
     private Exercise initalisierungExercise(Intent data) {
 
         String uebung = data.getStringExtra(AddEditExercisesActivity.EXTRA_TITLE);
