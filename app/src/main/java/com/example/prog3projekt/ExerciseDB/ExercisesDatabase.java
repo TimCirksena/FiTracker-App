@@ -8,8 +8,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
-@Database(entities = {Exercise.class}, version = 7)
+/** <h2> Tom Sattler & Tim Cirksena </h2>
+ * Implementation der Database*/
+@Database(entities = {Exercise.class},exportSchema = false, version = 7)
 public abstract class ExercisesDatabase extends RoomDatabase {
     private static ExercisesDatabase instance;
 

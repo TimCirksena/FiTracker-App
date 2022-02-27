@@ -9,7 +9,8 @@ import android.widget.Button;
 
 import com.example.prog3projekt.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+/** <h2>Tim Cirksena</h2>
+ * */
 public class StartTrainingActivity extends AppCompatActivity {
 
     private Button vorlage;

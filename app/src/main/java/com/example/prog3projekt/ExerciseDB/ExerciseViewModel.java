@@ -8,6 +8,10 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+/** <h2>Tom Sattler & Tim Cirksena</h2>
+    Implementation des ViewModels.
+    Dient als Verbindung zwischen der Database und dem UI
+ */
 public class ExerciseViewModel extends AndroidViewModel {
     private ExerciseRepository repository;
     private LiveData<List<Exercise>> allExercises;

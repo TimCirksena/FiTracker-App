@@ -1,19 +1,19 @@
 package com.example.prog3projekt.HelperClasses;
 
+/**
+ * Tom Sattler
+ * Hilfsklasse durch die, die RecyclerView implementiert werden kann
+ */
 public class Date {
 
-
-
-    /**
-     * Tom Sattler
-     */
     private boolean trained;
     private int day;
-
+/** Konstruktor der Hilfsklasse */
     public Date(int day, boolean trained) {
         this.day = day;
         this.trained = trained;
     }
+    /** Implementation von Gettern und Settern*/
     public boolean getTrained() {
         return trained;
     }

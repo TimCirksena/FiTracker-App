@@ -30,7 +30,8 @@ public class GraphViewHelper {
         graphView.getGridLabelRenderer().setVerticalLabelsColor(Color.WHITE);
     }
     /** <i>Tom Sattler</i>
-     *  */
+     *  Hilfsmethode die den Grapgen mit der richtigen größe und dem richtigem Ui baut, hier mit
+     *  Daten auf der x-Achse. */
     public static void setUpGraphViewWithDate(GraphView graphView, Date minX, Date maxX, int maxY, Activity context) {
         graphView.getViewport().setXAxisBoundsManual(true);
         graphView.getViewport().setYAxisBoundsManual(true);
@@ -44,7 +45,7 @@ public class GraphViewHelper {
         graphView.getGridLabelRenderer().setHorizontalLabelsColor(Color.WHITE);
         graphView.getGridLabelRenderer().setVerticalLabelsColor(Color.WHITE);
         graphView.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(context));
-        graphView.getGridLabelRenderer().setNumHorizontalLabels(5);
+        graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
     }
 
     /** <i>Tom Sattler</i>

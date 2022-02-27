@@ -14,6 +14,8 @@ import com.example.prog3projekt.R;
 
 import java.util.ArrayList;
 import java.util.List;
+/** Tim Cirksena
+ * Adapter ViewHolder zur eindimensionalen Template RecyclerView*/
 
 public class ExerciseVorlageAdapter extends RecyclerView.Adapter<ExerciseVorlageAdapter.ExerciseHolder> {
     private List<Exercise> exercises = new ArrayList<>();

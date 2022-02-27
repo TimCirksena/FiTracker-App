@@ -26,7 +26,8 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/** <h2>Tom Sattler</h2>
+ * Start-Screen nachdem Splash-Screen*/
 public class HomeActivity extends AppCompatActivity implements OnCalendarItemClickListener {
     Button heute;
     GraphView graphView;
@@ -42,19 +43,22 @@ public class HomeActivity extends AppCompatActivity implements OnCalendarItemCli
         setContentView(R.layout.activity_home);
         heute = findViewById(R.id.heuteBtn);
         graphView = findViewById(R.id.graphView);
+
+        /** Zuweisung der RecyclerView zu dem Adapter.
+         * Es werden so viele neue Tage erstellt wie der Monat
+         * tage hat.*/
         RecyclerView recyclerView = findViewById(R.id.calendar_recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 7));
         adapter = new CalendarAdapter(this);
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
-
-
         ArrayList<Date> listDatesInMonth = new ArrayList<Date>();
         recyclerView.setAdapter(adapter);
         for (int i = 0; i < DataTimeConverter.getAmountDay(); i++) {
             listDatesInMonth.add(new Date(i, false));
         }
         adapter.setDaten(listDatesInMonth);
-
+        /** Implementierung des Kalenders durch Einbindung des CalendardAdapter und
+         * mit RecyclerView */
         exerciseViewModel.getExerciseForDate(0, DataTimeConverter.getMonth(), DataTimeConverter.getYear()).observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(List<Exercise> exercises) {
@@ -115,9 +119,8 @@ public class HomeActivity extends AppCompatActivity implements OnCalendarItemCli
             }
         });
         /** Zum Testen, sonst alle Übungen immer einzeln inserten */
-        //addSimulationExercises();
     }
-
+    /** Zum testen mit Übungen */
     void addSimulationExercises() {
         exerciseViewModel.insert(new Exercise("Bench Press", "01.02.2022", "gut", 20, 10, 3, "100", 5));
         exerciseViewModel.insert(new Exercise("Bench Press", "05.02.2022", "gut", 30, 10, 3, "100", 5));
@@ -129,6 +132,8 @@ public class HomeActivity extends AppCompatActivity implements OnCalendarItemCli
         exerciseViewModel.insert(new Exercise("Bench Press", "25.02.2022", "gut", 80, 10, 3, "100", 1));
     }
 
+    /** onItemClickListener des Interfaces implementiert.
+     * Öffnet die DayExercisesView und übergibt ihr das Datum als Intent*/
     @Override
     public void onItemClick(Date datum) {
         Intent intent = new Intent(this, DayExercisesActivity.class);

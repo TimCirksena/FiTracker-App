@@ -31,6 +31,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+/** <h2>Tom Sattler</h2>
+ * Activity zur Ansicht der Statistik*/
 
 public class StatisticActivity extends AppCompatActivity {
 
@@ -47,7 +49,8 @@ public class StatisticActivity extends AppCompatActivity {
     String dateFormatMin;
     String dateFormatMax;
     private FloatingActionButton back;
-    /** <h2>Tom Sattler</h2> */
+
+    /** onCreateMethode und Zuweisung der Ui Elemente */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,9 @@ public class StatisticActivity extends AppCompatActivity {
         graphView = findViewById(R.id.graphViewStatistik);
         buttonDisplay = findViewById(R.id.button_statistik_anzeigen);
 
+
+        /** Öffnen und weitergabe des Datums, welches in dem
+         *  Kalender gewählt wurde - Minimales Datum*/
         graphView.setVisibility(View.INVISIBLE);
         minDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +90,9 @@ public class StatisticActivity extends AppCompatActivity {
             }
         });
 
+
+        /** Öffnen und weitergabe des Datums, welches in dem
+         *  Kalender gewählt wurde - Maximales Datum*/
         maxDate.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -102,6 +111,9 @@ public class StatisticActivity extends AppCompatActivity {
 
             }
         });
+
+        /** Minimales Datum Listener für die Setzung der Daten vom
+         * Kalender gedrückt gefunden ->Darstellen */
         minDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -111,16 +123,29 @@ public class StatisticActivity extends AppCompatActivity {
                 dateFormatMin = date;
             }
         };
+
+
+        /** Maximales Datum Listener für die Setzung der Daten vom
+         * Kalender gedrückt gefunden ->Darstellen */
         maxDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month++;
                 String date = DataTimeConverter.addZerosToDate(dayOfMonth, month, year);
-                Log.d("Formatierung Date", date);
                 maxDate.setText(date);
                 dateFormatMax = date;
             }
         };
+        /** onClickListener des anzeigen Buttons. Es wird durch
+         * Tage in dem definierten Zeitraum und Obsever
+         * der Database durch dessen Elemente iteriert.
+         * Die Elemente werden verglichen und bei gleichem Wert werden
+         * an diesem Tag der Wert der Schwierigkeit der Exercise in dem neuen
+         * DataPoint Objekt als Y-Wert übernommen. Vorher muss noch viel von String und Date
+         * umgewandelt werden. Zur Ermittelung der größe muss mit der selben Iteration durch
+         * die Anzahl an Kalenderdaten iteriert werden, da die Java Date und Kalender Klasse
+         * bei Vergleich ambivalente Ergebnisse liefert.
+         * Vorher wird die Abfrage zu den ausgefüllten Parameter durchgeführt*/
         buttonDisplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -250,6 +275,8 @@ public class StatisticActivity extends AppCompatActivity {
         });
     }
 
+    /** Hilfsmethode für den großen onclicklistener, die Schaut
+     * dass die Daten richtig eingegeben wurden*/
     private boolean allInputsCorrect(String minDate, String maxDate) {
         if (minDate != null && maxDate != null) {
             if (DataTimeConverter.getYearFromDate(minDate) == DataTimeConverter.getYearFromDate(maxDate)) {

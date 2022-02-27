@@ -27,7 +27,6 @@ import com.example.prog3projekt.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
-
 public class ListExercisesActivity extends AppCompatActivity {
     public static final String EXTRA_GEWICHT_MAIN =
             "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";

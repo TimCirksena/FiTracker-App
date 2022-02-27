@@ -31,6 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 
+/** <h2>Tim Cirksena</h2>*/
 public class AddEditExercisesActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String EXTRA_DAY_ID =
             "com.example.prog3projekt.EXTRA_DAY_ID";

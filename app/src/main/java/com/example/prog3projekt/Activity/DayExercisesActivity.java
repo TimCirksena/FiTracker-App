@@ -29,19 +29,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+/** <h2>Tim Cirksena & Tom Sattler</h2>
+ * DayExerciseActivity die nur die Activities eines Tages anzeigt*/
 public class DayExercisesActivity extends AppCompatActivity {
     public static final String EXTRA_GEWICHT_MAIN =
             "com.example.prog3projekt.EXTRA_GEWICHT_MAIN";
     private ExerciseViewModel exerciseViewModel;
-    /** <h2>Tim Cirksena & Tom Sattler</h2>
-     *  Ansicht von
-     * */
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Intent data = getIntent();
+        /** Button zur erstellung einer neuen Exercise -> Inent zur AddEditExerciseActivity*/
         FloatingActionButton buttonAddNote = findViewById(R.id.button_add_exercise);
         buttonAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +49,7 @@ public class DayExercisesActivity extends AppCompatActivity {
                 someActivityResultLauncher.launch(intent);
             }
         });
-
+        /** Button zurück zur HomeActivity -> Inent zur AddEditView*/
         FloatingActionButton buttonBack = findViewById(R.id.button_back_main);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +58,7 @@ public class DayExercisesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        /** Button zum löschen aller vorhandenen Exercises die an dem Tag waren*/
         FloatingActionButton buttonDeleteAll = findViewById(R.id.button_delete_main);
         buttonDeleteAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +69,13 @@ public class DayExercisesActivity extends AppCompatActivity {
             }
         });
 
+
+        /**Adapter mit der RecyclerView initialisieren
+         * und mit dem Adapter verbinden
+         * */
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-
-
-        /**Adapter mit der RecyclerView verbinden */
         ExerciseAdapter adapter = new ExerciseAdapter();
         recyclerView.setAdapter(adapter);
         exerciseViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ExerciseViewModel.class);
@@ -86,7 +87,7 @@ public class DayExercisesActivity extends AppCompatActivity {
         });
 
 
-        /** Für das Swipen von notes delete links und rechts */
+        /** Für das Deleten von Notes durch swipes aus dem Bildschirm */
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -101,11 +102,11 @@ public class DayExercisesActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
+        /** Intent swaped von MainActivity zu AddEditActivity*/
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(Exercise exercise) {
                 //TODO: Hier alles ändern weil wir Trainigsgeräte haben
-                //Intent swaped von MainActivity zu AddEditActivity
                 Intent intent = new Intent(DayExercisesActivity.this, AddEditExercisesActivity.class);
                 intent.putExtra(AddEditExercisesActivity.EXTRA_ID, exercise.getId());
                 intent.putExtra(AddEditExercisesActivity.EXTRA_TITLE, exercise.getName());
@@ -120,6 +121,8 @@ public class DayExercisesActivity extends AppCompatActivity {
             }
         });
     }
+    /** Result Launcher um bei Intent zur AddEditExerciseActivity mit den möglichen
+     * Resultate(Exercise erstellt, exercise erstellen abgebrochen */
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {

@@ -4,32 +4,23 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.prog3projekt.HelperClasses.DataTimeConverter;
+/** <h2>Tom Sattler & Tim Cirksena</h2>
+ * Entität der Database*/
 
 @Entity(tableName = "exersice_table")
 public class Exercise {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private String name;
-
     private String datum;
-
-
     private String beschreibung;
-
     private int schwierigkeit;
-
     private int wiederholungen;
-
     private int saetze;
-
     private String gewicht;
-
     private String vorlage = null;
-
     private int pos;
-
     private int tag;
     private int monat;
     private int jahr;

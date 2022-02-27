@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
-
+/** <h2>Tom Sattler & Tim Cirksena </h2>
+ Repository Klasse der Database, für Skalierbarkeit der
+ App*/
 public class ExerciseRepository {
     private ExerciseDao exerciseDao;
     private LiveData<List<Exercise>> allExercise;
@@ -29,6 +31,9 @@ public class ExerciseRepository {
 
     public void delete(Exercise exercise) {
         new DeleteExerciseAsyncTask(exerciseDao).execute(exercise);
+    }
+    public void deleteExerciseForDay(String datum) {
+        new DeleteExerciseAtDayAsyncTask(exerciseDao).execute(datum);
     }
 
     public void deleteAllExercises() {
@@ -61,10 +66,6 @@ public class ExerciseRepository {
 
     public LiveData<List<Exercise>> getAllExercisesInBetweenDates(int tagMin, int monatMin, int jahrMin, int tagMax, int monatMax, int jahrMax) {
         return exerciseDao.getAllExercisesBetweenDates(tagMin, monatMin, jahrMin, tagMax, monatMax, jahrMax);
-    }
-
-    public void deleteExerciseForDay(String datum) {
-        new DeleteExerciseAtDayAsyncTask(exerciseDao).execute(datum);
     }
 
 
